@@ -1,48 +1,42 @@
 -- P000000001
 SET IDENTITY_INSERT [AssetFinFormBatch] ON;
 INSERT
-  [dbo].[AssetFinFormBatch] ([BatchNr],
-  [Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions]) VALUES (001, N'P000000001', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
+[dbo].[AssetFinFormBatch] ([BatchNr],
+[Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions]) VALUES (001, N'P000000001', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
 SET IDENTITY_INSERT [AssetFinFormBatch] OFF;
 
 SET IDENTITY_INSERT [AssetFinFormInput] ON;
 INSERT [dbo].[AssetFinFormInput](
-  [Batch_Reference],
-  [Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
-  [AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
-  [SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
-  [OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
-  [RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
-  [YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
-  [ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
-  [DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
-  [CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
-  [RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
-  [ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
-  [Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
-  [CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
-  [RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
-  [CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
-  [SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset])
+[Batch_Reference],
+[Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
+[AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
+[SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
+[OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
+[RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
+[YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
+[ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
+[DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
+[CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
+[RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
+[ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
+[Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
+[CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
+[RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
+[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
+[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-  N'P000000001', 1, N'INF_GEN1_WAS60019_ROA1_EAR.4', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1',
-  CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-  NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
-  NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp1', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL,
-  N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+		N'P000000001', 1, N'INF_GEN1_WAS60019_ROA1_EAR.4', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1', 2015);
+
 SET IDENTITY_INSERT [AssetFinFormInput] OFF;
 
 INSERT [dbo].[AssetFinFormRef] (
-  [Form_Reference], [Ext_Form_Reference],[Creator],
-  [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
-  [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
-  [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
+	[Form_Reference], [Ext_Form_Reference],[Creator],
+	[Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
+	[ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
+	[Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
 VALUES (
-  1, '1', 'IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.4', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN',
-  CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+	1, '1', 'IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.4', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN',
+	   CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 
 
@@ -53,122 +47,104 @@ VALUES (
 
 SET IDENTITY_INSERT [AssetFinFormBatch] ON;
 INSERT
-  [dbo].[AssetFinFormBatch] ([BatchNr],
-  [Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions]) VALUES (011, N'P000000011', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
+	[dbo].[AssetFinFormBatch] ([BatchNr],
+	[Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions]) VALUES (011, N'P000000011', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
 SET IDENTITY_INSERT [AssetFinFormBatch] OFF;
 
 SET IDENTITY_INSERT [AssetFinFormInput] ON;
 INSERT [dbo].[AssetFinFormInput](
-  [Batch_Reference],
-  [Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
-  [AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
-  [SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
-  [OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
-  [RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
-  [YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
-  [ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
-  [DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
-  [CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
-  [RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
-  [ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
-  [Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
-  [CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
-  [RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
-  [CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
-  [SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset])
+	[Batch_Reference],
+	[Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
+	[AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
+	[SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
+	[OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
+	[RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
+	[YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
+	[ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
+	[DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
+	[CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
+	[RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
+	[ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
+	[Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
+	[CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
+	[RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
+	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
+	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-  N'P000000011', 11, N'INF_GEN1_WAS60019_ROA1_EAR.5', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1',
-  CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-  NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
-  NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp1', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL,
-  N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+		N'P000000011', 11, N'INF_GEN1_WAS60019_ROA1_EAR.5', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1', 2015
+);
 
-  INSERT [dbo].[AssetFinFormInput](
-  [Batch_Reference],
-  [Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
-  [AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
-  [SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
-  [OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
-  [RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
-  [YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
-  [ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
-  [DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
-  [CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
-  [RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
-  [ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
-  [Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
-  [CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
-  [RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
-  [CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
-  [SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset])
+INSERT [dbo].[AssetFinFormInput](
+	[Batch_Reference],
+	[Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
+	[AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
+	[SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
+	[OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
+	[RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
+	[YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
+	[ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
+	[DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
+	[CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
+	[RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
+	[ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
+	[Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
+	[CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
+	[RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
+	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
+	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-  N'P000000011', 12, N'INF_GEN1_WAS60019_ROA1_EAR.6', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp6',
-  CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-  NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
-  NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp6', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL,
-  N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+		N'P000000011', 12, N'INF_GEN1_WAS60019_ROA1_EAR.6', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp6', N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2015
+);
 
-  INSERT [dbo].[AssetFinFormInput](
-  [Batch_Reference],
-  [Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
-  [AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
-  [SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
-  [OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
-  [RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
-  [YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
-  [ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
-  [DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
-  [CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
-  [RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
-  [ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
-  [Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
-  [CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
-  [RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
-  [CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
-  [SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset])
+INSERT [dbo].[AssetFinFormInput](
+	[Batch_Reference],
+	[Form_Reference], [ComponentID], [ClientAssetID], [AssetMoveableID], [AccountingGroupID], [AssetCategoryID], [AssetSubCategoryID], [AssetGroupID], [AssetTypeID], [ComponentType], [AssetOwnerID],
+	[AssetFacilityID], [AssetFacilityName], [DescriptorType], [DescriptorSize], [DescriptorSize_Unit], [DescriptorClass], [ComponentDesc], [Extent], [Extent_Unit], [Extent_Unit_Rate], [NetworkNr], [WardNr], [RegionName],
+	[SuburbName], [LocationAddress], [LocationStand], [LocationSGcode], [Latitude], [Longitude], [MapFeatureID], [MapFeatureType], [TreasuryCode], [CostCentreCode], [GeneralLedgerCode], [TakeOnDate], [MethodAcquiredID],
+	[OwnedLeasedID], [SupplierID], [WIP_Project_ID], [MeasurementModel], [CostPrice], [FairValue], [CostOpening], [CostClosing], [CarryingValueOpening], [CarryingValueClosing], [FundingSourceID], [FundingTypeID],
+	[RespDepartmentID], [AssetCustodianID], [CustodianshipDate], [BasicMunService], [ApplicableContracts], [InsurancePolicyNr], [InsuranceCover], [DebtSecurityApplicable], [DebtSecurityExpiryDate], [YearConstruct],
+	[YearRenewed], [DateLastRenewed], [AdditionsOpening], [AdditionsFinYTD], [AdditionsClosing], [AdditionsFundSourceID], [AdditionsFundTypeID], [AdditionsNature], [EUL], [EUL_Adjusted], [RUL], [ResidualPct],
+	[ResidualValue], [DepreciationMethodID], [DepreciationOpening], [DepreciationFinYTD], [DepreciationClosing], [ProvisionOpening], [ProvisionAdjust], [ProvisionClosing], [CashGenerating], [DisposalMethodID],
+	[DisposalProceedCost], [DisposalProfitLoss], [DerecognitionDate], [DerecognitionCost], [DerecognitionDepr], [ImpairmentFinYTD], [RevImpairmentFinYTD], [RevaluationLastDate], [RevaluationNextDate], [RevaluationMethod],
+	[CRC], [RevaluedAmount], [ValueChangeFinYTD], [RevaluationRUL], [RevaluedBy], [RevaluationAccuracy], [CriticalityGrade], [ConditionGrade], [PerformanceGrade], [UtilisationGrade], [OpsCostGrade],
+	[RiskExposure], [ForecastReplYear], [ForecastReplValue], [CRC_Adjusted], [DRC], [AnnualisedMaintPct], [MaintenanceBudgetNeed], [MaintenanceBudgetPct], [MaintenanceExpenditure], [DateCreated], [DateLastFinMonth],
+	[ImpairmentAll], [RevImpairmentAll], [Asset_Barcode_Nr], [Room_Barcode_Nr], [Room_Number], [Building_Name], [Serial_Number], [Fleet_Number], [Fleet_Reg_Year], [Treasury_Code], [Cost_Centre], [Acquisition_Date],
+	[Impairment_Test_Date], [Impairment_Review_Date], [EUL_Review_Date], [RV_Review_Date], [Depr_Review_Date], [Condition_Review_Date], [Resp_CostCentre_ID], [Maint_CostCentre_ID], [PLANT_ID], [WorkCentre_ID], [LOC_ID],
+	[CriticalityGrade_CG], [ConditionGrade_CG], [PerformanceGrade_CG], [UtilisationGrade_CG], [OpsCostGrade_CG], [YearConstruct_CG], [YearRenewed_CG], [ImpairmentDerecog], [FairValueLessCostSell], [ValueInUse], [ImpairmentDate],
+	[RevImpairmentDate], [ImpairmentReason], [RevImpairmentReason], [TransferCost], [TransferDepr], [TransferDate], [RevaluationReserveOpening], [RevaluationReserveFinYTD], [RevaluationReserveClosing], [RefSuburbsCode],
+	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
+	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-  N'P000000011', 13, N'INF_GEN1_WAS60019_ROA1_EAR.7', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp7',
-  CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-  NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
-  NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp7', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
-  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL,
-  N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+		N'P000000011', 13, N'INF_GEN1_WAS60019_ROA1_EAR.7', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp7', CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime), NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp7', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, N'240612638294574528', CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2015
+);
 SET IDENTITY_INSERT [AssetFinFormInput] OFF;
 
 INSERT [dbo].[AssetFinFormRef] (
-  [Form_Reference], [Ext_Form_Reference], [Creator],
-  [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
-  [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
-  [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
+[Form_Reference], [Ext_Form_Reference], [Creator],
+[Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
+[ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
+[Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
 VALUES (
-  11, '11','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.5', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN',
-  CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-
-  INSERT [dbo].[AssetFinFormRef] (
-  [Form_Reference], [Ext_Form_Reference], [Creator],
-  [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
-  [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
-  [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
-VALUES (
-  12, '12','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.6', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN',
-  CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+	11, '11','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.5', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN', CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1
+);
 
 INSERT [dbo].[AssetFinFormRef] (
-  [Form_Reference], [Ext_Form_Reference], [Creator],
-  [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
-  [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
-  [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
+[Form_Reference], [Ext_Form_Reference], [Creator],
+[Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
+[ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
+[Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
 VALUES (
-  13, '13','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.7', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN',
-  CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+	12, '12','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.6', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN', CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1
+);
+
+INSERT [dbo].[AssetFinFormRef] (
+[Form_Reference], [Ext_Form_Reference], [Creator],
+[Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date],
+[ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt],
+[Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level])
+VALUES (
+	13, '13','IMQS', 1, CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'INF_GEN1_WAS60019_ROA1_EAR.7', N'Northern : General site', N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), N'ADMIN', CAST(N'2015-01-28 00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, N'ADMIN', CAST(N'2014-03-24 12:39:22.303' AS DateTime), NULL, NULL, N'YES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1
+);
 
 INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'8c5df93b-288e-4928-929b-0218ca21901d', N'2a79a136-fcdf-43bf-8c4e-8ed735d13905', N'4165f87f-99f0-40b6-88f2-9745256a1dfd', N'This project category record all costs related to work on customer applications, contracts, orders, credit investigations, billing and accounting, collections and complaints.  These costs should include salaries and wages, stationery, postage, delivery expense and the charges for contract work performed by other parties engaged in these functions.', N'PROJECT', N'Operational:Typical Work Streams:NERSA:  Customer Account Expenses:Supervision', 3, 3997, N'Supervision', N'N/a', N'No', N'Add Project with description - unique to the municipality.', N'All', N'1', NULL, N'PO003028005000000000000000000000000000', N'PO', 3, 28, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, N'SCOAPROJECT-PO0-PO3-PO19-PO228', N'PROJECT', 0)
 INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'b068c38a-1e93-4b13-a3a9-03f68f808af9', N'acf0f092-ab0e-4019-9d6f-0fa9eef40a4b', N'5a02a6aa-8a05-46eb-ab5a-7aa91b37f4cf', N'Information Technology Data Lines Recovery to receiving departments within a cost recovery agreement.  ', N'COST', N'Costing:Recoveries:Departmental Recoveries:Communication:Information Technology Data Lines', 4, 111, N'Information Technology Data Lines', N'N/a', N'No', N'N/a', N'All', N'1', NULL, N'CO002001008003000000000000000000000000', N'CO', 2, 1, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0, NULL, N'SCOACOST-CO0-CO3-CO5-CO87-CO169', N'COST', 0)
@@ -232,4 +208,8 @@ INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDe
 INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'30791b4d-996b-4e0e-9cde-ec87aa36a7b4', N'58bf1414-011a-49b9-afa6-14e3cffcf3d4', N'ce4791e0-ad4d-4e2a-b858-95415d4dc7a5', N'Classification as per the CIDMS Classification', N'ITEM AL', N'Assets:Non-current Assets:Heritage Assets:Revaluation:Works of Art', 4, 4087, N'Works of Art', N'N/a', N'No', N'N/a', N'All', N'0', NULL, N'IA002004002003000000000000000000000000', N'IA', 2, 4, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, NULL, N'SCOAITEM-IA0-IA5996-IA23-IA88-IA293', N'ITEM', 0)
 INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'2d94543b-e343-4b36-bd02-f4f04817eef8', N'083ed333-f77f-43a9-95fb-b30134082561', N'decd3df3-a7b5-4c7e-9173-cf10c3fc6b92', N'Funds generated from the collection of (new taxes) instituted in terms of the Municipal Fiscal Powers and Functions Act, No 12 of 2007.  Also included in this group of accounts is property rates levied in terms of the Local Government Municipal Property Rates Act, No 6 of 2004.  ', N'FUND', N'Fund:Operational:Revenue:General Revenue:Taxes', 4, 28, N'Taxes', N'N/a', N'No', N'N/a', N'All', N'0', NULL, N'FD001001001009000000000000000000000000', N'FD', 1, 1, 1, 9, 0, 0, 0, 0, 0, 0, 0, 0, NULL, N'SCOAFUND-FD0-FD197-FD7-FD11-FD56', N'FUND', 0)
 INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'2c47cbd9-906b-430e-9662-f554401d1801', N'0af6a506-a44b-4f83-a65b-03d7fd508c89', N'ba848e95-01c1-4448-bb00-ab4fe8c2371d', N'This group of accounts distinguish between "Outsourced Services, Contractors and Professional and Special Services".  ', N'ITEM EXPENSE', N'Expenditure:Contracted Services', 1, 18, N'Contracted Services', N'N/a', N'No', N'N/a', N'All', N'0', NULL, N'IE003000000000000000000000000000000000', N'IE', 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, N'SCOAITEM-IE0-IE16', N'ITEM', 0)
-INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'ba146fdc-7390-4e4a-8370-fa0718ab6782', N'c70f32cb-c189-45d6-a7c2-dbacf531d0ed', N'c3be5e12-e6d0-4ca5-907d-594a2131e37c', N'Opening balance brought forward from previous periods for the accumulated impairment on heritage assets (archives).', N'ITEM AL', N'Assets:Non-current Assets:Heritage Assets:Revaluation:Works of Art:Antiques and Collections Accumulated Impairment:Opening Balance', 6, 4097, N'Opening Balance', N'N/a', N'No', N'Automated', N'All', N'0', NULL, N'IA002004002003002001000000000000000000', N'IA', 2, 4, 2, 3, 2, 1, 0, 0, 0, 0, 0, 0, NULL, N'SCOAITEM-IA0-IA5996-IA23-IA88-IA293-IA1658-IA4523', N'ITEM', 0)
+INSERT [dbo].[SCOAClassification] ([Id], [SCOAId], [ParentSCOAId], [DefinitionDescription], [SCOAFile], [SCOAAccount], [SCOALevel], [ExcelRowNumber], [ShortDescription], [VATStatus], [BreakDownAllowed], [Principle], [ApplicableTo], [bPostingLevel], [PostingLevelDescription], [AccountNumber], [AccountNumberPrefix], [AccountNumber1], [AccountNumber2], [AccountNumber3], [AccountNumber4], [AccountNumber5], [AccountNumber6], [AccountNumber7], [AccountNumber8], [AccountNumber9], [AccountNumber10], [AccountNumber11], [AccountNumber12], [GFSCode], [Path], [SCOASegment], [Linkable]) VALUES (N'ba146fdc-7390-4e4a-8370-fa0718ab6782', N'c70f32cb-c189-45d6-a7c2-dbacf531d0ed', N'c3be5e12-e6d0-4ca5-907d-594a2131e37c', N'Opening balance brought forward from previous periods for the accumulated impairment on heritage assets (archives).', N'ITEM AL', N'Assets:Non-current Assets:Heritage Assets:Revaluation:Works of Art:Antiques and Collections Accumulated Impairment:Opening Balance', 6, 4097, N'Opening Balance', N'N/a', N'No', N'Automated', N'All', N'0', NULL, N'IA002004002003002001000000000000000000', N'IA', 2, 4, 2, 3, 2, 1, 0, 0, 0, 0, 0, 0, NULL, N'SCOAITEM-IA0-IA5996-IA23-IA88-IA293-IA1658-IA4523', N'ITEM', 0);
+
+INSERT INTO AssetFinYear (FinYear, Period) VALUES(2015,1);
+INSERT INTO AssetFinYear (FinYear, Period) VALUES(2016,1);
+INSERT INTO AssetFinYear (FinYear, Period) VALUES(2017,1);
