@@ -198,8 +198,6 @@ SET ANSI_PADDING OFF;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [MeasurementModelID] [varchar](4) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [UseStatusID] [varchar](4) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [FinHierarchyPath] [varchar](100) NULL;
-ALTER TABLE [dbo].[AssetFinFormInput] ADD [SCOA_Item_Depreciation_Debit] [varchar](40) NULL;
-ALTER TABLE [dbo].[AssetFinFormInput] ADD [SCOA_Item_Depreciation_Credit] [varchar](40) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveFinYTDImp] [numeric](18, 2) NOT NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveFinYTDDepr] [numeric](18, 2) NOT NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [VerificationLastDate] [datetime] NULL;
