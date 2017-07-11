@@ -206,6 +206,7 @@ ALTER TABLE [dbo].[AssetFinFormInput] ADD [VerificationLastDate] [datetime] NULL
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [VerificationNextDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [FinYear] [int] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [UpgradeDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [BudgetNr] [varchar](40) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [LastMaintenanceDate] [datetime] NULL,
 CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED
 (
