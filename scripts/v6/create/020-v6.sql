@@ -158,7 +158,6 @@ CREATE TABLE [dbo].[AssetFinFormInput](
 [OpsCostGrade_CG] [int] NULL,
 [YearConstruct_CG] [int] NULL,
 [YearRenewed_CG] [int] NULL,
-[YearRenewed_CG] [int] NULL,
 [ImpairmentDerecog] [numeric](18, 2) NULL,
 [FairValueLessCostSell] [numeric](18, 2) NULL,
 [ValueInUse] [numeric](18, 2) NULL,
