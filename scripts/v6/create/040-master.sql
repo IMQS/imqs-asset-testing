@@ -8,11 +8,11 @@ BEGIN
 		SELECT
 			DISTINCT affi.AccountingGroupID + '-' + affi.AssetCategoryID + '-' + affi.AssetSubCategoryID AS [T_SHORT_CODE],
 			'NEW' AS C_Transaction,
-			(select Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'Demarcation Code') AS [C_Municipal demarcation code],
-			(select ara.AccountingGroupName from AssetRefAccounting ara inner join AssetFinFormInput affi on affi.AccountingGroupID = ara.AccountingGroupID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_ACCOUNTING_GROUP],
-			(select arc.AssetCategoryName from AssetRefCategory arc inner join AssetFinFormInput affi on affi.AssetCategoryID = arc.AssetCategoryID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_CLASS],
-			(select arsc.AssetSubCategoryName from AssetRefSubCategory arsc inner join AssetFinFormInput affi on affi.AssetSubCategoryID = arsc.AssetSubCategoryID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_SUB_CLASS],
-			(select arsc.AssetSubCategoryName from AssetRefSubCategory arsc inner join AssetFinFormInput affi on affi.AssetSubCategoryID = arsc.AssetSubCategoryID where affi.ComponentID = sj.ComponentID) AS [T_DESCRIPTION],
+			(select top 1 Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'MunicipalDemarcationCode') AS [C_Municipal demarcation code],
+			(select top 1 ara.AccountingGroupName from AssetRefAccounting ara inner join AssetFinFormInput affi on affi.AccountingGroupID = ara.AccountingGroupID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_ACCOUNTING_GROUP],
+			(select top 1 arc.AssetCategoryName from AssetRefCategory arc inner join AssetFinFormInput affi on affi.AssetCategoryID = arc.AssetCategoryID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_CLASS],
+			(select top 1 arsc.AssetSubCategoryName from AssetRefSubCategory arsc inner join AssetFinFormInput affi on affi.AssetSubCategoryID = arsc.AssetSubCategoryID where affi.ComponentID = sj.ComponentID) AS [C_UDPV_SUB_CLASS],
+			(select top 1 arsc.AssetSubCategoryName from AssetRefSubCategory arsc inner join AssetFinFormInput affi on affi.AssetSubCategoryID = arsc.AssetSubCategoryID where affi.ComponentID = sj.ComponentID) AS [T_DESCRIPTION],
 			'IMQS Initial Take On' AS [C_USERID_doer]
 		FROM
 		  SCOAJournal sj
