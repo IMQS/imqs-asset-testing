@@ -3,6 +3,9 @@
 IF OBJECT_ID (N'AssetRegisterView', N'V') IS NOT NULL DROP View [AssetRegisterView];
 IF OBJECT_ID (N'AssetRegisterIconMove', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconMove];
 IF OBJECT_ID (N'AssetRegisterIconFin2015', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2015];
+IF OBJECT_ID (N'AssetRefAccounting', N'U') IS NOT NULL DROP TABLE [AssetRefAccounting];
+IF OBJECT_ID (N'AssetRefCategory', N'U') IS NOT NULL DROP TABLE [AssetRefCategory];
+IF OBJECT_ID (N'AssetRefSubCategory', N'U') IS NOT NULL DROP TABLE [AssetRefSubCategory];
 
 CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[FAR_ID] [int] IDENTITY(1,1) NOT NULL,
@@ -203,6 +206,7 @@ ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT (getdate()) FOR [DateC
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DirtyFlag];
 
+
 CREATE TABLE [dbo].[AssetRegisterIconMove](
 	[ComponentID] [varchar](40) NOT NULL,
 	[Asset_Barcode_Nr] [varchar](40) NULL,
@@ -219,3 +223,54 @@ CREATE TABLE [dbo].[AssetRegisterIconMove](
 ) ON [PRIMARY];
 
 
+CREATE TABLE [dbo].[AssetChangeIconFin](
+	[ComponentID] [varchar](40) NOT NULL,
+	[Change_DateTime] [datetime] NOT NULL CONSTRAINT [DF_AssetChangeIconFin_Change_DateTime]  DEFAULT (getdate()),
+	[Attribute_Name] [varchar](32) NOT NULL,
+	[Changed_By] [varchar](32) NULL,
+	[Value_Before] [varchar](255) NULL,
+	[Value_After] [varchar](255) NULL,
+	[Change_Reason] [varchar](255) NULL,
+	[HostName] [varchar](max) NOT NULL CONSTRAINT [DF_AssetChangeIconFin_HostName]  DEFAULT (host_name()),
+	CONSTRAINT [PK_AssetChangeIconFin] PRIMARY KEY CLUSTERED([ComponentID] ASC,[Change_DateTime] ASC,[Attribute_Name] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
+
+-- Reference tables for constant values that don't change much and are associated to AR fields via lookups
+CREATE TABLE [dbo].[AssetRefAccounting](
+[AccountingGroupID] [varchar](4) NOT NULL,
+[AccountingGroupName] [varchar](40) NULL,
+[Colour] [int] NULL,
+[Visible] [bit] NULL,
+[Selected] [bit] NULL,
+CONSTRAINT [PK_AssetRefAccounting] PRIMARY KEY CLUSTERED([AccountingGroupID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
+) ON [PRIMARY];
+
+CREATE TABLE [dbo].[AssetRefCategory](
+[AccountingGroupID] [varchar](4) NOT NULL,
+[AssetCategoryID] [varchar](4) NOT NULL,
+[AssetCategoryName] [varchar](40) NULL,
+[Colour] [int] NULL,
+[Visible] [bit] NULL,
+[Selected] [bit] NULL,
+[ExtraCategoryID] [varchar](8) NULL,
+CONSTRAINT [PK_AssetRefCategory] PRIMARY KEY CLUSTERED([AccountingGroupID] ASC, [AssetCategoryID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
+) ON [PRIMARY];
+
+CREATE TABLE [dbo].[AssetRefSubCategory](
+[AssetCategoryID] [varchar](4) NOT NULL,
+[AssetSubCategoryID] [varchar](4) NOT NULL,
+[AssetSubCategoryName] [varchar](40) NULL,
+[Colour] [int] NULL,
+[Visible] [bit] NULL,
+[Selected] [bit] NULL,
+[ExtraSubCategoryID] [varchar](8) NULL,
+CONSTRAINT [PK_AssetRefSubCategory] PRIMARY KEY CLUSTERED([AssetCategoryID] ASC, [AssetSubCategoryID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
+) ON [PRIMARY];
+
+ALTER TABLE [dbo].[AssetRefAccounting] ADD CONSTRAINT [DF_AssetRefAccounting_AccountingGroupID] DEFAULT ('') FOR [AccountingGroupID];
+ALTER TABLE [dbo].[AssetRefAccounting] ADD CONSTRAINT [DF_AssetRefAccounting_AccountingGroupName] DEFAULT ('') FOR [AccountingGroupName];
+ALTER TABLE [dbo].[AssetRefCategory] ADD CONSTRAINT [DF_AssetRefCategory_AccountingGroupID] DEFAULT ('') FOR [AccountingGroupID];
+ALTER TABLE [dbo].[AssetRefCategory] ADD CONSTRAINT [DF_AssetRefCategory_AssetCategoryID] DEFAULT ('') FOR [AssetCategoryID];
+ALTER TABLE [dbo].[AssetRefSubCategory] ADD CONSTRAINT [DF_AssetRefSubCategory_AssetCategoryID] DEFAULT ('') FOR [AssetCategoryID];
+ALTER TABLE [dbo].[AssetRefSubCategory] ADD CONSTRAINT [DF_AssetRefSubCategory_AssetSubCategoryID] DEFAULT ('') FOR [AssetSubCategoryID];
+ALTER TABLE [dbo].[AssetRefSubCategory] ADD CONSTRAINT [DF_AssetRefSubCategory_AssetSubCategoryName] DEFAULT ('') FOR [AssetSubCategoryName];
