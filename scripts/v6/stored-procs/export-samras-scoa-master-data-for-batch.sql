@@ -1,3 +1,5 @@
+IF OBJECT_ID ('ExportSamrasSCOAMasterDataForBatch') IS NOT NULL DROP PROCEDURE ExportSamrasSCOAMasterDataForBatch;
+
 CREATE PROCEDURE ExportSamrasSCOAMasterDataForBatch
   @batchId BIGINT
 AS

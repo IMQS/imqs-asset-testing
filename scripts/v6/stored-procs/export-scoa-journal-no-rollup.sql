@@ -1,9 +1,8 @@
+IF OBJECT_ID ('ExportSCOAJournalNoRollup') IS NOT NULL DROP PROCEDURE ExportSCOAJournalNoRollup;
 
-CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
+CREATE PROCEDURE [dbo].[ExportSCOAJournalNoRollup]
 	@FromTranDate DATE,
-	@ToTranDate DATE,
-	@numberInputForms BIGINT OUTPUT,
-	@imqsBatchId INT OUTPUT
+	@ToTranDate DATE
 AS
 BEGIN
 
@@ -11,9 +10,8 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch NULL, @FromTranDate, @ToTranDate, 1, @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
-
 	SELECT
+		b.ComponentID,
 		b.FinancialField,
 		b.TranDate,
 		b.Amount,
@@ -28,16 +26,17 @@ BEGIN
 	FROM
 		(
 			SELECT
+				ComponentID,
 				FinancialField,
 				CONVERT(DATE,[Date]) as TranDate,
-				SUM(Amount) as Amount,
+				Amount,
 				SCOA_Fund,
 				SCOA_Function,
 				SCOA_Mun_Classification,
 				SCOA_Project,
 				SCOA_Costing,
 				SCOA_Region,
-				SCOA_Item_Debit as SCOA_ITEM,
+				SCOA_Item_Debit as SCOA_Item,
 				'D' as DebitCredit
 			FROM
 				SCOAJournal
@@ -48,29 +47,21 @@ BEGIN
 				(CONVERT(DATE,[Date]) <= @ToTranDate) AND
 				SCOA_Item_Debit IS NOT NULL AND
 				SCOA_Item_Credit IS NOT NULL
-			GROUP BY
+
+			UNION
+
+			SELECT
+				ComponentID,
 				FinancialField,
-				CONVERT(DATE,[Date]),
+				CONVERT(DATE,[Date]) as TranDate,
+				Amount,
 				SCOA_Fund,
 				SCOA_Function,
 				SCOA_Mun_Classification,
 				SCOA_Project,
 				SCOA_Costing,
 				SCOA_Region,
-				SCOA_Item_Debit
-
-			UNION
-
-			SELECT
-				FinancialField,
-				CONVERT(DATE,[Date]) as TranDate,
-				SUM(Amount)as Amount,
-				SCOA_Fund, SCOA_Function,
-				SCOA_Mun_Classification,
-				SCOA_Project,
-				SCOA_Costing,
-				SCOA_Region,
-				SCOA_Item_Credit as SCOA_ITEM,
+				SCOA_Item_Credit as SCOA_Item,
 				'C' as DebitCredit
 			FROM
 				SCOAJournal
@@ -81,26 +72,17 @@ BEGIN
 				(CONVERT(DATE,[Date]) <= @ToTranDate) AND
 				SCOA_Item_Debit IS NOT NULL AND
 				SCOA_Item_Credit IS NOT NULL
-			GROUP BY
-				FinancialField,
-				CONVERT(DATE,[Date]),
-				SCOA_Fund,
-				SCOA_Function,
-				SCOA_Mun_Classification,
-				SCOA_Project,
-				SCOA_Costing,
-				SCOA_Region,
-				SCOA_Item_Credit
 		) as b
 
-		ORDER BY
-			FinancialField,
-			TranDate,
-			SCOA_Fund,
-			SCOA_Function,
-			SCOA_Mun_Classification,
-			SCOA_Project,
-			SCOA_Costing,
-			SCOA_Region,
-			DebitCredit DESC
+	ORDER BY
+		ComponentID,
+		FinancialField,
+		TranDate,
+		SCOA_Fund,
+		SCOA_Function,
+		SCOA_Mun_Classification,
+		SCOA_Project,
+		SCOA_Costing,
+		SCOA_Region,
+		DebitCredit DESC
 END

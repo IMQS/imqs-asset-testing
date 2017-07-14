@@ -1,3 +1,5 @@
+IF OBJECT_ID ('UpdateSCOAJournalSCOAFileName') IS NOT NULL DROP PROCEDURE UpdateSCOAJournalSCOAFileName;
+
 CREATE PROCEDURE [dbo].[UpdateSCOAJournalSCOAFileName]
   @FileName VARCHAR(150),
   @FromTranDate DATE,
