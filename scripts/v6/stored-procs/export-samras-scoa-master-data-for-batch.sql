@@ -1,4 +1,4 @@
-IF OBJECT_ID ('ExportSamrasSCOAMasterDataForBatch') IS NOT NULL DROP PROCEDURE ExportSamrasSCOAMasterDataForBatch;
+EXECUTE('IF OBJECT_ID (''ExportSamrasSCOAJournalRollUp'') IS NOT NULL DROP PROCEDURE ExportSamrasSCOAJournalRollUp');
 
 CREATE PROCEDURE ExportSamrasSCOAMasterDataForBatch
   @batchId BIGINT

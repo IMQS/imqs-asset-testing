@@ -1,4 +1,4 @@
-IF OBJECT_ID ('ExportSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportSCOAJournalRollUp;
+EXECUTE('IF OBJECT_ID (''ExportSCOAJournalRollUp'') IS NOT NULL DROP PROCEDURE ExportSCOAJournalRollUp');
 
 CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
 	@FromTranDate DATE,

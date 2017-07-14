@@ -1,4 +1,4 @@
-IF OBJECT_ID ('ExportSolarSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportSolarSCOAJournalRollUp;
+EXECUTE('IF OBJECT_ID (''ExportSolarSCOAJournalRollUp'') IS NOT NULL DROP PROCEDURE ExportSolarSCOAJournalRollUp');
 
 CREATE PROCEDURE [dbo].[ExportSolarSCOAJournalRollUp]
 	@batchSize INT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
