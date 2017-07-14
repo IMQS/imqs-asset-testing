@@ -1,8 +1,6 @@
 -- Various tables used to maintain metadata, or manage components within th eWIP or AR.
 
 IF OBJECT_ID (N'AssetRefCounter', N'U') IS NOT NULL DROP TABLE [AssetRefCounter];
-IF OBJECT_ID (N'AssetChangeIconFin', N'U') IS NOT NULL DROP TABLE [AssetChangeIconFin];
-IF OBJECT_ID (N'AssetProject2015', N'U') IS NOT NULL DROP TABLE [AssetProject2015];
 IF OBJECT_ID (N'AssetFinYear', N'U') IS NOT NULL DROP TABLE [AssetFinYear];
 
 

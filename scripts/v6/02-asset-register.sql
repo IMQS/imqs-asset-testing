@@ -6,6 +6,7 @@ IF OBJECT_ID (N'AssetRegisterIconFin2015', N'U') IS NOT NULL DROP TABLE [AssetRe
 IF OBJECT_ID (N'AssetRefAccounting', N'U') IS NOT NULL DROP TABLE [AssetRefAccounting];
 IF OBJECT_ID (N'AssetRefCategory', N'U') IS NOT NULL DROP TABLE [AssetRefCategory];
 IF OBJECT_ID (N'AssetRefSubCategory', N'U') IS NOT NULL DROP TABLE [AssetRefSubCategory];
+IF OBJECT_ID (N'AssetChangeIconFin', N'U') IS NOT NULL DROP TABLE [AssetChangeIconFin];
 
 CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[FAR_ID] [int] IDENTITY(1,1) NOT NULL,
