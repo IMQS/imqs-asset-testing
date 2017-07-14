@@ -1,4 +1,3 @@
-
 CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
 	@FromTranDate DATE,
 	@ToTranDate DATE,
