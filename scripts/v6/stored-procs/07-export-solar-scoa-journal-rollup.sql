@@ -5,7 +5,7 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch @batchSize, NULL, NULL, 0, @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @batchSize, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	-- For the final coup d'etat, we select the new UNIQUE_IDENTIFIER values from the @postingBindings table,
 	-- so as to post these values back to the Financial System when we send off our rollups.
