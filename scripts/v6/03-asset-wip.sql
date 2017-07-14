@@ -1,4 +1,5 @@
 -- WIP related tables
+IF OBJECT_ID (N'AssetProject2015', N'U') IS NOT NULL DROP TABLE [AssetProject2015];
 
 CREATE TABLE [dbo].[AssetProject2015](
 	[Project_ID] [varchar](40) NOT NULL,
