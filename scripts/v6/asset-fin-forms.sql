@@ -476,23 +476,3 @@ INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (3, 'Update/
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (4, 'Impairment of Components', 'I');
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (5, 'Reversal of Impairment', 'R');
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (7, 'Upgrade', 'U');
-
-CREATE View [dbo].[InputFormView] AS
-SELECT
-	AssetFinFormRef.Form_Nr,
-	AssetFinFormRef.Ext_Form_Reference,
-	AssetFinFormRef.Creator,
-	AssetFinFormRef.Form_Level,
-	AssetFinFormInput.*,
-	[Issue_DateTime], [Component_ID],	[Asset_Group_Name],	[Requested_Name], [Requested_Date],	[Authorised_Name],[Authorised_Date],
-	[Custodian_Name], [Custodian_Date],	[ExManager_Name],[ExManager_Date],[Captured_Name],[Captured_Date],[Information],[Instructions],
-	[Rec_Action],[Carrying_Value],[Value_in_Use],[Fair_Value_Less],[Recoverable_Amt],[Police_Report_Nr],[Take_on_Date],[Reason_Code],
-	[form_timestamp] [timestamp]
-FROM
-	AssetFinFormInput
-JOIN
-	AssetFinFormRef on AssetFinFormInput.Form_Reference = AssetFinFormRef.Form_Reference
-JOIN
-	AssetFinForm on AssetFinForm.Form_Nr = AssetFinFormRef.Form_Nr
-JOIN
-	AssetFinFormState on AssetFinFormState.Form_Level = AssetFinFormRef.Form_Level AND AssetFinFormState.Workflow = 'GENERIC';
