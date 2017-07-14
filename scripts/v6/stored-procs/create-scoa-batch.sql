@@ -1,5 +1,3 @@
-EXECUTE('IF OBJECT_ID (''CreateSCOABatch'') IS NOT NULL DROP PROCEDURE CreateSCOABatch');
-
 CREATE PROCEDURE [dbo].[CreateSCOABatch]
 	@batchSize BIGINT, @fromDate DATE, @toDate DATE, @committedToRegisterValue INT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
