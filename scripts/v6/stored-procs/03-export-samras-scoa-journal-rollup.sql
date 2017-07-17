@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[ExportSamrasSCOAJournalRollUp]
 AS
 BEGIN
 
-	EXECUTE CreateSCOABatch @batchSize, NULL, NULL, 1, @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @batchSize, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	SELECT
 		sj.FinYear as N_FIN_YEAR,

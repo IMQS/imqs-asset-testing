@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[CreateSCOABatch]
-	@batchSize BIGINT, @fromDate DATE, @toDate DATE, @committedToRegisterValue INT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@batchSize BIGINT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
@@ -21,6 +21,11 @@ BEGIN
 	--   > A rollup (RollupID) represents all scoa-journal rows that make up a posting-journal pair (i.e. the DR & CR legs of a single post)
 	DECLARE @rollups TABLE (RollupID BIGINT, IMQSBatchID INT, ComponentID varchar(40));
 
+	-- The workflowType indicates what type od a financial system we're integrating with, and thus the Form_Level (i.e. form status)
+	-- at which we must create SCOA rollups. We use this determined form level value to select the appropriate SCOAJournal entries to process
+	DECLARE @formLevelValue INT;
+	IF @workflowType = 'NONE' SET @formLevelValue = 3 ELSE SET @formLevelValue = 4;
+
 	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
 	IF (@batchSize IS NOT NULL AND @fromDate IS NOT NULL AND @toDate IS NOT NULL)
@@ -32,7 +37,7 @@ BEGIN
 			from
 				SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
 			where
-				sj.CommittedToRegister = @committedToRegisterValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
+				affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
 	ELSE IF (@fromDate IS NOT NULL AND @toDate IS NOT NULL)
 		INSERT INTO @rollups
 			select
@@ -42,7 +47,7 @@ BEGIN
 			from
 				SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
 			where
-				sj.CommittedToRegister = @committedToRegisterValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
+				affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
 	ELSE IF (@batchSize IS NOT NULL)
 		INSERT INTO @rollups
 			select top(@batchSize)
@@ -52,7 +57,7 @@ BEGIN
 			from
 				SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
 			where
-				sj.CommittedToRegister = @committedToRegisterValue and sj.IMQSBatchID is null;
+				affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null;
 
 	-- We write the new IMQSBatch- and Rollup- IDs into the SCOAJournal
 	UPDATE

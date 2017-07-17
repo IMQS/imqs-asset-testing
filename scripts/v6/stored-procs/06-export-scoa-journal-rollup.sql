@@ -10,7 +10,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch NULL, @FromTranDate, @ToTranDate, 1, @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch NULL, @FromTranDate, @ToTranDate, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	SELECT
 		b.FinancialField,
