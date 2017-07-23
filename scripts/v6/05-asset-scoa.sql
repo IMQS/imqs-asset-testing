@@ -72,6 +72,7 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[IMQSBatchID] [bigint] NULL,
 	[PostingCreditID] [bigint] NULL,
 	[PostingDebitID] [bigint] NULL,
+	[ID] [bigint] NOT NULL
 	CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED([Form_Reference] ASC, [ComponentID] ASC, [FinancialField] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAJournal] ADD DEFAULT ((0)) FOR [CommittedToRegister];
@@ -81,3 +82,11 @@ EXECUTE('CREATE FUNCTION convertDateToInt(@date DATE) RETURNS INT as
 BEGIN
 	RETURN CONVERT(INT, REPLACE(STR(YEAR(@date),4), '' '', ''0'')+REPLACE(STR(MONTH(@date),2), '' '', ''0'')+REPLACE(STR(DAY(@date),2), '' '', ''0''));
 END');
+
+CREATE TABLE [DepreciationStatus] (
+	[rowID] [BIGINT] NOT NULL IDENTITY(1,1),
+	[SCOAJourrnalID] [BIGINT] NOT NULL,
+	[Status] [INT] NOT NULL,
+	[Information] TEXT NULL,
+	CONSTRAINT [PK_DepreciationStatus] PRIMARY KEY (rowID)
+) ON [PRIMARY];
