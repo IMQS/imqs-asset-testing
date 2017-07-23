@@ -48,7 +48,7 @@ ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
 CREATE TABLE [dbo].[SCOAJournal](
 	[Form_Reference] [int] NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
-	[FinancialField] [varchar](15) NOT NULL,
+	[FinancialField] [varchar](40) NOT NULL,
 	[Date] [datetime2](3) NULL,
 	[Amount] [decimal](18, 2) NULL,
 	[SCOA_Fund] [varchar](40) NULL,
