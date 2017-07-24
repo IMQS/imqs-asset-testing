@@ -2,6 +2,7 @@
 
 IF OBJECT_ID (N'SCOAClassification', N'U') IS NOT NULL DROP TABLE [SCOAClassification];
 IF OBJECT_ID (N'SCOAJournal', N'U') IS NOT NULL DROP TABLE [SCOAJournal];
+IF OBJECT_ID (N'DepreciationStatus', N'U') IS NOT NULL DROP TABLE [DepreciationStatus];
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 
 CREATE TABLE [dbo].[SCOAClassification](
@@ -46,11 +47,11 @@ ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
 
 -- This is where all the components go once they've been committed to the AR, or sent to the FS
 CREATE TABLE [dbo].[SCOAJournal](
-	[Form_Reference] [int] NOT NULL,
+	[Form_Reference] [varchar](40) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[FinancialField] [varchar](40) NOT NULL,
-	[Date] [datetime2](3) NULL,
-	[Amount] [decimal](18, 2) NULL,
+	[Date] [datetime] NOT NULL,
+	[Amount] [numeric](18, 2) NOT NULL,
 	[SCOA_Fund] [varchar](40) NULL,
 	[SCOA_Function] [varchar](40) NULL,
 	[SCOA_Mun_Classification] [varchar](40) NULL,
@@ -61,21 +62,24 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Item_Credit] [varchar](40) NULL,
 	[SCOAFileName] [varchar](150) NULL,
 	[SCOAFileDate] [datetime] NULL,
-	[CommittedToRegister] [int] NOT NULL,
-	[FinYear] [int] NOT NULL,
-	[RollupID] [int] NULL,
+	[CommittedToRegister] [bit] NULL,
+	[FinYear] [int] NULL,
 	[FinSysBatchID] [varchar](40) NULL,
-	[Period] [int] NULL,
-	[EffectiveDate] [datetime] NULL,
-	[BudgetID] [varchar](40) NULL,
-	[ProjectID] [varchar](40) NULL,
 	[IMQSBatchID] [bigint] NULL,
+	[RollupID] [bigint] NULL,
 	[PostingCreditID] [bigint] NULL,
-	[PostingDebitID] [bigint] NULL,
-	[ID] [bigint] NOT NULL
-	CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED([Form_Reference] ASC, [ComponentID] ASC, [FinancialField] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[PostingDeditID] [bigint] NULL,
+	[Period] [int] NULL,
+	[EffectiveDate] [datetime] NULL
 ) ON [PRIMARY];
-ALTER TABLE [dbo].[SCOAJournal] ADD DEFAULT ((0)) FOR [CommittedToRegister];
+
+ALTER TABLE [dbo].[SCOAJournal] ADD [BudgetID] [varchar](40) NULL;
+ALTER TABLE [dbo].[SCOAJournal] ADD [ProjectID] [varchar](40) NULL;
+ALTER TABLE [dbo].[SCOAJournal] ADD [PostingDebitID] [bigint] NULL;
+ALTER TABLE [dbo].[SCOAJournal] ADD [ID] [bigint] IDENTITY(1,1) NOT NULL
+ CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED
+( [ID] ASC ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY];
+ALTER TABLE [dbo].[SCOAJournal] ADD  CONSTRAINT [DF_SCOAJOURNAL_CommittedToRegister]  DEFAULT ((0)) FOR [CommittedToRegister];
 
 -- Used by the SCOA Rollup stored procs to easily convert to the expected date syntax
 EXECUTE('CREATE FUNCTION convertDateToInt(@date DATE) RETURNS INT as
