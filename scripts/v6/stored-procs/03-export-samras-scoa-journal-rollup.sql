@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[ExportSamrasSCOAJournalRollUp]
-	@batchSize INT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
-	EXECUTE CreateSCOABatch @batchSize, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	SELECT
 		sj.FinYear as N_FIN_YEAR,

@@ -1,11 +1,11 @@
 CREATE PROCEDURE [dbo].[ExportVenusSCOAJournalRollUp]
-		@batchSize INT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+		@batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
 	SET NOCOUNT ON;
 
-	execute CreateSCOABatch @batchSize, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	execute CreateSCOABatch @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	-- For the final coup d'etat, we select the new UNIQUE_IDENTIFIER values from the @postingBindings table,
 	-- so as to post these values back to the Financial System when we send off our rollups. For venus there is
