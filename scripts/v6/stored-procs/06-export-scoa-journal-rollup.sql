@@ -48,7 +48,7 @@ BEGIN
 				(CONVERT(DATE,[Date]) <= @ToTranDate) AND
 				SCOA_Item_Debit IS NOT NULL AND
 				SCOA_Item_Credit IS NOT NULL AND
-				IMQSBatchID IS NULL
+				IMQSBatchID = @imqsBatchId
 			GROUP BY
 				FinancialField,
 				CONVERT(DATE,[Date]),
@@ -82,7 +82,7 @@ BEGIN
 				(CONVERT(DATE,[Date]) <= @ToTranDate) AND
 				SCOA_Item_Debit IS NOT NULL AND
 				SCOA_Item_Credit IS NOT NULL AND
-				IMQSBatchID IS NULL
+				IMQSBatchID = @imqsBatchId
 			GROUP BY
 				FinancialField,
 				CONVERT(DATE,[Date]),
