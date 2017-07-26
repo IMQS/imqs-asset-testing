@@ -89,7 +89,7 @@ END');
 
 CREATE TABLE [DepreciationStatus] (
 	[rowID] [BIGINT] NOT NULL IDENTITY(1,1),
-	[SCOAJourrnalID] [BIGINT] NOT NULL,
+	[SCOAJournalID] [BIGINT] NOT NULL,
 	[Status] [INT] NOT NULL,
 	[Information] TEXT NULL,
 	CONSTRAINT [PK_DepreciationStatus] PRIMARY KEY (rowID)
