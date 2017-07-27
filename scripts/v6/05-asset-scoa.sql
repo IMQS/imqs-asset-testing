@@ -88,7 +88,7 @@ BEGIN
 END');
 
 CREATE TABLE [DepreciationStatus] (
-	[rowID] [BIGINT] NOT NULL IDENTITY(1,1),
+	[RowID] [BIGINT] NOT NULL IDENTITY(1,1),
 	[SCOAJournalID] [BIGINT] NOT NULL,
 	[Status] [INT] NOT NULL,
 	[Information] TEXT NULL,
