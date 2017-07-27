@@ -26,74 +26,19 @@ BEGIN
 	DECLARE @formLevelValue INT;
 	IF @workflowType = 'NONE' SET @formLevelValue = 3 ELSE SET @formLevelValue = 4;
 
-	IF (@depreciation = 1)
-		BEGIN
-			IF (@batchSize IS NOT NULL AND @fromDate IS NOT NULL AND @toDate IS NOT NULL)
-				INSERT INTO @rollups
-					select top(@batchSize)
-						rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						@imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj
-					where
-						sj.FinancialField = 'DepreciationFinYTD' and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
-			ELSE IF (@fromDate IS NOT NULL AND @toDate IS NOT NULL)
-				INSERT INTO @rollups
-					select
-						rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						@imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj
-					where
-						sj.FinancialField = 'DepreciationFinYTD' and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
-			ELSE IF (@batchSize IS NOT NULL)
-				INSERT INTO @rollups
-					select top(@batchSize)
-										   rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						   @imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj
-					where
-						sj.FinancialField = 'DepreciationFinYTD' and sj.IMQSBatchID is null;
-		END
-	ELSE
-		BEGIN
-			-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
-			-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
-			IF (@batchSize IS NOT NULL AND @fromDate IS NOT NULL AND @toDate IS NOT NULL)
-				INSERT INTO @rollups
-					select top(@batchSize)
-						rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						@imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
-					where
-						affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
-			ELSE IF (@fromDate IS NOT NULL AND @toDate IS NOT NULL)
-				INSERT INTO @rollups
-					select
-						rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						@imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
-					where
-						affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null AND Date >= @fromDate AND Date <= @toDate;
-			ELSE IF (@batchSize IS NOT NULL)
-				INSERT INTO @rollups
-					select top(@batchSize)
-						rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
-						@imqsBatchId as IMQSBatchID,
-						sj.ComponentID
-					from
-						SCOAJournal sj inner join AssetFinFormInput f on sj.Form_Reference = f.Form_Reference inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference inner join AssetFinForm aff on affr.Form_Nr = aff.Form_Nr
-					where
-						affr.Form_Level = @formLevelValue and sj.IMQSBatchID is null;
-		END
+	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
+	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
+	DECLARE @dynamicSql VARCHAR(MAX) =
+		'select '+IIF(@batchSize IS NOT NULL, 'top('+CONVERT(VARCHAR, @batchSize)+')', '')+'
+			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
+			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
+			sj.ComponentID
+		from
+			SCOAJournal sj '+IIF(@depreciation != 1, 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference', '')+'
+		where
+			'+IIF(@depreciation = 1, 'sj.FinancialField = ''DepreciationFinYTD''', 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''')+' AND sj.IMQSBatchID is null '+IIF(@fromDate IS NOT NULL AND @toDate IS NOT NULL,'AND Date >= '+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+' AND Date <= '+LEFT(CONVERT(VARCHAR, @toDate, 120), 10), '')+';';
+	INSERT INTO @rollups EXEC(@dynamicSql)
+
 	-- We write the new IMQSBatch- and Rollup- IDs into the SCOAJournal
 	UPDATE
 		sj
