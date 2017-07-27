@@ -161,12 +161,12 @@ INSERT [dbo].[SCOAJournal] ([Form_Reference], [ComponentID], [FinancialField], [
 INSERT [dbo].[SCOAJournal] ([Form_Reference], [ComponentID], [FinancialField], [Date], [Amount], [SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_Item_Debit], [SCOA_Item_Credit], [SCOAFileName], [SCOAFileDate], [CommittedToRegister], [FinYear], [RollupID], [FinSysBatchID], [Period], [EffectiveDate], [BudgetID], [ProjectID], [ID]) VALUES (5161, N'4LNZ_JJFT_STO60046_METW_FABS', N'AdditionsFinYTD', CAST(N'2017-08-06T00:00:00.0000000' AS DateTime2), CAST(19266.05 AS Decimal(18, 2)), N'5692f970-c29c-4044-80d7-1bcdbdd34348', N'a797a4d7-533a-42da-8e3f-90ec84bd2d81', NULL, N'514e94b5-4495-4808-a365-392f582278b8', N'05ff368a-44cf-4c35-9393-e00ab27bdbea', N'c9d0cbf5-dfa8-43d5-b044-0ca2014adb01', N'333d1f43-e7af-48ff-85dc-efa8e14a1198', N'0c81b294-8003-460f-b2d5-72cf1afc3517', NULL, NULL, 1, 2015, NULL, NULL, 2, CAST(N'2017-08-06T00:00:00.0000000' AS DateTime2), 7, '{C39D211F-3756-4CE6-B1B6-D49CE37BF74F}', 8);
 SET IDENTITY_INSERT SCOAJournal OFF
 
--- Insert DepreciationStatus stuff
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (1, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (2, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (3, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (4, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (5, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (6, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (7, 4, 'Peter Pan is pending Auth');
-insert into DepreciationStatus ([SCOAJournalID], [Status], [Information]) values (8, 4, 'Peter Pan is pending Auth');
+-- Insert SCOADepreciationStatus stuff
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (1, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (2, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (3, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (4, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (5, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (6, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (7, 4, 'Peter Pan is pending Auth');
+insert into SCOADepreciationStatus ([SCOAJournalID], [Status], [Information]) values (8, 4, 'Peter Pan is pending Auth');

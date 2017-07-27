@@ -2,7 +2,7 @@
 
 IF OBJECT_ID (N'SCOAClassification', N'U') IS NOT NULL DROP TABLE [SCOAClassification];
 IF OBJECT_ID (N'SCOAJournal', N'U') IS NOT NULL DROP TABLE [SCOAJournal];
-IF OBJECT_ID (N'DepreciationStatus', N'U') IS NOT NULL DROP TABLE [DepreciationStatus];
+IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepreciationStatus];
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 
 CREATE TABLE [dbo].[SCOAClassification](
@@ -87,10 +87,10 @@ BEGIN
 	RETURN CONVERT(INT, REPLACE(STR(YEAR(@date),4), '' '', ''0'')+REPLACE(STR(MONTH(@date),2), '' '', ''0'')+REPLACE(STR(DAY(@date),2), '' '', ''0''));
 END');
 
-CREATE TABLE [DepreciationStatus] (
+CREATE TABLE [SCOADepreciationStatus] (
 	[RowID] [BIGINT] NOT NULL IDENTITY(1,1),
 	[SCOAJournalID] [BIGINT] NOT NULL,
 	[Status] [INT] NOT NULL,
 	[Information] TEXT NULL,
-	CONSTRAINT [PK_DepreciationStatus] PRIMARY KEY (rowID)
+	CONSTRAINT [PK_SCOADepreciationStatus] PRIMARY KEY (rowID)
 ) ON [PRIMARY];
