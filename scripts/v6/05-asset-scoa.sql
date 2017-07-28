@@ -47,6 +47,7 @@ ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
 
 -- This is where all the components go once they've been committed to the AR, or sent to the FS
 CREATE TABLE [dbo].[SCOAJournal](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
 	[Form_Reference] [varchar](40) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[FinancialField] [varchar](40) NOT NULL,
@@ -70,14 +71,13 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[PostingCreditID] [bigint] NULL,
 	[PostingDebitID] [bigint] NULL,
 	[Period] [int] NULL,
-	[EffectiveDate] [datetime] NULL
+	[EffectiveDate] [datetime] NULL,
+	[BudgetID] [varchar](40) NULL,
+	[ProjectID] [varchar](40) NULL,
+	[ItemBreakdown_Debit] [varchar](40) NULL,
+	[ItemBreakdown_Credit] [varchar](40) NULL
+	CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
-
-ALTER TABLE [dbo].[SCOAJournal] ADD [BudgetID] [varchar](40) NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [ProjectID] [varchar](40) NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [ID] [bigint] IDENTITY(1,1) NOT NULL
- CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED
-( [ID] ASC ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAJournal] ADD  CONSTRAINT [DF_SCOAJOURNAL_CommittedToRegister]  DEFAULT ((0)) FOR [CommittedToRegister];
 
 -- Used by the SCOA Rollup stored procs to easily convert to the expected date syntax
