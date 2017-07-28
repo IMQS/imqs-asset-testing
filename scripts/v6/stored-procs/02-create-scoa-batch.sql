@@ -19,7 +19,7 @@ BEGIN
 	-- We create a virtual table to allocate scoa-journal rows into batches and rollups:
 	--   > A batch (IMQSBatchID) represents all scoa-journal rows selected for this batch
 	--   > A rollup (RollupID) represents all scoa-journal rows that make up a posting-journal pair (i.e. the DR & CR legs of a single post)
-	DECLARE @rollups TABLE (RollupID BIGINT, IMQSBatchID INT, ComponentID varchar(40));
+	DECLARE @rollups TABLE (RollupID BIGINT, IMQSBatchID INT, ID BIGINT);
 
 	-- The workflowType indicates what type od a financial system we're integrating with, and thus the Form_Level (i.e. form status)
 	-- at which we must create SCOA rollups. We use this determined form level value to select the appropriate SCOAJournal entries to process
@@ -32,7 +32,7 @@ BEGIN
 		'select '+IIF(@batchSize IS NOT NULL, 'top('+CONVERT(VARCHAR, @batchSize)+')', '')+'
 			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
-			sj.ComponentID
+			sj.ID
 		from
 			SCOAJournal sj '+IIF(@depreciation != 1, 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference', '')+'
 		where
@@ -48,7 +48,7 @@ BEGIN
 	FROM
 		@rollups
 	INNER JOIN
-		SCOAJournal sj ON sj.ComponentID = [@rollups].ComponentID;
+		SCOAJournal sj ON sj.ID = [@rollups].ID;
 
 	SET @numberInputForms = @@ROWCOUNT;
 
