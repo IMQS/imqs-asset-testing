@@ -68,14 +68,13 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[IMQSBatchID] [bigint] NULL,
 	[RollupID] [bigint] NULL,
 	[PostingCreditID] [bigint] NULL,
-	[PostingDeditID] [bigint] NULL,
+	[PostingDebitID] [bigint] NULL,
 	[Period] [int] NULL,
 	[EffectiveDate] [datetime] NULL
 ) ON [PRIMARY];
 
 ALTER TABLE [dbo].[SCOAJournal] ADD [BudgetID] [varchar](40) NULL;
 ALTER TABLE [dbo].[SCOAJournal] ADD [ProjectID] [varchar](40) NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [PostingDebitID] [bigint] NULL;
 ALTER TABLE [dbo].[SCOAJournal] ADD [ID] [bigint] IDENTITY(1,1) NOT NULL
  CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED
 ( [ID] ASC ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY];
