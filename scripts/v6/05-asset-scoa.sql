@@ -2,7 +2,7 @@
 
 IF OBJECT_ID (N'SCOAClassification', N'U') IS NOT NULL DROP TABLE [SCOAClassification];
 IF OBJECT_ID (N'SCOAJournal', N'U') IS NOT NULL DROP TABLE [SCOAJournal];
-IF OBJECT_ID (N'DepreciationStatus', N'U') IS NOT NULL DROP TABLE [DepreciationStatus];
+IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepreciationStatus];
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 
 CREATE TABLE [dbo].[SCOAClassification](
@@ -47,6 +47,7 @@ ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
 
 -- This is where all the components go once they've been committed to the AR, or sent to the FS
 CREATE TABLE [dbo].[SCOAJournal](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
 	[Form_Reference] [varchar](40) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[FinancialField] [varchar](40) NOT NULL,
@@ -68,17 +69,15 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[IMQSBatchID] [bigint] NULL,
 	[RollupID] [bigint] NULL,
 	[PostingCreditID] [bigint] NULL,
-	[PostingDeditID] [bigint] NULL,
+	[PostingDebitID] [bigint] NULL,
 	[Period] [int] NULL,
-	[EffectiveDate] [datetime] NULL
+	[EffectiveDate] [datetime] NULL,
+	[BudgetID] [varchar](40) NULL,
+	[ProjectID] [varchar](40) NULL,
+	[ItemBreakdown_Debit] [varchar](40) NULL,
+	[ItemBreakdown_Credit] [varchar](40) NULL
+	CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
-
-ALTER TABLE [dbo].[SCOAJournal] ADD [BudgetID] [varchar](40) NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [ProjectID] [varchar](40) NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [PostingDebitID] [bigint] NULL;
-ALTER TABLE [dbo].[SCOAJournal] ADD [ID] [bigint] IDENTITY(1,1) NOT NULL
- CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED
-( [ID] ASC ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAJournal] ADD  CONSTRAINT [DF_SCOAJOURNAL_CommittedToRegister]  DEFAULT ((0)) FOR [CommittedToRegister];
 
 -- Used by the SCOA Rollup stored procs to easily convert to the expected date syntax
@@ -87,10 +86,10 @@ BEGIN
 	RETURN CONVERT(INT, REPLACE(STR(YEAR(@date),4), '' '', ''0'')+REPLACE(STR(MONTH(@date),2), '' '', ''0'')+REPLACE(STR(DAY(@date),2), '' '', ''0''));
 END');
 
-CREATE TABLE [DepreciationStatus] (
-	[rowID] [BIGINT] NOT NULL IDENTITY(1,1),
-	[SCOAJourrnalID] [BIGINT] NOT NULL,
+CREATE TABLE [SCOADepreciationStatus] (
+	[RowID] [BIGINT] NOT NULL IDENTITY(1,1),
+	[SCOAJournalID] [BIGINT] NOT NULL,
 	[Status] [INT] NOT NULL,
 	[Information] TEXT NULL,
-	CONSTRAINT [PK_DepreciationStatus] PRIMARY KEY (rowID)
+	CONSTRAINT [PK_SCOADepreciationStatus] PRIMARY KEY (rowID)
 ) ON [PRIMARY];

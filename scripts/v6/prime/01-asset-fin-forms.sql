@@ -36,7 +36,7 @@ INSERT [dbo].[AssetFinFormInput](
 VALUES (
 	N'P000000001', 1, N'INF_GEN1_WAS60019_ROA1_EAR.4', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp1',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
+	NULL, NULL, NULL, N'TestProject001', NULL, NULL, 8.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp1', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
@@ -64,7 +64,7 @@ INSERT [dbo].[AssetFinFormInput](
 VALUES (
 	N'P000000011', 11, N'INF_GEN1_WAS60019_ROA1_EAR.5', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp1',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
+	NULL, NULL, NULL, N'TestProject001', NULL, NULL, 8.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp1', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
@@ -91,7 +91,7 @@ INSERT [dbo].[AssetFinFormInput](
 VALUES (
 	N'P000000011', 12, N'INF_GEN1_WAS60019_ROA1_EAR.6', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp6',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
+	NULL, NULL, NULL, N'TestProject001', NULL, NULL, 8.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp6', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
@@ -118,7 +118,7 @@ INSERT [dbo].[AssetFinFormInput](
 VALUES (
 		N'P000000011', 13, N'INF_GEN1_WAS60019_ROA1_EAR.7', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp7',
 		CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
-		NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
+		NULL, NULL, NULL, N'TestProject001', NULL, NULL, 8.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 		NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 		NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(377300.00 AS Numeric(18, 2)), NULL,
 		NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'comp7', NULL, NULL, NULL, N'78987', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78987, 78987, 78987, 1, 99092, NULL, NULL, NULL, NULL, NULL,
@@ -183,6 +183,32 @@ INSERT [dbo].[AssetFinFormRef] ([Form_Reference], [Form_Nr], [Issue_DateTime], [
 INSERT [dbo].[AssetFinFormRef] ([Form_Reference], [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date], [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt], [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level], [Ext_Form_Reference], [Creator]) values (5159, 1, '2016-03-24 12:39:22.303', (select ComponentID from AssetFinFormInput affi where affi.Form_Reference = 5159), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, '5159', NULL);
 INSERT [dbo].[AssetFinFormRef] ([Form_Reference], [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date], [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt], [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level], [Ext_Form_Reference], [Creator]) values (5160, 1, '2016-03-24 12:39:22.303', (select ComponentID from AssetFinFormInput affi where affi.Form_Reference = 5160), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, '5160', NULL);
 INSERT [dbo].[AssetFinFormRef] ([Form_Reference], [Form_Nr], [Issue_DateTime], [Component_ID], [Asset_Group_Name], [Requested_Name], [Requested_Date], [Authorised_Name], [Authorised_Date], [Custodian_Name], [Custodian_Date], [ExManager_Name], [ExManager_Date], [Captured_Name], [Captured_Date], [Information], [Instructions], [Rec_Action], [Carrying_Value], [Value_in_Use], [Fair_Value_Less], [Recoverable_Amt], [Police_Report_Nr], [Take_on_Date], [Reason_Code], [Form_Level], [Ext_Form_Reference], [Creator]) values (5161, 1, '2016-03-24 12:39:22.303', (select ComponentID from AssetFinFormInput affi where affi.Form_Reference = 5161), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, '5161', NULL);
+
+UPDATE [dbo].[AssetFinFormInput] SET [FairValue] = 8.0 -- screw this...
+UPDATE [dbo].[AssetFinFormInput] SET [CostOpening] = 9.0
+UPDATE [dbo].[AssetFinFormInput] SET [CarryingValueOpening] = 10.0
+UPDATE [dbo].[AssetFinFormInput] SET [InsuranceCover] = 10.0
+UPDATE [dbo].[AssetFinFormInput] SET [DebtSecurityApplicable] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [AdditionsOpening] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [DepreciationOpening] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [DepreciationFinYTD] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [ProvisionOpening] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [ProvisionAdjust] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [DisposalProceedCost] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [DerecognitionCost] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [DerecognitionDepr] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [TransferDepr] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [FairValueLessCostSell] = 0
+UPDATE [dbo].[AssetFinFormInput] SET [ValueInUse] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [ImpairmentDerecog] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [RevImpairmentAll] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [CRC] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [RevaluedAmount] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [ValueChangeFinYTD] = 0;
+UPDATE [dbo].[AssetFinFormInput] SET [MaintenanceExpenditure] = 0;
+
+
+
 
 --Generic Financial System Integration workflow
 INSERT [dbo].[AssetFinFormState] ([Workflow], [State_Prefix], [State_Desc], [State_Req_Group], [Form_Level], [Next_State]) VALUES ('GENERIC', N'CT', N'CREATED', -1, 0, N'SM');
