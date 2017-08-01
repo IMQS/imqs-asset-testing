@@ -52,7 +52,9 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[MeasurementModel] [varchar](40) NULL,
 	[FairValue] [numeric](18, 2) NOT NULL,
 	[CostOpening] [numeric](18, 2) NOT NULL,
+	[CostClosing]  AS ((((([CostOpening]+[AdditionsFinYTD])+[ProvisionAdjust])+[ValueChangeFinYTD])+[DerecognitionCost])+[TransferCost]),
 	[CarryingValueOpening] [numeric](18, 2) NOT NULL,
+	[CarryingValueClosing]  AS (((((((((((((([CostOpening]+[AdditionsFinYTD])+[ProvisionAdjust])+[ValueChangeFinYTD])+[DerecognitionCost])+[TransferCost])+[DepreciationOpening])+[DepreciationFinYTD])+[DerecognitionDepr])+[TransferDepr])+[ImpairmentAll])+[ImpairmentFinYTD])+[RevImpairmentFinYTD])+[ImpairmentDerecog])+[ImpairmentTransfer]),
 	[FundingSourceID] [varchar](30) NULL,
 	[FundingTypeID] [varchar](30) NULL,
 	[RespDepartmentID] [varchar](40) NULL,
@@ -83,6 +85,7 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[DepreciationMethodID] [varchar](4) NULL,
 	[DepreciationOpening] [numeric](18, 2) NOT NULL,
 	[DepreciationFinYTD] [numeric](18, 2) NOT NULL,
+	[DepreciationClosing]  AS ((([DepreciationOpening]+[DepreciationFinYTD])+[DerecognitionDepr])+[TransferDepr]),
 	[ProvisionOpening] [numeric](18, 2) NOT NULL,
 	[ProvisionAdjust] [numeric](18, 2) NOT NULL,
 	[ProvisionClosing]  AS ([ProvisionOpening]+[ProvisionAdjust]),
@@ -158,14 +161,25 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[SCOA_Region] [varchar](40) NULL,
 	[SCOA_ItemAsset] [varchar](40) NULL,
 	[DirtyFlag] [tinyint] NULL,
-	[MeasurementModelID] [varchar](4) NULL,
 	[UseStatusID] [varchar](4) NULL,
+	[MeasurementModelID] [varchar](4) NULL,
 	[FinHierarchyPath] [varchar](100) NULL,
-	[CostClosing]  AS ((((([CostOpening]+[AdditionsFinYTD])+[ProvisionAdjust])+[ValueChangeFinYTD])+[DerecognitionCost])+[TransferCost]),
-	[CarryingValueClosing]  AS (((((((((((((([CostOpening]+[AdditionsFinYTD])+[ProvisionAdjust])+[ValueChangeFinYTD])+[DerecognitionCost])+[TransferCost])+[DepreciationOpening])+[DepreciationFinYTD])+[DerecognitionDepr])+[TransferDepr])+[ImpairmentAll])+[ImpairmentFinYTD])+[RevImpairmentFinYTD])+[ImpairmentDerecog])+[ImpairmentTransfer]),
-	[DepreciationClosing]  AS ((([DepreciationOpening]+[DepreciationFinYTD])+[DerecognitionDepr])+[TransferDepr]),
-	CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED([ComponentID] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 70) ON [PRIMARY]
+	[SCOA_Item_Depreciation_Debit] [varchar](40) NULL,
+	[SCOA_Item_Depreciation_Credit] [varchar](40) NULL,
+	[RevaluationReserveFinYTDImp] [numeric](18, 2) NOT NULL,
+	[RevaluationReserveFinYTDDepr] [numeric](18, 2) NOT NULL,
+	[VerificationLastDate] [datetime] NULL,
+	[VerificationNextDate] [datetime] NULL,
+	[UpgradeDate] [datetime] NULL,
+	[LastMaintenanceDate] [datetime] NULL
 ) ON [PRIMARY];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [BOQPath] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationBudgetNr] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationItemBreakdown_Debit] [varchar](40) NULL
+ CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
+(
+	[ComponentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 70) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [Extent];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [Extent_Unit_Rate];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
@@ -186,8 +200,8 @@ ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ProvisionAd
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DisposalProceedCost];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DerecognitionCost];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DerecognitionDepr];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_TransferCost]  DEFAULT ((0)) FOR [TransferCost];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_TransferDepr]  DEFAULT ((0)) FOR [TransferDepr];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [TransferCost];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [TransferDepr];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [FairValueLessCostSell];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ValueInUse];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentAll];
@@ -200,12 +214,13 @@ ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluedAmo
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ValueChangeFinYTD];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveOpening];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((2015)) FOR [ForecastReplYear];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ForecastReplValue];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [MaintenanceExpenditure];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT (getdate()) FOR [DateCreated];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DirtyFlag];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
 
 
 CREATE TABLE [dbo].[AssetRegisterIconMove](
