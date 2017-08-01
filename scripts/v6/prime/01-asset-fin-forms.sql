@@ -3,13 +3,13 @@ SET IDENTITY_INSERT [AssetFinFormBatch] ON;
 INSERT
 	[dbo].[AssetFinFormBatch] ([BatchNr], [Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions])
 VALUES
-	(001, N'P000000001', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
+	(001, N'P000000001', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', NULL, NULL);
 
 -- P000000011 - This batch has 3 input forms (for the purpose of testing that the status gets changed for all 3 forms)
 INSERT
 	[dbo].[AssetFinFormBatch] ([BatchNr], [Ext_Batch_Reference],[DT_CREATED], [CREATED_BY], [Information], [Instructions])
 VALUES
-	(011, N'P000000011', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', N'', N'');
+	(011, N'P000000011', CAST(N'2013-09-25 10:10:31.050' AS DateTime), N'ADMIN', NULL, NULL);
 -- Add test batch for scoa
 INSERT INTO AssetFinFormBatch ([BatchNr], [DT_CREATED], [CREATED_BY], [Information], [Instructions], [Ext_Batch_Reference]) values (5647, GETDATE(), 'ImqsAdmin', 'SCOA Test Batch', 'Use this batch for automated testing', 'P5647');
 SET IDENTITY_INSERT [AssetFinFormBatch] OFF;
@@ -34,7 +34,7 @@ INSERT [dbo].[AssetFinFormInput](
 	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
 	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-	N'P000000001', 1, N'INF_GEN1_WAS60019_ROA1_EAR.4', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1',
+	N'P000000001', 1, N'INF_GEN1_WAS60019_ROA1_EAR.4', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp1',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
 	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -62,7 +62,7 @@ INSERT [dbo].[AssetFinFormInput](
 	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
 	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-	N'P000000011', 11, N'INF_GEN1_WAS60019_ROA1_EAR.5', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp1',
+	N'P000000011', 11, N'INF_GEN1_WAS60019_ROA1_EAR.5', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp1',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
 	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -89,7 +89,7 @@ INSERT [dbo].[AssetFinFormInput](
 	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
 	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-	N'P000000011', 12, N'INF_GEN1_WAS60019_ROA1_EAR.6', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp6',
+	N'P000000011', 12, N'INF_GEN1_WAS60019_ROA1_EAR.6', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp6',
 	CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
 	NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 	NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -116,7 +116,7 @@ INSERT [dbo].[AssetFinFormInput](
 	[CaseNumber], [InsuranceClaimed], [InsuranceAmount], [TransferredFrom], [TransferredTo], [EquipmentNr], [ImpairmentTransfer],
 	[SCOA_Fund], [SCOA_Function], [SCOA_Mun_Classification], [SCOA_Project], [SCOA_Costing], [SCOA_Region], [SCOA_ItemAsset], [FinYear])
 VALUES (
-		N'P000000011', 13, N'INF_GEN1_WAS60019_ROA1_EAR.7', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', N'', NULL, NULL, N'', N'test_comp7',
+		N'P000000011', 13, N'INF_GEN1_WAS60019_ROA1_EAR.7', N'000000989069', N'IMM', N'PPE', N'INF', N'WWTW', N'BAL', N'RDF', N'BLBD', NULL, NULL, N'Test Project', NULL, NULL, NULL, NULL, N'test_comp7',
 		CAST(10.00 AS Numeric(18, 2)), N'EA', CAST(37730.00 AS Numeric(18, 2)), NULL, NULL, 'Dummy - Region 01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(N'2013-11-15 00:00:00.000' AS DateTime),
 		NULL, NULL, NULL, N'TestProject001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2013, NULL, NULL, NULL, CAST(25000.00 AS Numeric(18, 2)),
 		NULL, NULL, NULL, NULL, 15, NULL, CAST(15.00 AS Numeric(18, 2)), 0, CAST(0.00 AS Numeric(18, 2)), N'ZJW1', NULL, CAST(0.00 AS Numeric(18, 2)), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
