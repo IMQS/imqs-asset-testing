@@ -30,7 +30,7 @@ BEGIN
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
 	DECLARE @dynamicSql VARCHAR(MAX) =
 		'select '+IIF(@batchSize IS NOT NULL, 'top('+CONVERT(VARCHAR, @batchSize)+')', '')+'
-			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Item_Credit) as RollupID,
+			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit) as RollupID,
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
 			sj.ID
 		from

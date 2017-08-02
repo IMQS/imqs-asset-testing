@@ -39,6 +39,7 @@ CREATE TABLE [dbo].[SCOAClassification](
 	[Path] [nvarchar](450) NULL,
 	[SCOASegment] [nvarchar](20) NULL,
 	[Linkable] [bit] NULL,
+	[ROWID] [BIGINT] IDENTITY(1,1) NOT NULL,
 	CONSTRAINT [PK_SCOAClassification_Id] PRIMARY KEY CLUSTERED	([Id] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_Id]  DEFAULT (newid()) FOR [Id];
@@ -51,8 +52,13 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[Form_Reference] [varchar](40) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[FinancialField] [varchar](40) NOT NULL,
-	[Date] [datetime] NOT NULL,
 	[Amount] [numeric](18, 2) NOT NULL,
+	[EffectiveDate] [datetime] NULL,
+	[FinYear] [int] NULL,
+	[Period] [int] NULL,
+	[Date] [datetime] NOT NULL,
+
+	--Debit fields
 	[SCOA_Fund] [varchar](40) NULL,
 	[SCOA_Function] [varchar](40) NULL,
 	[SCOA_Mun_Classification] [varchar](40) NULL,
@@ -60,23 +66,34 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Costing] [varchar](40) NULL,
 	[SCOA_Region] [varchar](40) NULL,
 	[SCOA_Item_Debit] [varchar](40) NULL,
-	[SCOA_Item_Credit] [varchar](40) NULL,
-	[SCOAFileName] [varchar](150) NULL,
-	[SCOAFileDate] [datetime] NULL,
-	[CommittedToRegister] [bit] NULL,
-	[FinYear] [int] NULL,
-	[FinSysBatchID] [varchar](40) NULL,
-	[IMQSBatchID] [bigint] NULL,
-	[RollupID] [bigint] NULL,
-	[PostingCreditID] [bigint] NULL,
-	[PostingDebitID] [bigint] NULL,
-	[Period] [int] NULL,
-	[EffectiveDate] [datetime] NULL,
 	[BudgetID] [varchar](40) NULL,
 	[ProjectID] [varchar](40) NULL,
 	[ItemBreakdown_Debit] [varchar](40) NULL,
-	[ItemBreakdown_Credit] [varchar](40) NULL
-	CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[ProjectBreakdown_Debit] [varchar](40) NULL,
+
+	--Credit fields
+	[SCOA_Fund_Credit] [varchar](40) NULL,
+	[SCOA_Function_Credit] [varchar](40) NULL,
+	[SCOA_Mun_Classification_Credit] [varchar](40) NULL,
+	[SCOA_Project_Credit] [varchar](40) NULL,
+	[SCOA_Costing_Credit] [varchar](40) NULL,
+	[SCOA_Region_Credit] [varchar](40) NULL,
+	[SCOA_Item_Credit] [varchar](40) NULL,
+	[BudgetID_Credit] [varchar](40) NULL,
+	[ProjectID_Credit] [varchar](40) NULL,
+	[ItemBreakdown_Credit] [varchar](40) NULL,
+	[ProjectBreakdown_Credit] [varchar](40) NULL,
+
+	[RollupID] [bigint] NULL,
+	[FinSysBatchID] [varchar](40) NULL,
+	[IMQSBatchID] [bigint] NULL,
+	[PostingDebitID] [bigint] NULL,
+	[PostingCreditID] [bigint] NULL,
+	[SCOAFileName] [varchar](150) NULL,
+	[SCOAFileDate] [datetime] NULL,
+	[CommittedToRegister] [bit] NULL,
+
+CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAJournal] ADD  CONSTRAINT [DF_SCOAJOURNAL_CommittedToRegister]  DEFAULT ((0)) FOR [CommittedToRegister];
 
