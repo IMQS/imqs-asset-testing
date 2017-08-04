@@ -5,7 +5,7 @@ BEGIN
 
 	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
-	DECLARE @sql VARCHAR(MAX) = 'SELECT
+	DECLARE @sql NVARCHAR(MAX) = 'SELECT
 		sj.FinYear as N_FIN_YEAR,
 		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''Version'') as C_NT_Mscoa_version,
 		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''MunicipalDemarcationCode'') as [C_Municipal demarcation code],
@@ -117,6 +117,8 @@ BEGIN
 		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
 	'INNER JOIN
 		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = ComponentID')+'
+	WHERE
+		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.FinancialField,
 		sj.FinYear,
