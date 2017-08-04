@@ -76,8 +76,8 @@ BEGIN
 		sj.BudgetID_Credit as [VOTE],
 		0 as [DEBIT_AMOUNT],
 		SUM(sj.Amount) as [CREDIT_AMOUNT],
-		'' as [FLEET_READING],
-		'' as [QTY]
+		'''' as [FLEET_READING],
+		'''' as [QTY]
 	FROM
 		SCOAJournal sj '+IIF(@depreciation = 1,
 	'INNER JOIN
