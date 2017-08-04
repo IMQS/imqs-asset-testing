@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[CreateSCOABatch]
-	@batchSize BIGINT, @depreciation BIT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finYear INT, @batchSize BIGINT, @depreciation BIT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
@@ -36,7 +36,7 @@ BEGIN
 		from
 			SCOAJournal sj '+IIF(@depreciation != 1, 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference', '')+'
 		where
-			'+IIF(@depreciation = 1, 'sj.FinancialField = ''DepreciationFinYTD''', 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''')+' AND sj.IMQSBatchID is null '+IIF(@fromDate IS NOT NULL AND @toDate IS NOT NULL,'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''', '');
+			sj.FinYear = '+STR(@finYear, 4)+' AND '+IIF(@depreciation = 1, 'sj.FinancialField = ''DepreciationFinYTD''', 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''')+' AND sj.IMQSBatchID is null '+IIF(@fromDate IS NOT NULL AND @toDate IS NOT NULL,'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''', '');
 	INSERT INTO @rollups EXEC(@dynamicSql)
 
 	-- We write the new IMQSBatch- and Rollup- IDs into the SCOAJournal
