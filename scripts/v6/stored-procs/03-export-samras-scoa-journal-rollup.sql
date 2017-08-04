@@ -50,7 +50,7 @@ BEGIN
 	INNER JOIN
 		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = ComponentID')+'
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID')+'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
@@ -116,7 +116,7 @@ BEGIN
 	INNER JOIN
 		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = ComponentID')+'
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID')+'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
