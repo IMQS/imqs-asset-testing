@@ -1,19 +1,19 @@
 CREATE PROCEDURE [dbo].[ExportVenusSCOAJournalRollUp]
-		@batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+		@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
 	SET NOCOUNT ON;
 
-	execute CreateSCOABatch @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	execute CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	-- For the final coup d'etat, we select the new UNIQUE_IDENTIFIER values from the @postingBindings table,
 	-- so as to post these values back to the Financial System when we send off our rollups. For venus there is
 	-- no field that can be used to store this value yet, but we are leaving it here for when the opportunity arises
-	SELECT
-		'AK' as [GL-TYPE],
-		'04' + case f.AssetMoveableID when 'IMM' then 'I' else 'M' end + right('00000000000' + (REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', '')), 11) as [REFERENCE-NO],
-		aff.Form_Desc as [DESCRIPTION],
+	DECLARE @sql VARCHAR(MAX) = 'SELECT
+		''AK'' as [GL-TYPE],
+		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as [REFERENCE-NO],
+		'+IIF(@depreciation = 1, '''Depreciation''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
 		dbo.convertDateToInt(EffectiveDate) as [DATE],
 		sj.SCOA_Function as [SCOA-FUNCTION],
 		sj.SCOA_Fund as [SCOA-FUND],
@@ -26,22 +26,24 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		SUM(sj.Amount) as [DEBIT_AMOUNT],
 		0 as [CREDIT_AMOUNT],
-		'' as [FLEET_READING],
-		'' as [QTY]
+		'''' as [FLEET_READING],
+		'''' as [QTY]
 	FROM
-		SCOAJournal sj
-	INNER JOIN
+		SCOAJournal sj '+IIF(@depreciation = 1,
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
 	WHERE
-		sj.IMQSBatchID = @imqsBatchId
+		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		aff.Form_Desc,
-		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), ' ', '0'),
-		'04' + case f.AssetMoveableID when 'IMM' then 'I' else 'M' end + right('00000000000' + (REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', '')), 11),
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
+		''04''+ case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),
 		sj.FinancialField,
 		sj.FinYear,
@@ -59,9 +61,9 @@ BEGIN
 	UNION
 
 	SELECT
-		'AK' as [GL-TYPE],
-		'04' + case f.AssetMoveableID when 'IMM' then 'I' else 'M' end + right('00000000000' + (REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', '')), 11) as [REFERENCE-NO],
-		aff.Form_Desc as [DESCRIPTION],
+		''AK'' as [GL-TYPE],
+		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as [REFERENCE-NO],
+		'+IIF(@depreciation = 1, '''Depreciation''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
 		dbo.convertDateToInt(EffectiveDate) as [DATE],
 		sj.SCOA_Function_Credit as [SCOA-FUNCTION],
 		sj.SCOA_Fund_Credit as [SCOA-FUND],
@@ -77,19 +79,21 @@ BEGIN
 		'' as [FLEET_READING],
 		'' as [QTY]
 	FROM
-		SCOAJournal sj
-	INNER JOIN
+		SCOAJournal sj '+IIF(@depreciation = 1,
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
 	WHERE
-		sj.IMQSBatchID = @imqsBatchId
+		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		aff.Form_Desc,
-		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), ' ', '0'),
-		'04' + case f.AssetMoveableID when 'IMM' then 'I' else 'M' end + right('00000000000' + (REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', '')), 11),
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
+		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),
 		sj.FinancialField,
 		sj.FinYear,
@@ -102,5 +106,7 @@ BEGIN
 		sj.SCOA_Project_Credit,
 		sj.SCOA_Costing_Credit,
 		sj.SCOA_Region_Credit,
-		sj.SCOA_Item_Credit;
+		sj.SCOA_Item_Credit';
+
+	EXEC(@sql);
 END
