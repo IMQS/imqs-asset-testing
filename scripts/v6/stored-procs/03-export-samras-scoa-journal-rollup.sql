@@ -66,7 +66,7 @@ BEGIN
 		sj.SCOA_Costing,
 		sj.SCOA_Region,
 		sj.SCOA_Item_Debit,
-		''+IIF(@depreciation = 1, '''', ''b.CREATED_BY,'')+''
+		'+IIF(@depreciation = 1, '''', '''b.CREATED_BY,''')+'
 		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID
 
 	UNION
