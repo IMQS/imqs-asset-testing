@@ -1,17 +1,17 @@
 CREATE PROCEDURE [dbo].[ExportSamrasSCOAJournalRollUp]
-	@batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
-	EXECUTE CreateSCOABatch @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
-	SELECT
+	DECLARE @sql VARCHAR(MAX) = 'SELECT
 		sj.FinYear as N_FIN_YEAR,
-		(select Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'Version') as C_NT_Mscoa_version,
-		(select Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'MunicipalDemarcationCode') as [C_Municipal demarcation code],
+		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''Version'') as C_NT_Mscoa_version,
+		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''MunicipalDemarcationCode'') as [C_Municipal demarcation code],
 		f.WIP_Project_ID as C_PROJECT_CODE,
-		'ASSET' as C_ACC,
-		'OPERATIONAL' as C_TRANSACTION,
+		''ASSET'' as C_ACC,
+		''OPERATIONAL'' as C_TRANSACTION,
 		dbo.convertDateToInt(sj.[Date]) as D_DUE,
 		dbo.convertDateToInt(sj.[EffectiveDate]) D_EFFECTIVE,
 		dbo.convertDateToInt(sj.[EffectiveDate]) as D_TRANSACTION,
@@ -35,22 +35,24 @@ BEGIN
 		sj.SCOA_Region as T_REGION_GUID,
 		sj.SCOA_Costing as T_COSTING_GUID,
 		sj.SCOA_Mun_Classification as T_OWN,
-		b.CREATED_BY as C_USER_ID,
-		'' as C_AUTH_USER_ID,
-		'' as T_UDPV_CASHFLOW_TYPE,
+		'+IIF(@depreciation = 1, '''SYSTEM''', 'b.CREATED_BY')+' as C_USER_ID,
+		'''' as C_AUTH_USER_ID,
+		'''' as T_UDPV_CASHFLOW_TYPE,
 		NULL as S_SOURCE_TIMESTAMP,
-		f.AccountingGroupID + '-' + f.AssetCategoryID + '-' + f.AssetSubCategoryID as C_ASSET,
-		'' as C_POST,
-		'' as C_TRANSACTION_REFERENCE,
-		'' as C_TRANSACTION_LINKED_REFERENCE
+		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID as C_ASSET,
+		'''' as C_POST,
+		'''' as C_TRANSACTION_REFERENCE,
+		'''' as C_TRANSACTION_LINKED_REFERENCE
 	FROM
-		SCOAJournal sj
-	INNER JOIN
+		SCOAJournal sj '+IIF(@depreciation != 1,
+	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
-		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),' ', '0')
+		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = ComponentID')+'
 	WHERE
-		sj.IMQSBatchID = @imqsBatchId
+		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.FinancialField,
 		sj.FinYear,
@@ -64,18 +66,18 @@ BEGIN
 		sj.SCOA_Costing,
 		sj.SCOA_Region,
 		sj.SCOA_Item_Debit,
-		b.CREATED_BY,
-		f.AccountingGroupID + '-' + f.AssetCategoryID + '-' + f.AssetSubCategoryID
+		''+IIF(@depreciation = 1, '''', ''b.CREATED_BY,'')+''
+		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID
 
 	UNION
 
 	SELECT
 		sj.FinYear as N_FIN_YEAR,
-		(select Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'Version') as C_NT_Mscoa_version,
-		(select Value from AssetPolicyGeneral where Section = 'SCOA' and Identifier = 'MunicipalDemarcationCode') as [C_Municipal demarcation code],
+		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''Version'') as C_NT_Mscoa_version,
+		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''MunicipalDemarcationCode'') as [C_Municipal demarcation code],
 		f.WIP_Project_ID as C_PROJECT_CODE,
-		'ASSET' as C_ACC,
-		'OPERATIONAL' as C_TRANSACTION,
+		''ASSET'' as C_ACC,
+		''OPERATIONAL'' as C_TRANSACTION,
 		dbo.convertDateToInt(sj.[Date]) as D_DUE,
 		dbo.convertDateToInt(sj.[EffectiveDate]) D_EFFECTIVE,
 		dbo.convertDateToInt(sj.[EffectiveDate]) as D_TRANSACTION,
@@ -99,22 +101,22 @@ BEGIN
 		sj.SCOA_Region as T_REGION_GUID,
 		sj.SCOA_Costing as T_COSTING_GUID,
 		sj.SCOA_Mun_Classification as T_OWN,
-		b.CREATED_BY as C_USER_ID,
-		'' as C_AUTH_USER_ID,
-		'' as T_UDPV_CASHFLOW_TYPE,
+		'+IIF(@depreciation = 1, '''SYSTEM''', 'b.CREATED_BY')+' as C_USER_ID,
+		'''' as C_AUTH_USER_ID,
+		'''' as T_UDPV_CASHFLOW_TYPE,
 		NULL as S_SOURCE_TIMESTAMP,
-		f.AccountingGroupID + '-' + f.AssetCategoryID + '-' + f.AssetSubCategoryID as C_ASSET,
-		'' as C_POST,
-		'' as C_TRANSACTION_REFERENCE,
-		'' as C_TRANSACTION_LINKED_REFERENCE
+		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID as C_ASSET,
+		'''' as C_POST,
+		'''' as C_TRANSACTION_REFERENCE,
+		'''' as C_TRANSACTION_LINKED_REFERENCE
 	FROM
-		SCOAJournal sj
-	INNER JOIN
+		SCOAJournal sj '+IIF(@depreciation != 1,
+	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
-		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9), ' ', '0')
-	WHERE
-		sj.IMQSBatchID = @imqsBatchId
+		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = ComponentID')+'
 	GROUP BY
 		sj.FinancialField,
 		sj.FinYear,
@@ -128,9 +130,10 @@ BEGIN
 		sj.SCOA_Costing,
 		sj.SCOA_Region,
 		sj.SCOA_Item_Credit,
-		b.CREATED_BY,
-		f.AccountingGroupID + '-' + f.AssetCategoryID + '-' + f.AssetSubCategoryID
+		'+IIF(@depreciation = 1, '', 'b.CREATED_BY,')+'
+		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID';
 
+	EXEC(@sql);
 	EXECUTE ExportSamrasSCOAMasterDataForBatch @imqsBatchId;
 
 END;
