@@ -1,4 +1,5 @@
 CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
+	@finYear INT,
 	@depreciation BIT,
 	@FromTranDate DATE,
 	@ToTranDate DATE,
@@ -11,7 +12,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch NULL, @depreciation, @FromTranDate, @ToTranDate, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @finYear, NULL, @depreciation, @FromTranDate, @ToTranDate, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	SELECT
 		b.FinancialField,
