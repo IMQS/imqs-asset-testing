@@ -208,6 +208,7 @@ CREATE TABLE [dbo].[AssetFinFormInput](
 	[UpgradeDate] [datetime] NULL,
 	[BudgetNr] [varchar](40) NULL,
 	[LastMaintenanceDate] [datetime] NULL,
+  [ReplacedComponents] [varchar](512) NULL,
 	CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED([Form_Reference] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
