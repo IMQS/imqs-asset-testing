@@ -39,11 +39,16 @@ CREATE TABLE [dbo].[SCOAClassification](
 	[Path] [nvarchar](450) NULL,
 	[SCOASegment] [nvarchar](20) NULL,
 	[Linkable] [bit] NULL,
-	[ROWID] [BIGINT] IDENTITY(1,1) NOT NULL,
-	CONSTRAINT [PK_SCOAClassification_Id] PRIMARY KEY CLUSTERED	([Id] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[ROWID] [bigint] IDENTITY(1,1) NOT NULL,
+	[IsBreakdown] [bit] NULL,
+	[IsSelectable] [bit] NULL,
+	[SCOAVersion] [varchar](10) NULL,
+	CONSTRAINT [PK_SCOAClassification_Id] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_Id]  DEFAULT (newid()) FOR [Id];
 ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
+ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_IsBreakdown]  DEFAULT ((0)) FOR [IsBreakdown];
+ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_IsSelectable]  DEFAULT ((1)) FOR [IsSelectable];
 
 
 -- This is where all the components go once they've been committed to the AR, or sent to the FS
@@ -68,8 +73,14 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Item_Debit] [varchar](40) NULL,
 	[BudgetID] [varchar](40) NULL,
 	[ProjectID] [varchar](40) NULL,
-	[ItemBreakdown_Debit] [varchar](40) NULL,
-	[ProjectBreakdown_Debit] [varchar](40) NULL,
+
+	-- Sub Debit fields
+	[BREAKDOWN_SCOA_Fund] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Function] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Project] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Costing] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Region] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Item_Debit] [varchar](40) NULL,
 
 	--Credit fields
 	[SCOA_Fund_Credit] [varchar](40) NULL,
@@ -81,8 +92,14 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Item_Credit] [varchar](40) NULL,
 	[BudgetID_Credit] [varchar](40) NULL,
 	[ProjectID_Credit] [varchar](40) NULL,
-	[ItemBreakdown_Credit] [varchar](40) NULL,
-	[ProjectBreakdown_Credit] [varchar](40) NULL,
+
+	-- Sub Credit fields
+	[BREAKDOWN_SCOA_Fund_Credit] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Function_Credit] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Project_Credit] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Costing_Credit] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Region_Credit] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Item_Credit] [varchar](40) NULL,
 
 	[RollupID] [bigint] NULL,
 	[FinSysBatchID] [varchar](40) NULL,
