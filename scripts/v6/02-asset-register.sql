@@ -174,6 +174,7 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[LastMaintenanceDate] [datetime] NULL
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [BOQPath] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetRegistericonFin2015] ADD [ReplacedComponents] [varchar](512) NULL;
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationBudgetNr] [varchar](40) NULL;
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationItemBreakdown_Debit] [varchar](40) NULL
  CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
