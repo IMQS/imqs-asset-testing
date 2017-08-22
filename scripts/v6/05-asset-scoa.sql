@@ -71,10 +71,8 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Costing] [varchar](40) NULL,
 	[SCOA_Region] [varchar](40) NULL,
 	[SCOA_Item_Debit] [varchar](40) NULL,
-	[BudgetID] [varchar](40) NULL,
-	[ProjectID] [varchar](40) NULL,
 
-	-- Sub Debit fields
+	--Breakdown Debit fields
 	[BREAKDOWN_SCOA_Fund] [varchar](40) NULL,
 	[BREAKDOWN_SCOA_Function] [varchar](40) NULL,
 	[BREAKDOWN_SCOA_Project] [varchar](40) NULL,
@@ -90,10 +88,8 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOA_Costing_Credit] [varchar](40) NULL,
 	[SCOA_Region_Credit] [varchar](40) NULL,
 	[SCOA_Item_Credit] [varchar](40) NULL,
-	[BudgetID_Credit] [varchar](40) NULL,
-	[ProjectID_Credit] [varchar](40) NULL,
 
-	-- Sub Credit fields
+	--Breakdown Credit fields
 	[BREAKDOWN_SCOA_Fund_Credit] [varchar](40) NULL,
 	[BREAKDOWN_SCOA_Function_Credit] [varchar](40) NULL,
 	[BREAKDOWN_SCOA_Project_Credit] [varchar](40) NULL,
@@ -101,6 +97,7 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[BREAKDOWN_SCOA_Region_Credit] [varchar](40) NULL,
 	[BREAKDOWN_SCOA_Item_Credit] [varchar](40) NULL,
 
+	[BudgetID] [varchar](40) NULL,
 	[RollupID] [bigint] NULL,
 	[FinSysBatchID] [varchar](40) NULL,
 	[IMQSBatchID] [bigint] NULL,
@@ -110,8 +107,9 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[SCOAFileDate] [datetime] NULL,
 	[CommittedToRegister] [bit] NULL,
 
-CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+ CONSTRAINT [PK_SCOAJournal] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY];
+
 ALTER TABLE [dbo].[SCOAJournal] ADD  CONSTRAINT [DF_SCOAJOURNAL_CommittedToRegister]  DEFAULT ((0)) FOR [CommittedToRegister];
 
 -- Used by the SCOA Rollup stored procs to easily convert to the expected date syntax
