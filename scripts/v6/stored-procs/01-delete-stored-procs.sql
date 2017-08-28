@@ -6,3 +6,4 @@ IF OBJECT_ID ('ExportSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportSCOAJo
 IF OBJECT_ID ('ExportSolarSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportSolarSCOAJournalRollUp;
 IF OBJECT_ID ('ExportVenusSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportVenusSCOAJournalRollUp;
 IF OBJECT_ID ('UpdateSCOAJournalSCOAFileName') IS NOT NULL DROP PROCEDURE UpdateSCOAJournalSCOAFileName;
+IF OBJECT_ID (N'SetClassificationSelectable', N'P') IS NOT NULL DROP PROCEDURE [SetClassificationSelectable];

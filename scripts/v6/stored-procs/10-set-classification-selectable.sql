@@ -1,4 +1,3 @@
-IF OBJECT_ID (N'SetClassificationSelectable', N'P') IS NOT NULL DROP PROCEDURE [SetClassificationSelectable];
 CREATE PROCEDURE [dbo].[SetClassificationSelectable]
 		@accountNumber VARCHAR(50)
 AS
