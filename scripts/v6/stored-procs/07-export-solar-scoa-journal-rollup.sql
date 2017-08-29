@@ -103,7 +103,7 @@ BEGIN
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.PostingCreditID,
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc,aff.Form_Nr, ')+'
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr, ')+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
