@@ -26,6 +26,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		SUM(sj.Amount) as [DEBIT_AMOUNT],
 		0 as [CREDIT_AMOUNT],
+		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
@@ -41,7 +42,7 @@ BEGIN
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		''04''+ case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),
@@ -75,6 +76,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		0 as [DEBIT_AMOUNT],
 		SUM(sj.Amount) as [CREDIT_AMOUNT],
+		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
@@ -90,7 +92,7 @@ BEGIN
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),

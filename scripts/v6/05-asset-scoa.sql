@@ -4,6 +4,8 @@ IF OBJECT_ID (N'SCOAClassification', N'U') IS NOT NULL DROP TABLE [SCOAClassific
 IF OBJECT_ID (N'SCOAJournal', N'U') IS NOT NULL DROP TABLE [SCOAJournal];
 IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepreciationStatus];
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
+IF OBJECT_ID ('isCreditLeg') IS NOT NULL DROP FUNCTION isCreditLeg;
+IF OBJECT_ID ('isDebitLeg') IS NOT NULL DROP FUNCTION isDebitLeg;
 
 CREATE TABLE [dbo].[SCOAClassification](
 	[Id] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
@@ -117,6 +119,21 @@ EXECUTE('CREATE FUNCTION convertDateToInt(@date DATE) RETURNS INT as
 BEGIN
 	RETURN CONVERT(INT, REPLACE(STR(YEAR(@date),4), '' '', ''0'')+REPLACE(STR(MONTH(@date),2), '' '', ''0'')+REPLACE(STR(DAY(@date),2), '' '', ''0''));
 END');
+
+EXECUTE('CREATE FUNCTION isCreditLeg(@formNr INT) RETURNS INT as
+BEGIN
+	RETURN CASE @formNr
+	WHEN 1 THEN 1
+	WHEN 5 THEN 1
+	WHEN 7 THEN 1
+	WHEN 11 THEN 1
+  ELSE 0 END
+END;');
+
+EXECUTE('CREATE FUNCTION isDebitLeg(@formNr INT) RETURNS INT as
+BEGIN
+	RETURN IIF(dbo.isCreditLeg(@formNr) = 1, 0, 1);
+END;');
 
 CREATE TABLE [SCOADepreciationStatus] (
 	[RowID] [BIGINT] NOT NULL IDENTITY(1,1),
