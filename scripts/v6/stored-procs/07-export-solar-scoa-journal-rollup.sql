@@ -30,6 +30,7 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project as ENTITY_PROJECT,
 		SUM(sj.Amount) as DEBIT_AMOUNT,
 		0 as CREDIT_AMOUNT,
+		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
 		SCOAJournal sj '+IIF(@depreciation = 1,
@@ -45,7 +46,7 @@ BEGIN
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.PostingCreditID,
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
@@ -86,6 +87,7 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project_Credit as ENTITY_PROJECT,
 		0 as DEBIT_AMOUNT,
 		SUM(sj.Amount) as CREDIT_AMOUNT,
+		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
 		SCOAJournal sj '+IIF(@depreciation = 1,
@@ -101,7 +103,7 @@ BEGIN
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.PostingCreditID,
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, ')+'
+		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr, ')+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
