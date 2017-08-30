@@ -1,16 +1,19 @@
 CREATE PROCEDURE [dbo].[SetClassificationSelectable]
-		@accountNumber VARCHAR(50)
+	@accountNumber VARCHAR(50)
 AS
 	BEGIN
-		WITH [CTE] (SCOAId, ParentSCOAId, SCOAFile, SCOAAccount, ShortDescription, SCOALevel, AccountNumber, bPostingLevel, PostingLevelDescription, AccountNumberPrefix, VATStatus, BreakDownAllowed, DefinitionDescription, IsSelectable)
+
+		WITH [CTE] (SCOAId, ParentSCOAId, SCOAFile, SCOAAccount, ShortDescription, SCOALevel, AccountNumber, bPostingLevel, PostingLevelDescription, AccountNumberPrefix, VATStatus, BreakDownAllowed, DefinitionDescription, IsSelectable, isBreakdown)
 		AS (
 			SELECT
-				c.SCOAId, c.ParentSCOAId, c.SCOAFile, c.SCOAAccount, c.ShortDescription, c.SCOALevel, c.AccountNumber, c.bPostingLevel, c.PostingLevelDescription, c.AccountNumberPrefix, c.VATStatus, c.BreakDownAllowed, c.DefinitionDescription, c.IsSelectable
+				c.SCOAId, c.ParentSCOAId, c.SCOAFile, c.SCOAAccount, c.ShortDescription, c.SCOALevel, c.AccountNumber, c.bPostingLevel, c.PostingLevelDescription, c.AccountNumberPrefix, c.VATStatus, c.BreakDownAllowed, c.DefinitionDescription, c.IsSelectable, c.IsBreakdown
 			FROM
 				SCOAClassification c
 			WHERE
 				AccountNumber = @accountNumber
+
 			UNION ALL
+
 			SELECT
 				c.SCOAId,
 				c.ParentSCOAId,
@@ -25,18 +28,31 @@ AS
 				c.VATStatus,
 				c.BreakDownAllowed,
 				c.DefinitionDescription,
-				c.IsSelectable
+				c.IsSelectable,
+				c.IsBreakdown
 			FROM
-				[CTE] p, SCOAClassification c
+				CTE p, SCOAClassification c
 			WHERE
 				c.SCOAId = p.ParentSCOAId
 		)
+
 		UPDATE
 			SCOAClassification
 		SET
-			IsSelectable = 1
+			IsSelectable = 1,
+			SCOALevel = IIF(cte.IsBreakdown = 1, (select sc2.SCOALevel+1 from SCOAClassification sc2 where sc2.SCOAId = cte.ParentSCOAId), cte.SCOALevel),
+			SCOAFile = IIF(cte.IsBreakdown = 1, (select sc2.SCOAFile from SCOAClassification sc2 where sc2.SCOAId = cte.ParentSCOAId), cte.SCOAFile),
+			bPostingLevel = 1,
+			BreakDownAllowed = 'No'
 		FROM
 			CTE
 		WHERE
-			SCOAClassification.SCOAId = CTE.SCOAId
-	END;
+			CTE.AccountNumber = @accountNumber AND 'Yes' = (select BreakDownAllowed from SCOAClassification where SCOAId = CTE.ParentSCOAId);
+
+		UPDATE
+			SCOAClassification
+		SET
+			bPostingLevel = 0
+		WHERE
+			SCOAId = (select ParentSCOAId from SCOAClassification where AccountNumber = @accountNumber);
+END;
