@@ -50,10 +50,10 @@ AS
 		WHERE
 			CTE.AccountNumber = @accountNumber AND 'Yes' = (select BreakDownAllowed from SCOAClassification where SCOAId = CTE.ParentSCOAId);
 
-		UPDATE
-			SCOAClassification
-		SET
-			bPostingLevel = 0
-		WHERE
-			SCOAId = (select ParentSCOAId from SCOAClassification where AccountNumber = @accountNumber);
+		--UPDATE
+			--SCOAClassification
+		--SET
+			--bPostingLevel = 0
+		--WHERE
+			--SCOAId = (select ParentSCOAId from SCOAClassification where AccountNumber = @accountNumber);
 END;
