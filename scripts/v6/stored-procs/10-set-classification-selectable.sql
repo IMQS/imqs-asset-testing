@@ -40,6 +40,7 @@ AS
 			SCOAClassification
 		SET
 			IsSelectable = 1,
+			SCOAAccount = (select SCOAAccount from SCOAClassification sc2 where sc2.SCOAId = cte.ParentSCOAId) + ':' + cte.ShortDescription,
 			SCOALevel = IIF(cte.IsBreakdown = 1, (select sc2.SCOALevel+1 from SCOAClassification sc2 where sc2.SCOAId = cte.ParentSCOAId), cte.SCOALevel),
 			SCOAFile = IIF(cte.IsBreakdown = 1, (select sc2.SCOAFile from SCOAClassification sc2 where sc2.SCOAId = cte.ParentSCOAId), cte.SCOAFile),
 			bPostingLevel = 1,
