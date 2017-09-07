@@ -26,7 +26,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		SUM(sj.Amount) as [DEBIT_AMOUNT],
 		0 as [CREDIT_AMOUNT],
-		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
@@ -76,7 +76,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		0 as [DEBIT_AMOUNT],
 		SUM(sj.Amount) as [CREDIT_AMOUNT],
-		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
