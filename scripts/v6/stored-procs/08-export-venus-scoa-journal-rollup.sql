@@ -13,7 +13,7 @@ BEGIN
 	DECLARE @sql VARCHAR(MAX) = 'SELECT
 		''AK'' as [GL-TYPE],
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as [REFERENCE-NO],
-		'+IIF(@depreciation = 1, '''Depreciation''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
+		'+case @depreciation when 1 then '''Depreciation''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		dbo.convertDateToInt(EffectiveDate) as [DATE],
 		sj.SCOA_Function as [SCOA-FUNCTION],
 		sj.SCOA_Fund as [SCOA-FUND],
@@ -26,23 +26,23 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		SUM(sj.Amount) as [DEBIT_AMOUNT],
 		0 as [CREDIT_AMOUNT],
-		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end+') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
-		SCOAJournal sj '+IIF(@depreciation = 1,
+		SCOAJournal sj '+case @depreciation when 1 then 
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
+		'+ case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		''04''+ case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),
@@ -63,7 +63,7 @@ BEGIN
 	SELECT
 		''AK'' as [GL-TYPE],
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as [REFERENCE-NO],
-		'+IIF(@depreciation = 1, '''Depreciation''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
+		'+ case @depreciation when 1 then '''Depreciation''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		dbo.convertDateToInt(EffectiveDate) as [DATE],
 		sj.SCOA_Function_Credit as [SCOA-FUNCTION],
 		sj.SCOA_Fund_Credit as [SCOA-FUND],
@@ -76,23 +76,23 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		0 as [DEBIT_AMOUNT],
 		SUM(sj.Amount) as [CREDIT_AMOUNT],
-		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
-		SCOAJournal sj '+IIF(@depreciation = 1,
+		SCOAJournal sj '+ case @depreciation when 1 then 
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
+		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end+'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		dbo.convertDateToInt(EffectiveDate),

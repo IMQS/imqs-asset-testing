@@ -1,3 +1,5 @@
+IF OBJECT_ID ('ExportSolarSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportSolarSCOAJournalRollUp;
+GO
 CREATE PROCEDURE [dbo].[ExportSolarSCOAJournalRollUp]
 	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
@@ -15,7 +17,7 @@ BEGIN
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as JOURNAL_REFERENCE,
-		'+IIF(@depreciation = 1, '''Depreciation ''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
+		'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		sj.FinancialField as JOURNAL_DESCRIPTION_2,
 		'''' as JOURNAL_DESCRIPTION_3,
 		dbo.convertDateToInt(sj.EffectiveDate) as TRANSACTION_DATE,
@@ -30,23 +32,23 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project as ENTITY_PROJECT,
 		SUM(sj.Amount) as DEBIT_AMOUNT,
 		0 as CREDIT_AMOUNT,
-		dbo.isDebitLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
-		SCOAJournal sj '+IIF(@depreciation = 1,
+		SCOAJournal sj '+case @depreciation when 1 then 
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.PostingCreditID,
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr,')+'
+		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end +'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
@@ -72,7 +74,7 @@ BEGIN
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as JOURNAL_REFERENCE,
-		'+IIF(@depreciation = 1, '''Depreciation ''', 'aff.Form_Desc')+' as JOURNAL_DESCRIPTION_1,
+		'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		sj.FinancialField as JOURNAL_DESCRIPTION_2,
 		'''' as JOURNAL_DESCRIPTION_3,
 		dbo.convertDateToInt(sj.EffectiveDate) as TRANSACTION_DATE,
@@ -87,23 +89,23 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project_Credit as ENTITY_PROJECT,
 		0 as DEBIT_AMOUNT,
 		SUM(sj.Amount) as CREDIT_AMOUNT,
-		dbo.isCreditLeg('+IIF(@depreciation = 1, '9', 'aff.Form_Nr')+') as EXTERNALLY_GENERATED,
+		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
-		SCOAJournal sj '+IIF(@depreciation = 1,
+		SCOAJournal sj '+case @depreciation when 1 then
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID',
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
 		AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 	INNER JOIN
-		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr')+'
+		AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
 		sj.PostingCreditID,
-		'+IIF(@depreciation = 1, '', 'aff.Form_Desc, aff.Form_Nr, ')+'
+		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr, ' end +'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),

@@ -35,7 +35,7 @@ BEGIN
 		sj.SCOA_Region as T_REGION_GUID,
 		sj.SCOA_Costing as T_COSTING_GUID,
 		sj.SCOA_Mun_Classification as T_OWN,
-		'+IIF(@depreciation = 1, '''SYSTEM''', 'b.CREATED_BY')+' as C_USER_ID,
+		'+case @depreciation when 1 then '''SYSTEM''' else 'b.CREATED_BY' end +' as C_USER_ID,
 		'''' as C_AUTH_USER_ID,
 		'''' as T_UDPV_CASHFLOW_TYPE,
 		NULL as S_SOURCE_TIMESTAMP,
@@ -44,13 +44,14 @@ BEGIN
 		'''' as C_TRANSACTION_REFERENCE,
 		'''' as C_TRANSACTION_LINKED_REFERENCE
 	FROM
-		SCOAJournal sj '+IIF(@depreciation != 1,
+		SCOAJournal sj '+case @depreciation when 1 then 
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
-		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
-	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID')+'
+		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')'
+	end+'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
@@ -66,7 +67,7 @@ BEGIN
 		sj.SCOA_Costing,
 		sj.SCOA_Region,
 		sj.SCOA_Item_Debit,
-		'+IIF(@depreciation = 1, '', 'b.CREATED_BY,')+'
+		'+case @depreciation when 1 then '' else 'b.CREATED_BY,' end +'
 		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID
 
 	UNION
@@ -101,7 +102,7 @@ BEGIN
 		sj.SCOA_Region as T_REGION_GUID,
 		sj.SCOA_Costing as T_COSTING_GUID,
 		sj.SCOA_Mun_Classification as T_OWN,
-		'+IIF(@depreciation = 1, '''SYSTEM''', 'b.CREATED_BY')+' as C_USER_ID,
+		'+case @depreciation when 1 then '''SYSTEM''' else 'b.CREATED_BY' end +' as C_USER_ID,
 		'''' as C_AUTH_USER_ID,
 		'''' as T_UDPV_CASHFLOW_TYPE,
 		NULL as S_SOURCE_TIMESTAMP,
@@ -110,13 +111,14 @@ BEGIN
 		'''' as C_TRANSACTION_REFERENCE,
 		'''' as C_TRANSACTION_LINKED_REFERENCE
 	FROM
-		SCOAJournal sj '+IIF(@depreciation != 1,
+		SCOAJournal sj '+case @depreciation when 1 then
+	'INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
-		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')',
-	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID')+'
+		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')'
+	end +'
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
@@ -132,7 +134,7 @@ BEGIN
 		sj.SCOA_Costing,
 		sj.SCOA_Region,
 		sj.SCOA_Item_Credit,
-		'+IIF(@depreciation = 1, '', 'b.CREATED_BY,')+'
+		'+case @depreciation when 1 then '' else 'b.CREATED_BY,' end +'
 		f.AccountingGroupID + ''-'' + f.AssetCategoryID + ''-'' + f.AssetSubCategoryID';
 
 	EXEC(@sql);

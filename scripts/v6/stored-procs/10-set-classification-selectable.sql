@@ -40,8 +40,8 @@ BEGIN
 	SET
 		IsSelectable = 1,
 		SCOAAccount = (select t.SCOAAccount from cte t where t.SCOAId = CTE.ParentSCOAId) + ':' + CTE.ShortDescription,
-		SCOALevel = IIF(CTE.IsBreakdown = 1, (select t.SCOALevel+1 from cte t where t.SCOAId = cte.ParentSCOAId), CTE.SCOALevel),
-		SCOAFile = IIF(CTE.IsBreakdown = 1, (select t.SCOAFile from cte t where t.SCOAId = cte.ParentSCOAId), CTE.SCOAFile),
+		SCOALevel = case CTE.IsBreakdown when 1 then (select t.SCOALevel+1 from cte t where t.SCOAId = cte.ParentSCOAId) else CTE.SCOALevel end,
+		SCOAFile = case CTE.IsBreakdown when 1 then (select t.SCOAFile from cte t where t.SCOAId = cte.ParentSCOAId) else CTE.SCOAFile end,
 		bPostingLevel = 1,
 		BreakDownAllowed = 'No'
 	FROM
