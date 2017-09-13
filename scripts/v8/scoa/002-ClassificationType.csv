@@ -1,7 +1,7 @@
-id,classificationType
-1,SCOACOST
-2,SCOAFUNCTION
-3,SCOAFUND
-4,SCOAITEM
-5,SCOAPROJECT
-6,SCOAREGION
+id,code,description,published,readOnly
+1,SCOACOST,Scoa Cost,true,true
+2,SCOAFUNCTION,Scoa Function,true,true
+3,SCOAFUND,Scoa Fund,true,true
+4,SCOAITEM,Scoa Item,true,true
+5,SCOAPROJECT,Scoa Project,true,true
+6,SCOAREGION,Scoa Region,true,true
