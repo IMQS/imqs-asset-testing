@@ -26,7 +26,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		SUM(sj.Amount) as [DEBIT_AMOUNT],
 		0 as [CREDIT_AMOUNT],
-		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end+') as REPLACE_WITH_DEFAULT,
+		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end+') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM
@@ -76,7 +76,7 @@ BEGIN
 		sj.BudgetID as [VOTE],
 		0 as [DEBIT_AMOUNT],
 		SUM(sj.Amount) as [CREDIT_AMOUNT],
-		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
+		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'''' as [FLEET_READING],
 		'''' as [QTY]
 	FROM

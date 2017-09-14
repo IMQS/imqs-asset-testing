@@ -30,7 +30,7 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project as ENTITY_PROJECT,
 		SUM(sj.Amount) as DEBIT_AMOUNT,
 		0 as CREDIT_AMOUNT,
-		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
+		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then 
@@ -87,7 +87,7 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project_Credit as ENTITY_PROJECT,
 		0 as DEBIT_AMOUNT,
 		SUM(sj.Amount) as CREDIT_AMOUNT,
-		dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
+		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
 		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then
