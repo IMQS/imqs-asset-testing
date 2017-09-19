@@ -10,7 +10,7 @@ BEGIN
 	-- For the final coup d'etat, we select the new UNIQUE_IDENTIFIER values from the @postingBindings table,
 	-- so as to post these values back to the Financial System when we send off our rollups.
 	DECLARE @sql VARCHAR(MAX) = 'SELECT
-		sj.PostingCreditID as UNIQUE_IDENTIFIER,
+		sj.PostingDebitID as UNIQUE_IDENTIFIER,
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
@@ -45,7 +45,7 @@ BEGIN
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
-		sj.PostingCreditID,
+		sj.PostingDebitID,
 		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end +'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
