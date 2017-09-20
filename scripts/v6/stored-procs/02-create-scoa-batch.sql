@@ -31,7 +31,7 @@ BEGIN
 	DECLARE @hasDates BIT = case when @fromDate IS NULL then 0 else (case when @toDate IS NULL then 0 else 1 end) end
 	DECLARE @dynamicSql VARCHAR(MAX) =
 		'select '+case when @batchSize IS NULL then '' else 'top('+CONVERT(VARCHAR, @batchSize)+')' end +'
-			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit) as RollupID,
+			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.BREAKDOWN_SCOA_Project, sj.BREAKDOWN_SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit, sj.BREAKDOWN_SCOA_Project_Credit, sj.BREAKDOWN_SCOA_Item_Credit) as RollupID,
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
 			sj.ID
 		from
