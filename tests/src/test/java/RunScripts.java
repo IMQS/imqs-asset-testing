@@ -7,6 +7,9 @@ import za.co.imqs.testing.scripting.ScriptingConfig;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -45,6 +48,10 @@ public class RunScripts {
             "prime/12-SCOADepreciationStatus.csv",
             "prime/13-AssetRegisterIconFin2015.csv",
 
+            "prime/20-AssetFinFormBatch.csv",
+            "prime/21-AssetFinFormInput.csv",
+            "prime/22-AssetFinFormRef.csv",
+
             "stored-procs/01-delete-stored-procs.sql",
             "stored-procs/02-create-scoa-batch.sql",
             "stored-procs/03-export-samras-scoa-journal-rollup.sql",
@@ -78,7 +85,10 @@ public class RunScripts {
     public void run() throws Exception {
         final List<File> scriptFiles = new LinkedList<>();
         for (String f : SCRIPT_FILES) {
-            scriptFiles.add(Paths.get(USER_DIR, f).toFile());
+            final Path p = Paths.get(USER_DIR, f);
+            if (!Files.exists(p))
+                throw new FileNotFoundException(f + " does not exist or cannot be found");
+            scriptFiles.add(p.toFile());
         }
 
         final RemoteScripts remoteScripts = new RemoteScripts();
