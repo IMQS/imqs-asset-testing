@@ -31,3 +31,7 @@ ALTER TABLE [dbo].[AssetFinYear] ADD  CONSTRAINT [DF_AssetFinyear_DTLastUpdate] 
 ALTER TABLE [dbo].[AssetFinYear] ADD  CONSTRAINT [DF_AssetFinyear_HasPolicyRates]  DEFAULT ((0)) FOR [HasPolicyRates];
 ALTER TABLE [dbo].[AssetFinYear] ADD  CONSTRAINT [DF_AssetFinyear_IsFinLocked]  DEFAULT ((0)) FOR [IsFinLocked];
 ALTER TABLE [dbo].[AssetFinYear] ADD  CONSTRAINT [DF_AssetFinyear_IsValLocked]  DEFAULT ((0)) FOR [IsValLocked];
+
+-- IMQSBatchId Sequence (for tracking batches sent to 3rd-party financial systems)
+IF OBJECT_ID (N'IMQSBatchID_Seq', N'U') IS NOT NULL DROP SEQUENCE [dbo].[IMQSBatchID_Seq];
+CREATE SEQUENCE [dbo].[IMQSBatchID_Seq] AS [bigint] START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE  3;

@@ -4,7 +4,7 @@ AS
 BEGIN
 
 	-- Determine a new imqs batch id for this batch
-	SET @imqsBatchId = (select case when max(IMQSBatchID) is NULL then 1 else max(IMQSBatchID)+1 end as BatchId from SCOAJournal);
+	EXECUTE NextValueFor 'imqsBatchId', @imqsBatchId OUTPUT;
 
 	-- Determine the new current postingID. PostingIDs are created to specify uniquness across both debit & credit journal posting rows, that we post to the financial system.
 	-- We save these values (PostingCreditID & PostingDebitID) in all SCOAJournal rows that make up a rolled up posting row

@@ -103,6 +103,7 @@ CREATE TABLE [dbo].[SCOAJournal](
 	[RollupID] [bigint] NULL,
 	[FinSysBatchID] [varchar](40) NULL,
 	[IMQSBatchID] [bigint] NULL,
+	[CorrelationRef] [varchar](40) NULL,
 	[PostingDebitID] [bigint] NULL,
 	[PostingCreditID] [bigint] NULL,
 	[SCOAFileName] [varchar](150) NULL,

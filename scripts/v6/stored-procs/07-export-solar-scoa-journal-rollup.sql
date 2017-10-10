@@ -7,6 +7,19 @@ BEGIN
 
 	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
+	-- We create the correlation reference as per the Solar-defined syntax format, and assign it to each line item in the SCOAJournal
+	DECLARE @updateSql VARCHAR(MAX) = 'UPDATE
+		SCOAJournal
+	SET
+		CorrelationRef = ''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11)
+	FROM
+		SCOAJournal sj
+	INNER JOIN
+		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID
+	WHERE
+		sj.IMQSBatchId = '+STR(@imqsBatchId);
+	EXEC(@updateSql);
+
 	-- For the final coup d'etat, we select the new UNIQUE_IDENTIFIER values from the @postingBindings table,
 	-- so as to post these values back to the Financial System when we send off our rollups.
 	DECLARE @sql VARCHAR(MAX) = 'SELECT
@@ -14,7 +27,7 @@ BEGIN
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
-		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as JOURNAL_REFERENCE,
+		CorrelationRef as JOURNAL_REFERENCE,
 		'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		sj.FinancialField as JOURNAL_DESCRIPTION_2,
 		'''' as JOURNAL_DESCRIPTION_3,
@@ -50,7 +63,7 @@ BEGIN
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
-		IMQSBatchID + ''-'' + RollupID,
+		sj.CorrelationRef,
 		dbo.convertDateToInt(sj.EffectiveDate),
 		sj.FinancialField,
 		sj.FinYear,
@@ -107,7 +120,7 @@ BEGIN
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
-		IMQSBatchID + ''-'' + RollupID,
+		sj.CorrelationRef,
 		dbo.convertDateToInt(sj.EffectiveDate),
 		sj.FinancialField,
 		sj.FinYear,
@@ -120,6 +133,5 @@ BEGIN
 		sj.SCOA_Costing_Credit,
 		sj.SCOA_Region_Credit,
 		sj.SCOA_Item_Credit';
-
 	EXEC(@sql);
 END
