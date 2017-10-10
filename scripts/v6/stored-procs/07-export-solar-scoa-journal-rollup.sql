@@ -7,6 +7,8 @@ BEGIN
 
 	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
+	DECLARE @assetTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+STR(@finYear,4) ELSE 'AssetFinFormInput' END;
+
 	-- We create the correlation reference as per the Solar-defined syntax format, and assign it to each line item in the SCOAJournal
 	DECLARE @updateSql VARCHAR(MAX) = 'UPDATE
 		SCOAJournal
@@ -15,7 +17,7 @@ BEGIN
 	FROM
 		SCOAJournal sj
 	INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID
+		'+@assetTable+' f ON sj.ComponentID = f.ComponentID
 	WHERE
 		sj.IMQSBatchId = '+STR(@imqsBatchId);
 	EXEC(@updateSql);
@@ -27,7 +29,7 @@ BEGIN
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
-		CorrelationRef as JOURNAL_REFERENCE,
+		sj.CorrelationRef as JOURNAL_REFERENCE,
 		'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		sj.FinancialField as JOURNAL_DESCRIPTION_2,
 		'''' as JOURNAL_DESCRIPTION_3,
@@ -62,7 +64,6 @@ BEGIN
 		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end +'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
-		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		sj.CorrelationRef,
 		dbo.convertDateToInt(sj.EffectiveDate),
 		sj.FinancialField,
@@ -84,7 +85,7 @@ BEGIN
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
-		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11) as JOURNAL_REFERENCE,
+		sj.CorrelationRef as JOURNAL_REFERENCE,
 		'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
 		sj.FinancialField as JOURNAL_DESCRIPTION_2,
 		'''' as JOURNAL_DESCRIPTION_3,
@@ -119,7 +120,6 @@ BEGIN
 		'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr, ' end +'
 		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 		(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
-		''04'' + case f.AssetMoveableID when ''IMM'' then ''I'' else ''M'' end + right(''00000000000'' + (REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')), 11),
 		sj.CorrelationRef,
 		dbo.convertDateToInt(sj.EffectiveDate),
 		sj.FinancialField,
