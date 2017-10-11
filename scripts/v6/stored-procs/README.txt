@@ -1,0 +1,13 @@
+These scripts are used to create and populate test databases for various asset-related modules accross our codebase. To see how to incorporate them, look at the testing module in the common repo - https://github.com/IMQS/common/tree/master/testing.
+
+When adding to or changing files in this repo, please be cognisant of the fact that other tests rely on this data. DO NOT change data unless you are sure that it will not break existing tests.
+
+A list of known configs that reference these scripts follows, please keep this list up-to-date if you create a new test-base:
+
+- https://github.com/IMQS/imqs-asset-register/blob/master/scoa-journal-exporter/src/test/resources/scoa-journal-exporter-test.json
+- https://github.com/IMQS/common/blob/master/testing/src/test/resources/scripting-test-config.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-solar-gateway-service/src/test/resources/ApplicationTestConfig.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/Solar_AppTestPersistence.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/Samras_AppTestPersistence.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/V6TestConfig.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/V6IntegrationTestConfig.json
