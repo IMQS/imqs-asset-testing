@@ -1,0 +1,31 @@
+The scripts in this folder are for the purpose of "mocking" SOLAR Database that IMQS integrates with in order to process Budgets, Projects, Actuals and SCOA Journals.
+
+Database
+===========
+Create a MSSQL Database - you can name it whatever you want.
+
+For a desired outcome, the scripts are meant to be executed in the following order:
+
+Tables
+==========
+01-delete-tables.sql
+02-create-tables.sql
+prime/01-insert-tables.sql
+
+Stored Procedures
+===================
+stored-procs/01-delete-stored-procs.sql
+stored-procs/02-scoa-account-budget.sql
+stored-procs/03-scoa-project.sql
+stored-procs/04-scoa-item.sql
+stored-procs/05-ledger-journal-update.sql
+stored-procs/06-legder-journal-summary.sql
+stored-procs/07-ledger-journal-error-log.sql
+
+=======================================================================================================
+NB: Ensure that the SOLAR Gateway Service points to this mock DB when testing.
+
+To understand how all these tables and stored procedures fit together into the bigger picture, read:
+
+https://imqssoftware.atlassian.net/wiki/spaces/AMT/pages/131406963/SOLAR+Gateway+Service+In+Progress
+========================================================================================================
