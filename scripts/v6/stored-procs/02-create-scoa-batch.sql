@@ -35,9 +35,9 @@ BEGIN
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
 			sj.ID
 		from
-			SCOAJournal sj '+case @depreciation when 1 then '' else 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference ' end +'
+			SCOAJournal sj '+case @depreciation when 1 then 'inner join SCOADepreciationStatus sds on sj.ID = sds.SCOAJournalID ' else 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference ' end +'
 		where
-			sj.FinYear = '+STR(@finYear, 4)+' AND '+case @depreciation when 1 then 'sj.FinancialField = ''DepreciationFinYTD''' else 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''' end +' AND sj.IMQSBatchID is null '+case @hasDates when 1 then 'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''' else '' end;
+			sj.FinYear = '+STR(@finYear, 4)+' AND '+case @depreciation when 1 then 'sj.FinancialField = ''DepreciationFinYTD'' AND sds.Status = '+CONVERT(VARCHAR, @formLevelValue)+ '' else 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''' end +' AND sj.IMQSBatchID is null '+case @hasDates when 1 then 'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''' else '' end;
 	INSERT INTO @rollups EXEC(@dynamicSql)
 
 	-- We write the new IMQSBatch- and Rollup- IDs into the SCOAJournal
