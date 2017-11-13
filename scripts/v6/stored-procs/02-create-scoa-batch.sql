@@ -28,14 +28,15 @@ BEGIN
 
 	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
+	DECLARE @assetRegisterTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+STR(@finYear,4) ELSE 'AssetFinFormInput' END;
 	DECLARE @hasDates BIT = case when @fromDate IS NULL then 0 else (case when @toDate IS NULL then 0 else 1 end) end
 	DECLARE @dynamicSql VARCHAR(MAX) =
 		'select '+case when @batchSize IS NULL then '' else 'top('+CONVERT(VARCHAR, @batchSize)+')' end +'
-			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.BREAKDOWN_SCOA_Project, sj.BREAKDOWN_SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit, sj.BREAKDOWN_SCOA_Project_Credit, sj.BREAKDOWN_SCOA_Item_Credit) as RollupID,
+			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.BREAKDOWN_SCOA_Project, sj.BREAKDOWN_SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit, sj.BREAKDOWN_SCOA_Project_Credit, sj.BREAKDOWN_SCOA_Item_Credit, far.AssetMoveableID) as RollupID,
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
 			sj.ID
 		from
-			SCOAJournal sj '+case @depreciation when 1 then 'inner join SCOADepreciationStatus sds on sj.ID = sds.SCOAJournalID ' else 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference ' end +'
+			SCOAJournal sj  inner join '+@assetRegisterTable+' far on sj.ComponentID = far.ComponentID  '+case @depreciation when 1 then 'inner join SCOADepreciationStatus sds on sj.ID = sds.SCOAJournalID ' else 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference ' end +'
 		where
 			sj.FinYear = '+STR(@finYear, 4)+' AND '+case @depreciation when 1 then 'sj.FinancialField = ''DepreciationFinYTD'' AND sds.Status = '+CONVERT(VARCHAR, @formLevelValue)+ '' else 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''' end +' AND sj.IMQSBatchID is null '+case @hasDates when 1 then 'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''' else '' end;
 	INSERT INTO @rollups EXEC(@dynamicSql)
