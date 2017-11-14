@@ -102,3 +102,34 @@ CREATE TYPE [dbo].[TT_F_G_LEDGER_JOURNAL] AS TABLE(
 	[REPLACE_WITH_DEFAULT] [bit] NOT NULL DEFAULT 0
 );
 
+-- The table into which the rolled up journals will be written
+CREATE TABLE LedgerJournal (
+	[UNIQUE_IDENTIFIER] [bigint] NULL,
+	[FINANCIAL_PERIOD] [varchar](6) NULL,
+	[LEDGER_TRANSACTION_TYPE] [varchar](2) NULL,
+	[VENDOR_CODE] [varchar](2) NULL,
+	[JOURNAL_REFERENCE] [varchar](14) NULL,
+	[JOURNAL_DESCRIPTION_1] [varchar](60) NULL,
+	[JOURNAL_DESCRIPTION_2] [varchar](60) NULL,
+	[JOURNAL_DESCRIPTION_3] [varchar](60) NULL,
+	[TRANSACTION_DATE] [int] NULL,
+	[SCOA_FUNCTION_GUID] [varchar](40) NULL,
+	[SCOA_FUND_GUID] [varchar](40) NULL,
+	[SCOA_ITEM_GUID] [varchar](40) NULL,
+	[SCOA_PROJECT_GUID] [varchar](40) NULL,
+	[SCOA_COST_GUID] [varchar](40) NULL,
+	[SCOA_REGION_GUID] [varchar](40) NULL,
+	[ENTITY_COST_CENTRE_CODE] [varchar](10) NULL,
+	[ENTITY_SUB_ITEM_CODE] [varchar](10) NULL,
+	[ENTITY_PROJECT_CODE] [varchar](10) NULL,
+	[FLEET_UNIT_CODE] [varchar](6) NULL,
+	[FLEET_EXPENDITURE_INCOME_CODE] [varchar](2) NULL,
+	[FLEET_READING] [numeric](25, 2) NULL,
+	[JOB_NUMBER] [varchar](7) NULL,
+	[JOB_ACTIVITY_CODE] [varchar](2) NULL,
+	[JOB_CATEGORY_CODE] [varchar](4) NULL,
+	[QUANTITY] [numeric](25, 2) NULL,
+	[DEBIT_AMOUNT] [numeric](25, 2) NULL,
+	[CREDIT_AMOUNT] [numeric](25, 2) NULL,
+	[REPLACE_WITH_DEFAULT] [bit] NOT NULL DEFAULT ((0))
+);
