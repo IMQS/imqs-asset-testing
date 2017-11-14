@@ -133,3 +133,19 @@ CREATE TABLE LedgerJournal (
 	[CREDIT_AMOUNT] [numeric](25, 2) NULL,
 	[REPLACE_WITH_DEFAULT] [bit] NOT NULL DEFAULT ((0))
 );
+
+CREATE TABLE OpenPeriods (
+	[FINANCIAL_PERIOD] VARCHAR(6), 
+	[FINANCIAL_YEAR] VARCHAR(4), 
+	[PERIOD_STATUS_CODE] INT, 
+	[PERIOD_STATUS] VARCHAR(40)
+);
+
+CREATE TABLE PeriodStatus (
+	[CODE] INT,
+	[DESCRIPTION] VARCHAR(40)
+);
+
+-- This is effectively static so I have added these here as a form of documentation
+INSERT INTO PeriodStatus ([CODE],[DESCRIPTION]) VALUES (1, 'Open');
+INSERT INTO PeriodStatus ([CODE],[DESCRIPTION]) VALUES (2, 'Partially Open');
