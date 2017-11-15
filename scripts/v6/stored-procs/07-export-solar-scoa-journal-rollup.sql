@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[ExportSolarSCOAJournalRollUp]
-	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finYear INT, @finPeriod INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
@@ -100,8 +100,7 @@ BEGIN
 		sj.BREAKDOWN_SCOA_Project_Credit as ENTITY_PROJECT,
 		0 as DEBIT_AMOUNT,
 		SUM(sj.Amount) as CREDIT_AMOUNT,
-		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT,
-		'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID
+		dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then
 	'INNER JOIN
