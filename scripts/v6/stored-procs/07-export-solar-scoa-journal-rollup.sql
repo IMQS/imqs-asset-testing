@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[ExportSolarSCOAJournalRollUp]
-	@finYear INT, @finPeriod INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
