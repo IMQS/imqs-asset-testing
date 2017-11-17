@@ -1,7 +1,10 @@
 CREATE PROCEDURE [dbo].[CreateSCOABatch]
-	@finYear INT, @batchSize BIGINT, @depreciation BIT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finPeriod VARCHAR(6), @batchSize BIGINT, @depreciation BIT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
+
+	DECLARE @year VARCHAR(4) = SUBSTRING(@finPeriod, 1, 4);
+	DECLARE @period VARCHAR(2) = SUBSTRING(@finPeriod, 5, 2);
 
 	-- Determine a new imqs batch id for this batch
 	EXECUTE NextValueFor 'imqsBatchId', @imqsBatchId OUTPUT;
@@ -28,7 +31,7 @@ BEGIN
 
 	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
-	DECLARE @assetRegisterTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+STR(@finYear,4) ELSE 'AssetFinFormInput' END;
+	DECLARE @assetRegisterTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+@year ELSE 'AssetFinFormInput' END;
 	DECLARE @hasDates BIT = case when @fromDate IS NULL then 0 else (case when @toDate IS NULL then 0 else 1 end) end
 	DECLARE @dynamicSql VARCHAR(MAX) =
 		'select '+case when @batchSize IS NULL then '' else 'top('+CONVERT(VARCHAR, @batchSize)+')' end +'
@@ -38,7 +41,7 @@ BEGIN
 		from
 			SCOAJournal sj  inner join '+@assetRegisterTable+' far on sj.ComponentID = far.ComponentID  '+case @depreciation when 1 then 'inner join SCOADepreciationStatus sds on sj.ID = sds.SCOAJournalID ' else 'inner join AssetFinFormRef affr on sj.Form_Reference = affr.Form_Reference ' end +'
 		where
-			sj.FinYear = '+STR(@finYear, 4)+' AND '+case @depreciation when 1 then 'sj.FinancialField = ''DepreciationFinYTD'' AND sds.Status = '+CONVERT(VARCHAR, @formLevelValue)+ '' else 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''' end +' AND sj.IMQSBatchID is null '+case @hasDates when 1 then 'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''' else '' end;
+			sj.FinYear = '+@year+' AND sj.Period = '+@period+' AND '+case @depreciation when 1 then 'sj.FinancialField = ''DepreciationFinYTD'' AND sds.Status = '+CONVERT(VARCHAR, @formLevelValue)+ '' else 'affr.Form_Level = '+CONVERT(VARCHAR, @formLevelValue)+' AND sj.FinancialField != ''DepreciationFinYTD''' end +' AND sj.IMQSBatchID is null '+case @hasDates when 1 then 'AND Date >= '''+LEFT(CONVERT(VARCHAR, @fromDate, 120), 10)+''' AND Date <= '''+LEFT(CONVERT(VARCHAR, @toDate, 120), 10)+'''' else '' end;
 	INSERT INTO @rollups EXEC(@dynamicSql)
 
 	-- We write the new IMQSBatch- and Rollup- IDs into the SCOAJournal
