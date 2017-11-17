@@ -7,7 +7,7 @@ A list of known configs that reference these scripts follows, please keep this l
 - https://github.com/IMQS/imqs-asset-register/blob/master/scoa-journal-exporter/src/test/resources/scoa-journal-exporter-test.json
 - https://github.com/IMQS/common/blob/master/testing/src/test/resources/scripting-test-config.json
 - https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-solar-gateway-service/src/test/resources/ApplicationTestConfig.json
-- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/Solar_AppTestPersistence.json
-- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/Samras_AppTestPersistence.json
-- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/V6TestConfig.json
-- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/V6IntegrationTestConfig.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/wip_config_solar.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-wip-service/src/test/resources/wip_config_samras.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/test_config.json
+- https://github.com/IMQS/imqs-wip-service/blob/master/common/imqs-inputform-service/src/test/resources/integration_test_conig.json
