@@ -1,13 +1,16 @@
 CREATE PROCEDURE [dbo].[ExportSolarSCOAJournalRollUp]
-	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finPeriod VARCHAR(6), @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @finPeriod, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
-	DECLARE @assetTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+STR(@finYear,4) ELSE 'AssetFinFormInput' END;
+	DECLARE @solarFinPeriod VARCHAR(6) = [dbo].[getSolarFinancialPeriod](@finPeriod);
+	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
+
+	DECLARE @assetTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+@finYear ELSE 'AssetFinFormInput' END;
 
 	-- We create the correlation reference as per the Solar-defined syntax format, and assign it to each line item in the SCOAJournal
 	DECLARE @updateSql VARCHAR(MAX) = 'UPDATE
@@ -26,7 +29,7 @@ BEGIN
 	-- so as to post these values back to the Financial System when we send off our rollups.
 	DECLARE @sql VARCHAR(MAX) = 'SELECT
 		sj.PostingDebitID as UNIQUE_IDENTIFIER,
-		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
+		'+@solarFinPeriod+' as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
 		sj.CorrelationRef as JOURNAL_REFERENCE,
@@ -49,7 +52,7 @@ BEGIN
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then 
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
+		AssetRegisterIconFin'+@finYear+' f ON sj.ComponentID = f.ComponentID' else
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
@@ -66,7 +69,6 @@ BEGIN
 		sj.CorrelationRef,
 		dbo.convertDateToInt(sj.EffectiveDate),
 		sj.FinancialField,
-		sj.FinYear,
 		sj.BREAKDOWN_SCOA_Item_Debit,
 		sj.BREAKDOWN_SCOA_Project,
 		sj.SCOA_Fund,
@@ -81,7 +83,7 @@ BEGIN
 
 	SELECT
 		sj.PostingCreditID as UNIQUE_IDENTIFIER,
-		STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
+		'+@solarFinPeriod+' as FINANCIAL_PERIOD,
 		''AK'' as LEDGER_TRANSACTION_TYPE,
 		''04'' as VENDOR_CODE,
 		sj.CorrelationRef as JOURNAL_REFERENCE,
@@ -104,7 +106,7 @@ BEGIN
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else
+		AssetRegisterIconFin'+@finYear+' f ON sj.ComponentID = f.ComponentID' else
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN

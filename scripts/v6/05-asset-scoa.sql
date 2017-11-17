@@ -6,6 +6,8 @@ IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepre
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 IF OBJECT_ID ('isCreditLeg') IS NOT NULL DROP FUNCTION isCreditLeg;
 IF OBJECT_ID ('isDebitLeg') IS NOT NULL DROP FUNCTION isDebitLeg;
+IF OBJECT_ID ('getSolarFinancialPeriod') IS NOT NULL DROP FUNCTION getSolarFinancialPeriod;
+
 
 CREATE TABLE [dbo].[SCOAClassification](
 	[Id] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
@@ -143,3 +145,21 @@ CREATE TABLE [SCOADepreciationStatus] (
 	[Information] TEXT NULL,
 	CONSTRAINT [PK_SCOADepreciationStatus] PRIMARY KEY (rowID)
 ) ON [PRIMARY];
+
+EXECUTE('CREATE FUNCTION getSolarFinancialPeriod(@imqsFinPeriod VARCHAR(6)) RETURNS VARCHAR(6) AS
+BEGIN
+	DECLARE @PERIODS_IN_YEAR INT = 12;
+	DECLARE @SOLAR_ROLLOVER_PERIOD INT = 7;
+
+	DECLARE @imqsYear INT = CAST(SUBSTRING(@imqsFinPeriod, 2, 3) AS INT);
+	DECLARE @imqsPeriod INT = CAST(SUBSTRING(@imqsFinPeriod, 5, 2) AS INT);
+	DECLARE @solarYear1 VARCHAR(2) = CAST(@imqsYear-1 AS VARCHAR(2));
+	DECLARE @solarYear2 VARCHAR(2) = CAST(@imqsYear AS VARCHAR(2));
+	DECLARE @diff INT = @SOLAR_ROLLOVER_PERIOD - @imqsPeriod;
+	DECLARE @solarYear VARCHAR(4) = SUBSTRING(@imqsFinPeriod, 1, 2) + CASE WHEN @diff > 0 THEN @solarYear1 ELSE @solarYear2 END;
+
+	DECLARE @solarPeriodStr VARCHAR(2) = CAST(CASE WHEN @diff > 0 THEN @PERIODS_IN_YEAR - @diff + 1 ELSE ABS(@diff)+1 END AS VARCHAR(2));
+	DECLARE @solarPeriod VARCHAR(2) = REPLACE(STR(@solarPeriodStr, 2), '' '', ''0'');
+
+	return @solarYear + @solarPeriod;
+END;');
