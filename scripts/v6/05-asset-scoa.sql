@@ -7,7 +7,7 @@ IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 IF OBJECT_ID ('isCreditLeg') IS NOT NULL DROP FUNCTION isCreditLeg;
 IF OBJECT_ID ('isDebitLeg') IS NOT NULL DROP FUNCTION isDebitLeg;
 IF OBJECT_ID ('getSolarFinancialPeriod') IS NOT NULL DROP FUNCTION getSolarFinancialPeriod;
-
+IF OBJECT_ID ('getLedgerTransactionType') IS NOT NULL DROP FUNCTION getLedgerTransactionType;
 
 CREATE TABLE [dbo].[SCOAClassification](
 	[Id] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
@@ -163,3 +163,25 @@ BEGIN
 
 	return @solarYear + @solarPeriod;
 END;');
+
+
+EXECUTE('CREATE FUNCTION getLedgerTransactionType(@financialField VARCHAR(40)) RETURNS VARCHAR(2) AS
+BEGIN
+	RETURN CASE @financialField
+    WHEN ''AdditionsFinYTD'' THEN ''AK''
+    WHEN ''DerecognitionCost'' THEN ''AM''
+    WHEN ''DerecognitionDepr'' THEN ''AR''
+    WHEN ''ImpairmentDerecog'' THEN ''AT''
+    WHEN ''ImpairmentFinYTD'' THEN ''AS''
+    WHEN ''RevImpairmentFinYTD'' THEN ''AT''
+    WHEN ''ValueChangeFinYTD'' THEN ''AP''
+    WHEN ''DepreciationFinYTD'' THEN ''AQ''
+    WHEN ''TransferCost'' THEN ''AV''
+    WHEN ''TransferDepr'' THEN ''AQ''
+    WHEN ''ImpairmentTransfer'' THEN ''AS''
+    WHEN ''RevaluationReserveFinYTD'' THEN ''AN''
+    WHEN ''RevaluationReserveFinYTDImp'' THEN ''AT''
+    WHEN ''RevaluationReserveFinYTDDepr'' THEN ''AR''
+    ELSE NULL END
+END;');
+
