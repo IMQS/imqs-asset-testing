@@ -27,7 +27,7 @@ BEGIN
 	DECLARE @sql VARCHAR(MAX) = 'SELECT
 			sj.PostingDebitID as UNIQUE_IDENTIFIER,
 			STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
-			''AK'' as LEDGER_TRANSACTION_TYPE,
+			dbo.getLedgerTransactionType(sj.FinancialField) as LEDGER_TRANSACTION_TYPE,
 			''04'' as VENDOR_CODE,
 			sj.CorrelationRef as JOURNAL_REFERENCE,
 			'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
@@ -83,7 +83,7 @@ BEGIN
 		SELECT
 			sj.PostingCreditID as UNIQUE_IDENTIFIER,
 			STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0'') as FINANCIAL_PERIOD,
-			''AK'' as LEDGER_TRANSACTION_TYPE,
+			dbo.getLedgerTransactionType(sj.FinancialField) as LEDGER_TRANSACTION_TYPE,
 			''04'' as VENDOR_CODE,
 			sj.CorrelationRef as JOURNAL_REFERENCE,
 			'+case @depreciation when 1 then '''Depreciation ''' else 'aff.Form_Desc' end +' as JOURNAL_DESCRIPTION_1,
