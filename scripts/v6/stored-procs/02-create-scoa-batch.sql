@@ -35,7 +35,7 @@ BEGIN
 	DECLARE @hasDates BIT = case when @fromDate IS NULL then 0 else (case when @toDate IS NULL then 0 else 1 end) end
 	DECLARE @dynamicSql VARCHAR(MAX) =
 		'select '+case when @batchSize IS NULL then '' else 'top('+CONVERT(VARCHAR, @batchSize)+')' end +'
-			rank() over (order by sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.BREAKDOWN_SCOA_Project, sj.BREAKDOWN_SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit, sj.BREAKDOWN_SCOA_Project_Credit, sj.BREAKDOWN_SCOA_Item_Credit, far.AssetMoveableID) as RollupID,
+			rank() over (order by sj.FinancialField, sj.SCOA_Fund, sj.SCOA_Function, sj.SCOA_Mun_Classification, sj.SCOA_Project, sj.SCOA_Costing, sj.SCOA_Region, sj.SCOA_Item_Debit, sj.BREAKDOWN_SCOA_Project, sj.BREAKDOWN_SCOA_Item_Debit, sj.SCOA_Fund_Credit, sj.SCOA_Function_Credit, sj.SCOA_Mun_Classification_Credit, sj.SCOA_Project_Credit, sj.SCOA_Costing_Credit, sj.SCOA_Region_Credit, sj.SCOA_Item_Credit, sj.BREAKDOWN_SCOA_Project_Credit, sj.BREAKDOWN_SCOA_Item_Credit, far.AssetMoveableID) as RollupID,
 			'+CONVERT(VARCHAR, @imqsBatchId)+' as IMQSBatchID,
 			sj.ID
 		from
@@ -60,6 +60,7 @@ BEGIN
 	-- We create another virtual table for determining actual posting-journal rows
 	DECLARE @postings TABLE (
 		FINANCIAL_PERIOD VARCHAR(6),
+		FINANCIAL_FIELD VARCHAR(40), 
 		CREDIT_AMOUNT NUMERIC(25,2),
 		batchRollup VARCHAR(20)
 	);
@@ -69,6 +70,7 @@ BEGIN
 	INSERT INTO @postings
 		SELECT
 			STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), ' ', '0'),
+			sj.FinancialField, 
 			0 as CREDIT_AMOUNT,
 			(REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', ''))
 		FROM
@@ -94,6 +96,7 @@ BEGIN
 
 		SELECT
 			STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), ' ', '0'),
+			sj.FinancialField, 
 			SUM(sj.Amount) as CREDIT_AMOUNT,
 			(REPLACE(STR(sj.IMQSBatchID,10), ' ', '') + '-' + REPLACE(STR(sj.RollupID,10), ' ', ''))
 		FROM
@@ -120,11 +123,12 @@ BEGIN
 	DECLARE @postingBindings TABLE (UNIQUE_IDENTIFIER BIGINT, batchRollup VARCHAR(20), CRDR VARCHAR(2));
 	INSERT INTO @postingBindings
 		SELECT
-			row_number() over (order by FINANCIAL_PERIOD) + @postingSeed,
+			row_number() over (order by FINANCIAL_PERIOD, FINANCIAL_FIELD) + @postingSeed,
 			batchRollup,
 			case CREDIT_AMOUNT when 0 then 'DR' else 'CR' end as CRDR
 		FROM
 			@postings;
+
 
 	-- Now that we have established unique ids across all posting rows, we need to persist them to our SCOAJournal.
 	-- We do so with 2 updates, one each for CR and DR
