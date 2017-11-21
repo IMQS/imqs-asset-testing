@@ -1,12 +1,14 @@
 CREATE PROCEDURE [dbo].[ExportSamrasSCOAJournalRollUp]
-	@finYear INT, @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
+	@finPeriod VARCHAR(6), @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
 
-	EXECUTE CreateSCOABatch @finYear, @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
+
+	EXECUTE CreateSCOABatch @finPeriod, @batchSize, @depreciation, NULL, NULL, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	DECLARE @sql NVARCHAR(MAX) = 'SELECT
-		sj.FinYear as N_FIN_YEAR,
+		'+@finYear+' as N_FIN_YEAR,
 		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''Version'') as C_NT_Mscoa_version,
 		(select Value from AssetPolicyGeneral where Section = ''SCOA'' and Identifier = ''MunicipalDemarcationCode'') as [C_Municipal demarcation code],
 		f.WIP_Project_ID as C_PROJECT_CODE,
@@ -46,7 +48,7 @@ BEGIN
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then 
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
+		AssetRegisterIconFin'+@finYear+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
@@ -113,7 +115,7 @@ BEGIN
 	FROM
 		SCOAJournal sj '+case @depreciation when 1 then
 	'INNER JOIN
-		AssetRegisterIconFin'+STR(@finYear,4)+' f ON sj.ComponentID = f.ComponentID' else 
+		AssetRegisterIconFin'+@finYear+' f ON sj.ComponentID = f.ComponentID' else 
 	'INNER JOIN
 		AssetFinFormInput f ON sj.Form_Reference = f.Form_Reference
 	INNER JOIN
