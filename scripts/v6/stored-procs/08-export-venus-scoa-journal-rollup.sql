@@ -1,6 +1,3 @@
-IF OBJECT_ID ('ExportVenusSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportVenusSCOAJournalRollUp;
-GO
-
 CREATE PROCEDURE [dbo].[ExportVenusSCOAJournalRollUp]
 	@finPeriod VARCHAR(6), @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
