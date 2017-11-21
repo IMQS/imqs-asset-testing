@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[ExportVenusSCOAJournalRollUp]
+CREATE PROCEDURE [dbo].[ExportBcxSCOAJournalRollUp]
 	@finPeriod VARCHAR(6), @batchSize INT, @depreciation BIT, @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
