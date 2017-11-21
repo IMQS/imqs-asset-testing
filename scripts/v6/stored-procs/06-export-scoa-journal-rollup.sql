@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
-	@finYear INT,
+	@finPeriod VARCHAR(6),
 	@depreciation BIT,
 	@FromTranDate DATE,
 	@ToTranDate DATE,
@@ -7,6 +7,8 @@ CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
 	@imqsBatchId INT OUTPUT
 AS
 BEGIN
+
+	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
 
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
