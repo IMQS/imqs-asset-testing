@@ -8,13 +8,11 @@ CREATE PROCEDURE [dbo].[ExportSCOAJournalRollUp]
 AS
 BEGIN
 
-	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
-
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch @finYear, NULL, @depreciation, @FromTranDate, @ToTranDate, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	EXECUTE CreateSCOABatch @finPeriod, NULL, @depreciation, @FromTranDate, @ToTranDate, 'NONE', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	SELECT
 		b.FinancialField,
