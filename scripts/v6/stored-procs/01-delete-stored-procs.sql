@@ -12,4 +12,4 @@ IF OBJECT_ID (N'NextValueFor', N'P') IS NOT NULL DROP PROCEDURE [NextValueFor];
 IF OBJECT_ID (N'SetFormLevelForImqsBatchId', N'P') IS NOT NULL DROP PROCEDURE [SetFormLevelForImqsBatchId];
 IF OBJECT_ID (N'SetImqsScoaBatchCommitted', N'P') IS NOT NULL DROP PROCEDURE [SetImqsScoaBatchCommitted];
 IF OBJECT_ID (N'DeleteFromScoaDepreciationStatus', N'P') IS NOT NULL DROP PROCEDURE [DeleteFromScoaDepreciationStatus];
-IF OBJECT_ID(N'[dbo].[CommitImqsScoaBatchToRegister]', N'P') IS NOT NULL DROP PROCEDURE [dbo].CommitImqsScoaBatchToRegister;
+IF OBJECT_ID(N'[dbo].[CommitDepreciationToRegister]', N'P') IS NOT NULL DROP PROCEDURE [dbo].CommitDepreciationToRegister;
