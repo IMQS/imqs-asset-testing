@@ -18,6 +18,7 @@ BEGIN
 						sj.FinancialField = ''DepreciationFinYTD'' AND
 						sj.IMQSBatchID = ' + CONVERT(VARCHAR,@IMQSBatchID);
 	SET @SJSQL = 'UPDATE ScoaJournal SET CommittedToRegister = 1 WHERE IMQSBatchID = '+CONVERT(VARCHAR,@IMQSBatchID);
+	EXEC SetFormLevelForImqsBatchId @IMQSBatchID, 3;
 	EXEC(@ARSQL);
 	EXEC(@SJSQL);
 END

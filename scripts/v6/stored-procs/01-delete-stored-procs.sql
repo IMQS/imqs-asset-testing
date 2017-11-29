@@ -9,4 +9,5 @@ IF OBJECT_ID ('ExportBcxSCOAJournalRollUp') IS NOT NULL DROP PROCEDURE ExportBcx
 IF OBJECT_ID ('UpdateSCOAJournalSCOAFileName') IS NOT NULL DROP PROCEDURE UpdateSCOAJournalSCOAFileName;
 IF OBJECT_ID (N'SetClassificationSelectable', N'P') IS NOT NULL DROP PROCEDURE [SetClassificationSelectable];
 IF OBJECT_ID (N'NextValueFor', N'P') IS NOT NULL DROP PROCEDURE [NextValueFor];
+IF OBJECT_ID (N'SetFormLevelForImqsBatchId', N'P') IS NOT NULL DROP PROCEDURE [SetFormLevelForImqsBatchId];
 IF OBJECT_ID(N'[dbo].[CommitDepreciationToRegister]', N'P') IS NOT NULL DROP PROCEDURE [dbo].CommitDepreciationToRegister;
