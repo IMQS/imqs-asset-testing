@@ -3,6 +3,7 @@ CREATE PROCEDURE [dbo].CommitDepreciationToRegister(
 )
 AS
 BEGIN
+	SET NOCOUNT ON;
 	DECLARE @SQL VARCHAR(MAX) = '';
 	DECLARE @FinYear INT;
 	DECLARE @FinRegister VARCHAR(MAX);
