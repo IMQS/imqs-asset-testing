@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].CommitDepreciationToRegister(
-@IMQSBatchID BIGINT
+	@IMQSBatchID BIGINT
 )
 AS
 BEGIN
@@ -16,8 +16,8 @@ BEGIN
 						ar.ComponentID = sj.ComponentID AND
 						sj.FinancialField = ''DepreciationFinYTD'' AND
 						sj.IMQSBatchID = ' + CONVERT(VARCHAR,@IMQSBatchID);
-	DECLARE @SJSQL VARCHAR(MAX) = 'UPDATE ScoaJournal SET CommittedToRegister = 1 WHERE IMQSBatchID = '+CONVERT(VARCHAR,@IMQSBatchID);
-	EXEC SetFormLevelForImqsBatchId @IMQSBatchID, 3;
+
 	EXEC(@ARSQL);
-	EXEC(@SJSQL);
+	EXEC DeleteFromScoaDepreciationStatus @IMQSBatchID;
+	EXEC SetImqsScoaBatchCommitted @IMQSBatchID;
 END
