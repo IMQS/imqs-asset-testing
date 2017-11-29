@@ -9,7 +9,7 @@ BEGIN
 	DECLARE @FinRegister VARCHAR(MAX);
 	SET @FinYear = (SELECT TOP 1 FinYear FROM SCOAJournal WHERE IMQSBatchID = @IMQSBatchID);
 	SET @FinRegister = 'AssetRegisterIconFin' + CAST(@FinYear AS VARCHAR(4));
-	SET @SQL = 'UPDATE ar SET
+	SET @ARSQL = 'UPDATE ar SET
 						ar.DateLastFinMonth = sj.EffectiveDate,
 						ar.DepreciationFinYTD = ar.DepreciationFinYTD - sj.Amount
 					FROM ' + @FinRegister + '  ar, SCOAJournal sj
@@ -17,5 +17,7 @@ BEGIN
 						ar.ComponentID = sj.ComponentID AND
 						sj.FinancialField = ''DepreciationFinYTD'' AND
 						sj.IMQSBatchID = ' + CONVERT(VARCHAR,@IMQSBatchID);
-	EXEC(@SQL);
+	SET @SJSQL = 'UPDATE ScoaJournal SET CommittedToRegister = 1 WHERE IMQSBatchID = '+CONVERT(VARCHAR,@IMQSBatchID);
+	EXEC(@ARSQL);
+	EXEC(@SJSQL);
 END
