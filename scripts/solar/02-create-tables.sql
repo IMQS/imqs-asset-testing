@@ -149,3 +149,17 @@ CREATE TABLE PeriodStatus (
 -- This is effectively static so I have added these here as a form of documentation
 INSERT INTO PeriodStatus ([CODE],[DESCRIPTION]) VALUES (1, 'Open');
 INSERT INTO PeriodStatus ([CODE],[DESCRIPTION]) VALUES (2, 'Partially Open');
+
+-- Source table for Items - to be returned by P_F_G_GET_SCOA_ITEM
+CREATE TABLE Item (
+			SEGMENT_ISN BIGINT, 
+			FINANCIAL_YEAR INT, 
+			SCOA_ITEM_TYPE VARCHAR(40), 
+			SCOA_ITEM_CODE VARCHAR(40), 
+			SCOA_ITEM_GUID VARCHAR(40), 
+			SCOA_SEGMENT_DESCRIPTION VARCHAR(40), 
+			SCOA_LEVEL_DESCRIPTION VARCHAR(40), 
+			SCOA_POSTING_LEVEL VARCHAR(40), 
+			ENTITY_SUB_ITEM_CODE VARCHAR(40), 
+			ENTITY_SUB_ITEM VARCHAR(40)
+);
