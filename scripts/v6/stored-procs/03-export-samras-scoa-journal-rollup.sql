@@ -54,6 +54,10 @@ BEGIN
 	INNER JOIN
 		AssetFinFormBatch b on SUBSTRING(f.Batch_Reference, 2, LEN(f.Batch_Reference)) = REPLACE(STR(b.BatchNr, 9),'' '', ''0'')'
 	end+'
+	INNER JOIN
+		SCOAClassification scItem ON sj.SCOA_Item_Debit = scItem.SCOAId
+	INNER JOIN
+		SCOAClassification scProject ON sj.SCOA_Project = scProject.SCOAId
 	WHERE
 		sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 	GROUP BY
