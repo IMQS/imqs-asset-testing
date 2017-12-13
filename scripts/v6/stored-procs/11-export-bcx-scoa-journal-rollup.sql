@@ -10,9 +10,8 @@ BEGIN
 	DECLARE @solarFinPeriod VARCHAR(6) = [dbo].[getSolarFinancialPeriod](@finPeriod);
 	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
 
-	DECLARE @assetTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+@finYear ELSE 'AssetFinFormInput' END;
-
 	-- We create the correlation reference as per the Solar-defined syntax format, and assign it to each line item in the SCOAJournal
+	DECLARE @assetTable VARCHAR(50) = CASE @depreciation WHEN 1 THEN 'AssetRegisterIconFin'+@finYear ELSE 'AssetFinFormInput' END;
 	DECLARE @updateSql VARCHAR(MAX) = 'UPDATE
 				SCOAJournal
 			SET
@@ -39,13 +38,13 @@ BEGIN
 				dbo.convertDateToInt(sj.EffectiveDate) as TRANSACTION_DATE,
 				sj.SCOA_Function as SCOA_FUNCTION_GUID,
 				sj.SCOA_Fund as SCOA_FUND_GUID,
-				sj.SCOA_Item_Debit as SCOA_ITEM_GUID,
-				sj.SCOA_Project as SCOA_PROJECT_GUID,
+				(CASE WHEN scItem.IsBreakdown = 1 THEN scItem.ParentSCOAId ELSE scItem.SCOAId END) as SCOA_ITEM_GUID,
+				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.ParentSCOAId ELSE scProject.SCOAId END) as SCOA_PROJECT_GUID,
 				sj.SCOA_Costing as SCOA_COST_GUID,
 				sj.SCOA_Region as SCOA_REGION_GUID,
 				sj.SCOA_Mun_Classification as ENTITY_COST_CENTRE,
-				sj.BREAKDOWN_SCOA_Item_Debit as ENTITY_SUB_ITEM,
-				sj.BREAKDOWN_SCOA_Project as ENTITY_PROJECT,
+				scItem.AccountNumber as ENTITY_SUB_ITEM,
+				scProject.AccountNumber as ENTITY_PROJECT,
 				SUM(sj.Amount) as DEBIT_AMOUNT,
 				0 as CREDIT_AMOUNT,
 				dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT
@@ -59,25 +58,34 @@ BEGIN
 				AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
+			INNER JOIN 
+				SCOAClassification scItem ON sj.SCOA_Item_Debit = scItem.SCOAId
+			INNER JOIN 
+				SCOAClassification scProject ON sj.SCOA_Project = scProject.SCOAId
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
 				sj.PostingDebitID,
+				sj.PostingCreditID,
 				'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr,' end +'
 				STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
 				(REPLACE(STR(sj.IMQSBatchID,10), '' '', '''') + ''-'' + REPLACE(STR(sj.RollupID,10), '' '', '''')),
 				sj.CorrelationRef,
 				dbo.convertDateToInt(sj.EffectiveDate),
 				sj.FinancialField,
-				sj.BREAKDOWN_SCOA_Item_Debit,
-				sj.BREAKDOWN_SCOA_Project,
 				sj.SCOA_Fund,
 				sj.SCOA_Function,
 				sj.SCOA_Mun_Classification,
-				sj.SCOA_Project,
 				sj.SCOA_Costing,
 				sj.SCOA_Region,
-				sj.SCOA_Item_Debit
+				scItem.ParentSCOAId,
+				scProject.ParentSCOAId,
+				scItem.SCOAId,
+				scProject.SCOAId,
+				scItem.AccountNumber,
+				scProject.AccountNumber,
+				scItem.IsBreakdown,
+				scProject.IsBreakdown
 
 			UNION
 
@@ -93,13 +101,13 @@ BEGIN
 				dbo.convertDateToInt(sj.EffectiveDate) as TRANSACTION_DATE,
 				sj.SCOA_Function_Credit as SCOA_FUNCTION_GUID,
 				sj.SCOA_Fund_Credit as SCOA_FUND_GUID,
-				sj.SCOA_Item_Credit as SCOA_ITEM_GUID,
-				sj.SCOA_Project_Credit as SCOA_PROJECT_GUID,
+				(CASE WHEN scItem.IsBreakdown = 1 THEN scItem.ParentSCOAId ELSE scItem.SCOAId END) as SCOA_ITEM_GUID,
+				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.ParentSCOAId ELSE scProject.SCOAId END) as SCOA_PROJECT_GUID,
 				sj.SCOA_Costing_Credit as SCOA_COST_GUID,
 				sj.SCOA_Region_Credit as SCOA_REGION_GUID,
 				sj.SCOA_Mun_Classification_Credit as ENTITY_COST_CENTRE,
-				sj.BREAKDOWN_SCOA_Item_Credit as ENTITY_SUB_ITEM,
-				sj.BREAKDOWN_SCOA_Project_Credit as ENTITY_PROJECT,
+				scItem.AccountNumber as ENTITY_SUB_ITEM,
+				scProject.AccountNumber as ENTITY_PROJECT,
 				0 as DEBIT_AMOUNT,
 				SUM(sj.Amount) as CREDIT_AMOUNT,
 				dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT
@@ -113,9 +121,14 @@ BEGIN
 				AssetFinFormRef affr ON sj.Form_Reference = affr.Form_Reference
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
+			INNER JOIN 
+				SCOAClassification scItem ON sj.SCOA_Item_Credit = scItem.SCOAId
+			INNER JOIN 
+				SCOAClassification scProject ON sj.SCOA_Project_Credit = scProject.SCOAId
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
+				sj.PostingDebitID,
 				sj.PostingCreditID,
 				'+case @depreciation when 1 then '' else 'aff.Form_Desc, aff.Form_Nr, ' end +'
 				STR(sj.FinYear,4) + REPLACE(STR(sj.Period, 2), '' '', ''0''),
@@ -124,14 +137,18 @@ BEGIN
 				dbo.convertDateToInt(sj.EffectiveDate),
 				sj.FinancialField,
 				sj.FinYear,
-				sj.BREAKDOWN_SCOA_Item_Credit,
-				sj.BREAKDOWN_SCOA_Project_Credit,
 				sj.SCOA_Fund_Credit,
 				sj.SCOA_Function_Credit,
 				sj.SCOA_Mun_Classification_Credit,
-				sj.SCOA_Project_Credit,
 				sj.SCOA_Costing_Credit,
 				sj.SCOA_Region_Credit,
-				sj.SCOA_Item_Credit';
+				scItem.ParentSCOAId,
+				scProject.ParentSCOAId,
+				scItem.SCOAId,
+				scProject.SCOAId,
+				scItem.AccountNumber,
+				scProject.AccountNumber,
+				scItem.IsBreakdown,
+				scProject.IsBreakdown';
 	EXEC(@sql);
 END
