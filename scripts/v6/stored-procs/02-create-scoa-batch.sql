@@ -1,7 +1,16 @@
+-- ====================================================================================================================
+-- === NB: Please keep the documentation for the CreateSCOABatch & related Export* Stored Procedures up to date at: ===
+-- ===     https://imqssoftware.atlassian.net/wiki/spaces/AMT/pages/168689760/SCOA+Journal+Rollups                  ===
+-- ====================================================================================================================
+
 CREATE PROCEDURE [dbo].[CreateSCOABatch]
 	@finPeriod VARCHAR(6), @batchSize BIGINT, @depreciation BIT, @fromDate DATE, @toDate DATE, @workflowType VARCHAR(4), @numberInputForms BIGINT OUTPUT, @imqsBatchId INT OUTPUT
 AS
 BEGIN
+
+	-- ===================================
+	-- === STEP 1: Metadata Collection ===
+	-- ===================================
 
 	DECLARE @year VARCHAR(4) = SUBSTRING(@finPeriod, 1, 4);
 	DECLARE @period VARCHAR(2) = SUBSTRING(@finPeriod, 5, 2);
@@ -18,6 +27,10 @@ BEGIN
 		SET @postingSeed = @postingCreditSeed;
 	ELSE
 		SET @postingSeed = @postingDebitSeed;
+
+	-- ===============================
+	-- === STEP 2: Journal Rollups ===
+	-- ===============================
 
 	-- We create a virtual table to allocate scoa-journal rows into batches and rollups:
 	--   > A batch (IMQSBatchID) represents all scoa-journal rows selected for this batch
@@ -56,6 +69,10 @@ BEGIN
 		SCOAJournal sj ON sj.ID = [@rollups].ID;
 
 	SET @numberInputForms = @@ROWCOUNT;
+
+	-- =============================
+	-- === STEP 3: Posting Nodes ===
+	-- =============================
 
 	-- We create another virtual table for determining actual posting-journal rows
 	DECLARE @postings TABLE (
