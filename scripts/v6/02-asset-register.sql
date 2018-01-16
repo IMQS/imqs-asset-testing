@@ -2,13 +2,13 @@
 
 IF OBJECT_ID (N'AssetRegisterView', N'V') IS NOT NULL DROP View [AssetRegisterView];
 IF OBJECT_ID (N'AssetRegisterIconMove', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconMove];
-IF OBJECT_ID (N'AssetRegisterIconFin2017', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2015];
+IF OBJECT_ID (N'AssetRegisterIconFin2015', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2015];
 IF OBJECT_ID (N'AssetRefAccounting', N'U') IS NOT NULL DROP TABLE [AssetRefAccounting];
 IF OBJECT_ID (N'AssetRefCategory', N'U') IS NOT NULL DROP TABLE [AssetRefCategory];
 IF OBJECT_ID (N'AssetRefSubCategory', N'U') IS NOT NULL DROP TABLE [AssetRefSubCategory];
 IF OBJECT_ID (N'AssetChangeIconFin', N'U') IS NOT NULL DROP TABLE [AssetChangeIconFin];
 
-CREATE TABLE [dbo].[AssetRegisterIconFin2017](
+CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[FAR_ID] [int] IDENTITY(1,1) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[ClientAssetID] [varchar](40) NULL,
@@ -222,6 +222,7 @@ ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentT
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DirtyFlag];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
+
 
 CREATE TABLE [dbo].[AssetRegisterIconMove](
 	[ComponentID] [varchar](40) NOT NULL,
