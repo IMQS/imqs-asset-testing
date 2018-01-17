@@ -19,4 +19,4 @@ SELECT
 FROM
 	[AssetRegisterIconFin2017]
 LEFT JOIN
-	AssetRegisterIconMove ON [AssetRegisterIconFin2015].ComponentID = AssetRegisterIconMove.ComponentID;
+	AssetRegisterIconMove ON [AssetRegisterIconFin2017].ComponentID = AssetRegisterIconMove.ComponentID;
