@@ -92,6 +92,6 @@ public class RunScripts {
         }
 
         final RemoteScripts remoteScripts = new RemoteScripts();
-        remoteScripts.createAndPrimeTheV6TestDb(ds, scriptFiles);
+        remoteScripts.executeScripts(ds, scriptFiles);
     }
 }

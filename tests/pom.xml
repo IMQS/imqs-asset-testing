@@ -19,6 +19,7 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -36,8 +37,7 @@
         <dependency>
             <groupId>za.co.imqs</groupId>
             <artifactId>testing</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
-            <type>jar</type>
+            <version>1.0.6-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
