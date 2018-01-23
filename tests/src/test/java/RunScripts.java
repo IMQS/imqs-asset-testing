@@ -46,7 +46,7 @@ public class RunScripts {
             "prime/10-SCOAJournal.csv",
             "prime/11-SCOAClassification.csv",
             "prime/12-SCOADepreciationStatus.csv",
-            "prime/13-AssetRegisterIconFin2015.csv",
+            "prime/14-AssetRegisterIconFin2017.csv",
 
             "prime/20-AssetFinFormBatch.csv",
             "prime/21-AssetFinFormInput.csv",

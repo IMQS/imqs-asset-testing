@@ -5,7 +5,7 @@
 
 CREATE VIEW [dbo].[AssetRegisterView] AS
 SELECT
-	[AssetRegisterIconFin2015].*,
+	[AssetRegisterIconFin2017].*,
 	AssetRegisterIconMove.Asset_Barcode_Nr,
 	AssetRegisterIconMove.Room_Barcode_Nr,
 	AssetRegisterIconMove.Room_Number,
@@ -17,6 +17,6 @@ SELECT
 	AssetRegisterIconMove.Cost_Centre,
 	AssetRegisterIconMove.Acquisition_Date
 FROM
-	[AssetRegisterIconFin2015]
+	[AssetRegisterIconFin2017]
 LEFT JOIN
-	AssetRegisterIconMove ON [AssetRegisterIconFin2015].ComponentID = AssetRegisterIconMove.ComponentID;
+	AssetRegisterIconMove ON [AssetRegisterIconFin2017].ComponentID = AssetRegisterIconMove.ComponentID;

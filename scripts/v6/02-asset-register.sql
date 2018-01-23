@@ -2,13 +2,13 @@
 
 IF OBJECT_ID (N'AssetRegisterView', N'V') IS NOT NULL DROP View [AssetRegisterView];
 IF OBJECT_ID (N'AssetRegisterIconMove', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconMove];
-IF OBJECT_ID (N'AssetRegisterIconFin2015', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2015];
+IF OBJECT_ID (N'AssetRegisterIconFin2017', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2017];
 IF OBJECT_ID (N'AssetRefAccounting', N'U') IS NOT NULL DROP TABLE [AssetRefAccounting];
 IF OBJECT_ID (N'AssetRefCategory', N'U') IS NOT NULL DROP TABLE [AssetRefCategory];
 IF OBJECT_ID (N'AssetRefSubCategory', N'U') IS NOT NULL DROP TABLE [AssetRefSubCategory];
 IF OBJECT_ID (N'AssetChangeIconFin', N'U') IS NOT NULL DROP TABLE [AssetChangeIconFin];
 
-CREATE TABLE [dbo].[AssetRegisterIconFin2015](
+CREATE TABLE [dbo].[AssetRegisterIconFin2017](
 	[FAR_ID] [int] IDENTITY(1,1) NOT NULL,
 	[ComponentID] [varchar](40) NOT NULL,
 	[ClientAssetID] [varchar](40) NULL,
@@ -173,55 +173,55 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[UpgradeDate] [datetime] NULL,
 	[LastMaintenanceDate] [datetime] NULL
 ) ON [PRIMARY];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [BOQPath] [varchar](40) NULL;
-ALTER TABLE [dbo].[AssetRegistericonFin2015] ADD [ReplacedComponents] [varchar](512) NULL;
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationBudgetNr] [varchar](40) NULL;
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationItemBreakdown_Debit] [varchar](40) NULL
- CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD [BOQPath] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetRegistericonFin2017] ADD [ReplacedComponents] [varchar](512) NULL;
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD [DepreciationBudgetNr] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD [DepreciationItemBreakdown_Debit] [varchar](40) NULL
+ CONSTRAINT [PK_AssetRegisterIconFin2017] PRIMARY KEY CLUSTERED
 (
 	[ComponentID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 70) ON [PRIMARY];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [Extent];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [Extent_Unit_Rate];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [FairValue];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [CostOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [CarryingValueOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  CONSTRAINT [DF_AssetRegisterIconFin2015_RespDepartmentID]  DEFAULT ('Not Specified') FOR [RespDepartmentID];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [InsuranceCover];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DebtSecurityApplicable];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [AdditionsOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [AdditionsFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ResidualPct];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DepreciationOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DepreciationFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ProvisionOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ProvisionAdjust];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DisposalProceedCost];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DerecognitionCost];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DerecognitionDepr];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [TransferCost];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [TransferDepr];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [FairValueLessCostSell];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ValueInUse];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentAll];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevImpairmentFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentDerecog];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevImpairmentAll];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [CRC];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluedAmount];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ValueChangeFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveOpening];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTD];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ForecastReplValue];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [MaintenanceExpenditure];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT (getdate()) FOR [DateCreated];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DirtyFlag];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [Extent];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [Extent_Unit_Rate];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  CONSTRAINT [DF_AssetRegisterIconFin2017_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  CONSTRAINT [DF_AssetRegisterIconFin2017_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [FairValue];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [CostOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [CarryingValueOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  CONSTRAINT [DF_AssetRegisterIconFin2017_RespDepartmentID]  DEFAULT ('Not Specified') FOR [RespDepartmentID];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [InsuranceCover];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DebtSecurityApplicable];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [AdditionsOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [AdditionsFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ResidualPct];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DepreciationOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DepreciationFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ProvisionOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ProvisionAdjust];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DisposalProceedCost];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DerecognitionCost];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DerecognitionDepr];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [TransferCost];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [TransferDepr];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [FairValueLessCostSell];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ValueInUse];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ImpairmentAll];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ImpairmentFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevImpairmentFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ImpairmentDerecog];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevImpairmentAll];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [CRC];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevaluedAmount];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ValueChangeFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevaluationReserveOpening];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTD];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ForecastReplValue];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [MaintenanceExpenditure];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT (getdate()) FOR [DateCreated];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [DirtyFlag];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
+ALTER TABLE [dbo].[AssetRegisterIconFin2017] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
 
 
 CREATE TABLE [dbo].[AssetRegisterIconMove](
