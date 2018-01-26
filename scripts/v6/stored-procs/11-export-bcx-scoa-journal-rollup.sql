@@ -5,7 +5,10 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	EXECUTE CreateSCOABatch @finPeriod, @batchSize, @depreciation, NULL, NULL, 'PUSH', @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
+	DECLARE @workflowType VARCHAR(4);
+	EXECUTE GetFinancialSystemWorkflowType @workflowType OUTPUT
+	
+	EXECUTE CreateSCOABatch @finPeriod, @batchSize, @depreciation, NULL, NULL, @workflowType, @numberInputForms OUTPUT, @imqsBatchId OUTPUT;
 
 	DECLARE @solarFinPeriod VARCHAR(6) = [dbo].[getSolarFinancialPeriod](@finPeriod);
 	DECLARE @finYear VARCHAR(4)= SUBSTRING(@finPeriod, 1, 4);
@@ -59,9 +62,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Debit = scItem.SCOAId
+				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Debit = scItem.AccountNumber
 			LEFT JOIN 
-				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project = scProject.SCOAId
+				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project = scProject.AccountNumber
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
@@ -122,9 +125,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Credit = scItem.SCOAId
+				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Credit = scItem.AccountNumber
 			LEFT JOIN 
-				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project_Credit = scProject.SCOAId
+				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project_Credit = scProject.AccountNumber
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
