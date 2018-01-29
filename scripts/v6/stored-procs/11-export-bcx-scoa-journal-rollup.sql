@@ -62,9 +62,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Debit = scItem.AccountNumber
-			LEFT JOIN 
-				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project = scProject.AccountNumber
+				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Debit = scItem.AccountNumber AND scItem.SCOASegment = ''''ITEM'''')
+			LEFT JOIN
+				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project = scProject.AccountNumber AND scProject.SCOASegment = ''''PROJECT'''')
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
@@ -125,9 +125,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON sj.BREAKDOWN_SCOA_Item_Credit = scItem.AccountNumber
-			LEFT JOIN 
-				SCOAClassification scProject ON sj.BREAKDOWN_SCOA_Project_Credit = scProject.AccountNumber
+				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Credit = scItem.AccountNumber AND scItem.SCOASegment = ''''ITEM'''')
+			LEFT JOIN
+				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project_Credit = scProject.AccountNumber AND scProject.SCOASegment = ''''PROJECT'''')
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
