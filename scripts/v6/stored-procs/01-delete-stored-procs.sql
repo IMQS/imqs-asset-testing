@@ -14,3 +14,4 @@ IF OBJECT_ID (N'SetImqsScoaBatchCommitted', N'P') IS NOT NULL DROP PROCEDURE [Se
 IF OBJECT_ID (N'DeleteFromScoaDepreciationStatus', N'P') IS NOT NULL DROP PROCEDURE [DeleteFromScoaDepreciationStatus];
 IF OBJECT_ID(N'[dbo].[CommitDepreciationToRegister]', N'P') IS NOT NULL DROP PROCEDURE [dbo].CommitDepreciationToRegister;
 IF OBJECT_ID (N'CommitScoaImqsBatchToRegister', N'P') IS NOT NULL DROP PROCEDURE [CommitScoaImqsBatchToRegister];
+IF OBJECT_ID (N'GetFinancialSystemWorkflowType', N'P') IS NOT NULL DROP PROCEDURE [GetFinancialSystemWorkflowType];
