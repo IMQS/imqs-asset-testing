@@ -3,6 +3,7 @@
 IF OBJECT_ID (N'SCOAClassification', N'U') IS NOT NULL DROP TABLE [SCOAClassification];
 IF OBJECT_ID (N'SCOAJournal', N'U') IS NOT NULL DROP TABLE [SCOAJournal];
 IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepreciationStatus];
+IF OBJECT_ID (N'SCOABudget', N'U') IS NOT NULL DROP TABLE [SCOABudget];
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 IF OBJECT_ID ('isCreditLeg') IS NOT NULL DROP FUNCTION isCreditLeg;
 IF OBJECT_ID ('isDebitLeg') IS NOT NULL DROP FUNCTION isDebitLeg;
@@ -184,4 +185,23 @@ BEGIN
     WHEN ''RevaluationReserveFinYTDDepr'' THEN ''AR''
     ELSE NULL END
 END;');
+
+CREATE TABLE [dbo].[SCOABudget](
+	[BudgetNr] [varchar](40) NOT NULL,
+	[Description] [varchar](80) NULL,
+	[SCOA_Costing] [varchar](40) NULL,
+	[SCOA_Function] [varchar](40) NULL,
+	[SCOA_Fund] [varchar](40) NULL,
+	[SCOA_Item] [varchar](40) NULL,
+	[SCOA_Mun_Classification] [varchar](40) NULL,
+	[SCOA_Project] [varchar](40) NULL,
+	[SCOA_Region] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Item] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Project] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Costing] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Function] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Fund] [varchar](40) NULL,
+	[BREAKDOWN_SCOA_Region] [varchar](40) NULL,
+ CONSTRAINT [PK_SCOABudget] PRIMARY KEY CLUSTERED([BudgetNr] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY];
 

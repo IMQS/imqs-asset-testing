@@ -20,5 +20,3 @@ JOIN
 	AssetFinFormRef on AssetFinFormInput.Form_Reference = AssetFinFormRef.Form_Reference
 JOIN
 	AssetFinForm on AssetFinForm.Form_Nr = AssetFinFormRef.Form_Nr
-JOIN
-	AssetFinFormState on AssetFinFormState.Form_Level = AssetFinFormRef.Form_Level AND AssetFinFormState.Workflow = 'GENERIC';

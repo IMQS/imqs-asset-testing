@@ -47,6 +47,8 @@ public class RunScripts {
             "prime/11-SCOAClassification.csv",
             "prime/12-SCOADepreciationStatus.csv",
             "prime/13-AssetRegisterIconFin2015.csv",
+            "prime/15-Breakdowns-SCOAClassification.csv",
+            "prime/16-SCOABudget.csv",
 
             "prime/20-AssetFinFormBatch.csv",
             "prime/21-AssetFinFormInput.csv",
@@ -61,7 +63,17 @@ public class RunScripts {
             "stored-procs/07-export-solar-scoa-journal-rollup.sql",
             "stored-procs/08-export-venus-scoa-journal-rollup.sql",
             "stored-procs/09-update-scoa-journal-scoa-file-name.sql",
+            "stored-procs/10-set-classification-selectable.sql",
+            "stored-procs/11-export-bcx-scoa-journal-rollup.sql",
+            "stored-procs/12-set-form-level-for-imqs-batch-id.sql",
+            "stored-procs/13-delete-from-scoa-depreciation-status.sql",
+            "stored-procs/14-set-imqs-scoa-batch-committed.sql",
+            "stored-procs/15-next-value-for.sql",
+            "stored-procs/16-CommitDepreciationToRegister.sql",
+            "stored-procs/17-commit-scoa-imqs-batch-to-register.sql",
+            "stored-procs/18-get-financial-system-workflow-type.sql",
 
+            "views/00-delete-views.sql",
             "views/01-asset-register-view.sql",
             "views/02-input-forms.sql"
     );

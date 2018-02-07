@@ -92,7 +92,6 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[CashGenerating] [varchar](4) NULL,
 	[DisposalMethodID] [varchar](4) NULL,
 	[DisposalProceedCost] [numeric](18, 2) NOT NULL,
-	[DisposalProfitLoss]  AS (([DerecognitionDepr]+[DerecognitionCost])+[DisposalProceedCost]),
 	[DerecognitionDate] [datetime] NULL,
 	[DerecognitionCost] [numeric](18, 2) NOT NULL,
 	[DerecognitionDepr] [numeric](18, 2) NOT NULL,
@@ -153,13 +152,6 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[TransferredFrom] [varchar](40) NULL,
 	[TransferredTo] [varchar](40) NULL,
 	[ImpairmentTransfer] [numeric](18, 2) NOT NULL,
-	[SCOA_Fund] [varchar](40) NULL,
-	[SCOA_Function] [varchar](40) NULL,
-	[SCOA_Mun_Classification] [varchar](40) NULL,
-	[SCOA_Project] [varchar](40) NULL,
-	[SCOA_Costing] [varchar](40) NULL,
-	[SCOA_Region] [varchar](40) NULL,
-	[SCOA_ItemAsset] [varchar](40) NULL,
 	[DirtyFlag] [tinyint] NULL,
 	[UseStatusID] [varchar](4) NULL,
 	[MeasurementModelID] [varchar](4) NULL,
@@ -171,13 +163,15 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[VerificationLastDate] [datetime] NULL,
 	[VerificationNextDate] [datetime] NULL,
 	[UpgradeDate] [datetime] NULL,
-	[LastMaintenanceDate] [datetime] NULL
+	[LastMaintenanceDate] [datetime] NULL,
+	[BOQPath] [varchar](40) NULL,
+	[DepreciationBudgetNr_Debit] [varchar](40) NULL,
+	[DepreciationBudgetNr_Credit] [varchar](40) NULL,
+	[ReplacedComponents] [varchar](512) NULL,
+	[SCOAAssignmentID] [int] NULL,
+	[DisposalProfitLoss]  AS ([DisposalProceedCost]+(([DerecognitionCost]+[DerecognitionDepr])+[ImpairmentDerecog]))
 ) ON [PRIMARY];
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [BOQPath] [varchar](40) NULL;
-ALTER TABLE [dbo].[AssetRegistericonFin2015] ADD [ReplacedComponents] [varchar](512) NULL;
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationBudgetNr] [varchar](40) NULL;
-ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD [DepreciationItemBreakdown_Debit] [varchar](40) NULL
- CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
 (
 	[ComponentID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 70) ON [PRIMARY];

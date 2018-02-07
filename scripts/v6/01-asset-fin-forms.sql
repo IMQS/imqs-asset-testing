@@ -20,7 +20,6 @@ ALTER TABLE [dbo].[AssetFinFormBatch] ADD [Ext_Batch_Reference] [varchar](40) NU
 ALTER TABLE [dbo].[AssetFinFormBatch] ADD  CONSTRAINT [DF_AssetFinFormBatch_DT_CREATED]  DEFAULT (getdate()) FOR [DT_CREATED];
 CREATE UNIQUE NONCLUSTERED INDEX [Idx_Ext_Batch_Reference] ON  [dbo].[AssetFinFormBatch] ([Ext_Batch_Reference]);
 
-
 CREATE TABLE [dbo].[AssetFinFormInput](
 	[Batch_Reference] [varchar](15) NOT NULL,
 	[Form_Reference] [int] IDENTITY(1,1) NOT NULL,
@@ -171,57 +170,40 @@ CREATE TABLE [dbo].[AssetFinFormInput](
 	[ValueInUse] [numeric](18, 2) NULL,
 	[ImpairmentDate] [datetime] NULL,
 	[RevImpairmentDate] [datetime] NULL,
-	[ImpairmentReason] [varchar](4) NULL,
-	[RevImpairmentReason] [varchar](4) NULL,
-	[TransferCost] [numeric](18, 2) NULL,
-	[TransferDepr] [numeric](18, 2) NULL,
-	[TransferDate] [datetime] NULL,
-	[ImpairmentClose] [numeric](18, 2) NULL,
-	[RevaluationReserveOpening] [numeric](18, 2) NOT NULL,
-	[RevaluationReserveFinYTD] [numeric](18, 2) NOT NULL,
-	[RevaluationReserveClosing] [numeric](18, 2) NOT NULL,
-	[RefSuburbsCode] [varchar](20) NULL,
-	[CaseNumber] [varchar](40) NULL,
-	[InsuranceClaimed] [bit] NULL,
-	[InsuranceAmount] [numeric](18, 2) NULL,
-	[TransferredFrom] [varchar](40) NULL,
-	[TransferredTo] [varchar](40) NULL,
-	[EquipmentNr] [varchar](18) NULL,
-	[ImpairmentTransfer] [numeric](18, 2) NOT NULL,
-	[SCOA_Fund] [varchar](40) NULL,
-	[SCOA_Function] [varchar](40) NULL,
-	[SCOA_Mun_Classification] [varchar](40) NULL,
-	[SCOA_Project] [varchar](40) NULL,
-	[SCOA_Costing] [varchar](40) NULL,
-	[SCOA_Region] [varchar](40) NULL,
-	[SCOA_ItemAsset] [varchar](40) NULL,
-	[SCOA_Item_Depreciation_Debit] [varchar](40) NULL,
-	[SCOA_Item_Depreciation_Credit] [varchar](40) NULL,
-	[MeasurementModelID] [varchar](4) NULL,
-	[UseStatusID] [varchar](4) NULL,
-	[FinHierarchyPath] [varchar](100) NULL,
-	[RevaluationReserveFinYTDImp] [numeric](18, 2) NOT NULL,
-	[RevaluationReserveFinYTDDepr] [numeric](18, 2) NOT NULL,
-	[VerificationLastDate] [datetime] NULL,
-	[VerificationNextDate] [datetime] NULL,
-	[FinYear] [int] NULL,
-	[UpgradeDate] [datetime] NULL,
-	[BudgetNr] [varchar](40) NULL,
-	[LastMaintenanceDate] [datetime] NULL,
-  [ReplacedComponents] [varchar](512) NULL,
-  [BOQPath] [varchar](40) NULL,
-	CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED([Form_Reference] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED ([Form_Reference] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_RespDepartmentID]  DEFAULT ('Not Specified') FOR [RespDepartmentID];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveOpening];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTD];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveClosing];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
-ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
-
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentReason] [varchar](4) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevImpairmentReason] [varchar](4) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [TransferCost] [numeric](18, 2) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [TransferDepr] [numeric](18, 2) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [TransferDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveOpening] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveFinYTD] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveClosing] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RefSuburbsCode] [varchar](20) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [CaseNumber] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [InsuranceClaimed] [bit] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [InsuranceAmount] [numeric](18, 2) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [TransferredFrom] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [TransferredTo] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [EquipmentNr] [varchar](18) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentTransfer] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [SCOA_ItemAsset] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [MeasurementModelID] [varchar](4) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [UseStatusID] [varchar](4) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [FinHierarchyPath] [varchar](100) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveFinYTDImp] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [RevaluationReserveFinYTDDepr] [numeric](18, 2) NOT NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [VerificationLastDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [VerificationNextDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [FinYear] [int] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [BudgetNr] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [BOQPath] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [DepreciationBudgetNr] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ReplacedComponents] [varchar](512) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [UpgradeDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [LastMaintenanceDate] [datetime] NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentClose] [numeric](18, 2) NULL;
 
 CREATE TABLE [dbo].[AssetFinFormRef](
 	[Form_Reference] [int] NOT NULL,
