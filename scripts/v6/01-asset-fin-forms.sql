@@ -205,6 +205,16 @@ ALTER TABLE [dbo].[AssetFinFormInput] ADD [UpgradeDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [LastMaintenanceDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentClose] [numeric](18, 2) NULL;
 
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_RespDepartmentID]  DEFAULT ('Not Specified') FOR [RespDepartmentID];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveOpening];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTD];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveClosing];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [ImpairmentTransfer];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
+ALTER TABLE [dbo].[AssetFinFormInput] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
+
 CREATE TABLE [dbo].[AssetFinFormRef](
 	[Form_Reference] [int] NOT NULL,
 	[Form_Nr] [int] NULL,
