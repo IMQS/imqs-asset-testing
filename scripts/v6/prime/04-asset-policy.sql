@@ -7,3 +7,6 @@ INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description
 
 -- Integration config options
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'IntegratedFinSys', 'PUSH', NULL, NULL, GETDATE());
+
+-- General options
+INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'Useful Life Measure', 'Months', NULL, NULL, GETDATE());
