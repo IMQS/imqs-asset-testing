@@ -1,8 +1,20 @@
 -- Various tables used to maintain metadata, or manage components within th eWIP or AR.
 
+IF OBJECT_ID (N'AssetDBVersion', N'U') IS NOT NULL DROP TABLE [AssetDBVersion];
 IF OBJECT_ID (N'AssetRefCounter', N'U') IS NOT NULL DROP TABLE [AssetRefCounter];
 IF OBJECT_ID (N'AssetFinYear', N'U') IS NOT NULL DROP TABLE [AssetFinYear];
 
+CREATE TABLE [dbo].[AssetDBVersion](
+	[DBVersionNr] [varchar](15) NOT NULL,
+	[ARRevision] [int] NOT NULL,
+	[LastUpdated] [datetime] NOT NULL,
+	[LastScriptName] [varchar](100) NULL,
+ CONSTRAINT [PK_AssetDBVersion] PRIMARY KEY CLUSTERED
+(
+	[DBVersionNr] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
+) ON [PRIMARY];
+INSERT INTO AssetDBVersion (DBVersionNr, ARRevision, LastUpdated) VALUES ('6.23.0.0', '62300', GetDate());
 
 CREATE TABLE [dbo].[AssetRefCounter](
 	[counter_name] [varchar](30) NOT NULL,
