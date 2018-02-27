@@ -15,3 +15,4 @@ IF OBJECT_ID (N'DeleteFromScoaDepreciationStatus', N'P') IS NOT NULL DROP PROCED
 IF OBJECT_ID(N'[dbo].[CommitDepreciationToRegister]', N'P') IS NOT NULL DROP PROCEDURE [dbo].CommitDepreciationToRegister;
 IF OBJECT_ID (N'CommitScoaImqsBatchToRegister', N'P') IS NOT NULL DROP PROCEDURE [CommitScoaImqsBatchToRegister];
 IF OBJECT_ID (N'GetFinancialSystemWorkflowType', N'P') IS NOT NULL DROP PROCEDURE [GetFinancialSystemWorkflowType];
+IF OBJECT_ID (N'SetValueFor', N'P') IS NOT NULL DROP PROCEDURE [SetValueFor];

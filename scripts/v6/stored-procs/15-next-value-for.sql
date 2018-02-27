@@ -7,3 +7,4 @@ BEGIN
 		where counter_name = @assetRefCounter;
 	SET @newValue = (select counter_current_id from AssetRefCounter where counter_name = @assetRefCounter)
 END;
+

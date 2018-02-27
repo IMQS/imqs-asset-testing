@@ -20,13 +20,7 @@ BEGIN
 
 	-- Determine the new current postingID. PostingIDs are created to specify uniquness across both debit & credit journal posting rows, that we post to the financial system.
 	-- We save these values (PostingCreditID & PostingDebitID) in all SCOAJournal rows that make up a rolled up posting row
-	DECLARE @postingCreditSeed BIGINT = (select case when max(PostingCreditID) is NULL then 0 else max(PostingCreditID) end from SCOAJournal);
-	DECLARE @postingDebitSeed BIGINT = (select case when max(PostingDebitID) is NULL then 0 else max(PostingDebitID) end from SCOAJournal);
-	DECLARE @postingSeed BIGINT
-	IF (@postingCreditSeed > @postingDebitSeed)
-		SET @postingSeed = @postingCreditSeed;
-	ELSE
-		SET @postingSeed = @postingDebitSeed;
+	DECLARE @postingSeed BIGINT = (select counter_current_id from AssetRefCounter where counter_name = 'scoaPostingId');
 
 	-- ===============================
 	-- === STEP 2: Journal Rollups ===
@@ -148,7 +142,8 @@ BEGIN
 			case CREDIT_AMOUNT when 0 then 'DR' else 'CR' end as CRDR
 		FROM
 			@postings;
-
+	SET @postingSeed = (select MAX(UNIQUE_IDENTIFIER) from @postingBindings);
+	EXECUTE SetValueFor 'scoaPostingId', @postingSeed;
 
 	-- Now that we have established unique ids across all posting rows, we need to persist them to our SCOAJournal.
 	-- We do so with 2 updates, one each for CR and DR
