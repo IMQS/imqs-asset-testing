@@ -10,4 +10,4 @@ INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description
 
 -- General options
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'Useful Life Measure', 'Months', NULL, NULL, GETDATE());
-INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'vatRate', '14.0', NULL, NULL, GETDATE());
+INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'VATRate', '14.0', NULL, NULL, GETDATE());
