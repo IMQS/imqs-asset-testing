@@ -6,11 +6,11 @@ BEGIN
 
 	IF @workflowType IS NULL OR LEN(RTRIM(LTRIM(@workflowType))) = 0
 	BEGIN
-	  THROW 18, 'IntegratedFinSys value in AssetPolicyGeneral cannot be NULL or blank', 1;
+	   RAISERROR('IntegratedFinSys value in AssetPolicyGeneral cannot be NULL or blank', 1, 18);
 	END
 
 	IF @workflowType NOT IN ('NONE', 'PUSH', 'PULL')
 	BEGIN
-	  THROW 18, 'Invalid IntegratedFinSys value. Correct values: NONE, PUSH OR PULL', 1;
+	  RAISERROR('Invalid IntegratedFinSys value. Correct values: NONE, PUSH OR PULL', 1, 18);
 	END
 END;

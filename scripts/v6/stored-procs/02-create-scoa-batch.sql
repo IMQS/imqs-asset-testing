@@ -42,7 +42,8 @@ BEGIN
 	IF @workflowType = 'NONE' SET @formLevelValue = @COMITTED
 	ELSE IF @workflowType = 'PULL' SET @formLevelValue = @PENDING_AUTHORISATION
 	ELSE IF @workflowType = 'PUSH' SET @formLevelValue = @PENDING_AUTHORISATION
-	ELSE THROW 18, 'Invalid IntegratedFinSys value. Correct values: NONE, PUSH OR PULL', 1;
+	ELSE RAISERROR('Invalid IntegratedFinSys value. Correct values: NONE, PUSH OR PULL', 1, 18);
+               
 
 	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
