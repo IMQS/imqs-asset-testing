@@ -33,11 +33,17 @@ BEGIN
 
 	-- The workflowType indicates what type of a financial system we're integrating with, and thus the Form_Level (i.e. form status)
 	-- at which we must create SCOA rollups. We use this determined form level value to select the appropriate SCOAJournal entries to process
+	-- The integration method determines at what point we commit to the register. For NONE, we commit immediately and so have to roll up already 
+	-- comitted journals
+	DECLARE @COMITTED INT = 3;
+	DECLARE @PENDING_AUTHORISATION INT = 4;
+
 	DECLARE @formLevelValue INT;
-	IF @workflowType = 'NONE' SET @formLevelValue = 3
-	ELSE IF @depreciation = 1 SET @formLevelValue = 4
-	ELSE IF @workflowType = 'PULL' SET @formLevelValue = 3
-	ELSE SET @formLevelValue = 4;
+	IF @workflowType = 'NONE' SET @formLevelValue = @COMITTED
+	ELSE IF @workflowType = 'PULL' SET @formLevelValue = @PENDING_AUTHORISATION
+	ELSE IF @workflowType = 'PUSH' SET @formLevelValue = @PENDING_AUTHORISATION
+	ELSE RAISERROR('Invalid IntegratedFinSys value. Correct values: NONE, PUSH OR PULL', 1, 18);
+               
 
 	-- From the batch rows in the SCOAJournal, we create a @rollups virtual table, and allocate each
 	-- batch row with a rollup id (using the rank() windowed function), grouped across each separate rollup value
