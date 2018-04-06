@@ -58,7 +58,6 @@ public class RunScripts {
             "stored-procs/02-create-scoa-batch.sql",
             "stored-procs/03-export-samras-scoa-journal-rollup.sql",
             "stored-procs/04-export-samras-scoa-master-data-for-batch.sql",
-            "stored-procs/05-export-scoa-journal-no-rollup.sql",
             "stored-procs/06-export-scoa-journal-rollup.sql",
             "stored-procs/07-export-solar-scoa-journal-rollup.sql",
             "stored-procs/08-export-venus-scoa-journal-rollup.sql",
