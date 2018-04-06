@@ -125,20 +125,6 @@ BEGIN
 	RETURN CONVERT(INT, REPLACE(STR(YEAR(@date),4), '' '', ''0'')+REPLACE(STR(MONTH(@date),2), '' '', ''0'')+REPLACE(STR(DAY(@date),2), '' '', ''0''));
 END');
 
-EXECUTE('CREATE FUNCTION isCreditLeg(@formNr INT) RETURNS INT as
-BEGIN
-	RETURN CASE @formNr
-	WHEN 5 THEN 1
-	WHEN 7 THEN 1
-	WHEN 11 THEN 1
-  ELSE 0 END
-END;');
-
-EXECUTE('CREATE FUNCTION isDebitLeg(@formNr INT) RETURNS INT as
-BEGIN
-	RETURN IIF(dbo.isCreditLeg(@formNr) = 1, 0, 1);
-END;');
-
 CREATE TABLE [SCOADepreciationStatus] (
 	[RowID] [BIGINT] NOT NULL IDENTITY(1,1),
 	[SCOAJournalID] [BIGINT] NOT NULL,
