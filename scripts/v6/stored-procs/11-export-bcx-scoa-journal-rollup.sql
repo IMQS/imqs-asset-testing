@@ -50,7 +50,7 @@ BEGIN
 				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.AccountNumber ELSE '''' END) as ENTITY_PROJECT,
 				SUM(sj.Amount) as DEBIT_AMOUNT,
 				0 as CREDIT_AMOUNT,
-				dbo.isCreditLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT
+				CASE WHEN (select BudgetLeg from SCOABudgetLeg where FinancialField = sj.FinancialField) = ''CR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
 			FROM
 				SCOAJournal sj '+case @depreciation when 1 then
 			'INNER JOIN
@@ -62,9 +62,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Debit = scItem.AccountNumber AND scItem.SCOASegment = ''ITEM'')
+				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Debit = scItem.AccountNumber AND scItem.SCOASegment = ''ITEM'') OR sj.SCOA_Item_Debit = scItem.SCOAId
 			LEFT JOIN
-				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project = scProject.AccountNumber AND scProject.SCOASegment = ''PROJECT'')
+				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project = scProject.AccountNumber AND scProject.SCOASegment = ''PROJECT'') OR sj.SCOA_Project = scItem.SCOAId
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
@@ -113,7 +113,7 @@ BEGIN
 				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.AccountNumber ELSE '''' END) as ENTITY_PROJECT,
 				0 as DEBIT_AMOUNT,
 				SUM(sj.Amount) as CREDIT_AMOUNT,
-				dbo.isDebitLeg('+case @depreciation when 1 then '9' else 'aff.Form_Nr' end +') as REPLACE_WITH_DEFAULT
+				CASE WHEN (select BudgetLeg from SCOABudgetLeg where FinancialField = sj.FinancialField) = ''DR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
 			FROM
 				SCOAJournal sj '+case @depreciation when 1 then
 			'INNER JOIN
@@ -125,9 +125,9 @@ BEGIN
 			INNER JOIN
 				AssetFinForm aff ON affr.Form_Nr = aff.Form_Nr' end +'
 			LEFT JOIN 
-				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Credit = scItem.AccountNumber AND scItem.SCOASegment = ''ITEM'')
+				SCOAClassification scItem ON (sj.BREAKDOWN_SCOA_Item_Credit = scItem.AccountNumber AND scItem.SCOASegment = ''ITEM'') OR sj.SCOA_Item_Credit = scItem.SCOAId
 			LEFT JOIN
-				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project_Credit = scProject.AccountNumber AND scProject.SCOASegment = ''PROJECT'')
+				SCOAClassification scProject ON (sj.BREAKDOWN_SCOA_Project_Credit = scProject.AccountNumber AND scProject.SCOASegment = ''PROJECT'') OR sj.SCOA_Project_Credit = scItem.SCOAId
 			WHERE
 				sj.IMQSBatchID = '+CONVERT(VARCHAR, @imqsBatchId)+'
 			GROUP BY
