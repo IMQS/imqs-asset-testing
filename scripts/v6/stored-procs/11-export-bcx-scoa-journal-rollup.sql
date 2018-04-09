@@ -50,7 +50,7 @@ BEGIN
 				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.AccountNumber ELSE '''' END) as ENTITY_PROJECT,
 				SUM(sj.Amount) as DEBIT_AMOUNT,
 				0 as CREDIT_AMOUNT,
-				CASE WHEN (select BudgetLeg from SCOABudgetLeg where FinancialField = sj.FinancialField) = ''CR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
+				CASE WHEN (select BudgetLeg from SCOABudgetLeg sbl join AssetFinForm aff on sbl.FinFormNr = aff.Form_Nr where sbl.FinancialField = sj.FinancialField and sbl.FinFormNr = aff.Form_Nr) = ''CR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
 			FROM
 				SCOAJournal sj '+case @depreciation when 1 then
 			'INNER JOIN
@@ -113,7 +113,7 @@ BEGIN
 				(CASE WHEN scProject.IsBreakdown = 1 THEN scProject.AccountNumber ELSE '''' END) as ENTITY_PROJECT,
 				0 as DEBIT_AMOUNT,
 				SUM(sj.Amount) as CREDIT_AMOUNT,
-				CASE WHEN (select BudgetLeg from SCOABudgetLeg where FinancialField = sj.FinancialField) = ''DR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
+				CASE WHEN (select BudgetLeg from SCOABudgetLeg sbl join AssetFinForm aff on sbl.FinFormNr = aff.Form_Nr where sbl.FinancialField = sj.FinancialField and sbl.FinFormNr = aff.Form_Nr) = ''DR'' then 1 else 0 END as REPLACE_WITH_DEFAULT
 			FROM
 				SCOAJournal sj '+case @depreciation when 1 then
 			'INNER JOIN
