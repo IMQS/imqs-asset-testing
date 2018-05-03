@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[AssetDBVersion](
 	[DBVersionNr] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
 ) ON [PRIMARY];
-INSERT INTO AssetDBVersion (DBVersionNr, ARRevision, LastUpdated) VALUES ('6.23.0.0', '62300', GetDate());
+INSERT INTO AssetDBVersion (DBVersionNr, ARRevision, LastUpdated) VALUES ('6.27.0.0', '62700', GetDate());
 
 CREATE TABLE [dbo].[AssetRefCounter](
 	[counter_name] [varchar](30) NOT NULL,
