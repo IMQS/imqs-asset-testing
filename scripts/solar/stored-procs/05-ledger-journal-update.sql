@@ -11,7 +11,7 @@ BEGIN
 	DECLARE @currDateTime datetime2 = (SELECT GETDATE())
 
 	INSERT INTO LedgerJournalSummary(BATCH_NUMBER,VENDOR_CODE,BATCH_DATE,RECORDS_RECEIVED,RECORDS_VALIDATED,RECORDS_FAILED,RECORDS_UNAUTHORISED,RECORDS_AUTHORISED,RECORDS_AUTHORISATION_FAILED)
-	VALUES (@intBatchNumber, '04', @currDateTime, @intRecordsReceived, @intRecordsReceived, 0, 0, 0, 0);
+	VALUES (@intBatchNumber, '04', @currDateTime, @intRecordsReceived, @intRecordsReceived, 0, 0,  @intRecordsReceived, 0);
 	
 	INSERT INTO LedgerJournal SELECT * FROM @ttLedgerJournal
 END;

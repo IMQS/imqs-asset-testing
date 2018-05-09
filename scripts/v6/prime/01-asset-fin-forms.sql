@@ -14,3 +14,10 @@ INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (3, 'Update/
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (4, 'Impairment of Components', 'I');
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (5, 'Reversal of Impairment', 'R');
 INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (7, 'Upgrade', 'U');
+
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (8,'Verification','V');
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (9,'Depreciation','T');
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (10,'Reclassification','S');
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (11,'Revaluation','N');
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (12,'Maintenance','M');
+INSERT INTO [AssetFinForm] (Form_Nr, Form_Desc, BatchPrefix) VALUES (13,'Reversal of Derecognition','X');
