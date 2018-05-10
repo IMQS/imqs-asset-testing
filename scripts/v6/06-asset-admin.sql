@@ -37,6 +37,7 @@ CREATE TABLE [dbo].[AssetFinYear](
 	[DT_Locked] [datetime] NULL,
 	[Locked_By] [varchar](30) NULL,
 	[Period] [int] NULL,
+	[SCOAVersion] [varchar](5) NULL
 	CONSTRAINT [PK_AssetFinYear_FinYear] PRIMARY KEY CLUSTERED([FinYear] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100) ON [PRIMARY]
 ) ON [PRIMARY]
 ALTER TABLE [dbo].[AssetFinYear] ADD  CONSTRAINT [DF_AssetFinyear_DTLastUpdate]  DEFAULT (getdate()) FOR [DT_LastUpdate];
