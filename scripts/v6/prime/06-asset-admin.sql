@@ -5,4 +5,4 @@ INSERT INTO AssetRefCounter (counter_name, counter_prev_id, counter_current_id, 
 
 -- AssetFinYear inserts
 INSERT INTO AssetFinYear (FinYear, Period) VALUES(2015,1);
-UPDATE AssetFinYear SET SCOAVersion = '6.1'
+UPDATE AssetFinYear SET SCOAVersion = '6.1';
