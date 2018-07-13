@@ -5,3 +5,7 @@ IF OBJECT_ID ('UpdateSCOAJournalSCOAFileName') IS NOT NULL DROP PROCEDURE Update
 IF OBJECT_ID (N'SetClassificationSelectable', N'P') IS NOT NULL DROP PROCEDURE [SetClassificationSelectable];
 IF OBJECT_ID (N'NextValueFor', N'P') IS NOT NULL DROP PROCEDURE [NextValueFor];
 IF OBJECT_ID (N'SetValueFor', N'P') IS NOT NULL DROP PROCEDURE [SetValueFor];
+IF OBJECT_ID (N'RunAnnualDepreciation_SCOA', N'P') IS NOT NULL DROP PROCEDURE [RunAnnualDepreciation_SCOA];
+IF OBJECT_ID (N'UpdateOpeningBalances', N'P') IS NOT NULL DROP PROCEDURE [UpdateOpeningBalances];
+IF OBJECT_ID (N'InterimDepreciationStraightLine_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationStraightLine_SCOA];
+IF OBJECT_ID (N'InterimDepreciationDBalMonth_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationDBalMonth_SCOA];

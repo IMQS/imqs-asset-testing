@@ -13,5 +13,5 @@ INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'TransactionFormServiceURL', '', NULL, NULL, GETDATE());
 
 -- General options
-INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'Useful Life Measure', 'Months', NULL, NULL, GETDATE());
+INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'Useful Life Measure', 'Month', NULL, NULL, GETDATE());
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('General', 'VATRate', '14.0', NULL, NULL, GETDATE());
