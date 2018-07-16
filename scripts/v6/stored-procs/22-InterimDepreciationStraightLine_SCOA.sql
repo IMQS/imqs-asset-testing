@@ -178,7 +178,7 @@ BEGIN
 			AND RUL > 0'
 		if @ComponentID IS NOT NULL
 				SET @SQL = @SQL + ' AND ComponentID = ''' + @ComponentID + ''''
-			
+
 		SET @SQL = @SQL + ') a '
 		
 	EXEC(@SQL)
@@ -187,6 +187,9 @@ BEGIN
 	--Insert corresponding records for SCOADepreciationStatus with Pending Authorisation (4) as status
 	SET @SQL = 'INSERT INTO SCOADepreciationStatus (SCOAJournalID, Status) 
 				SELECT ID, 4 FROM SCOAJournal WHERE Form_Reference = ' + QUOTENAME(@FormReference,'''')
+	if @ComponentID IS NOT NULL
+			SET @SQL = @SQL + ' AND ComponentID = ''' + @ComponentID + ''''
+
 	EXEC(@SQL)
 	--PRINT(@SQL);
 END
