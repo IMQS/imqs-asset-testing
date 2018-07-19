@@ -9,3 +9,4 @@ IF OBJECT_ID (N'RunAnnualDepreciation_SCOA', N'P') IS NOT NULL DROP PROCEDURE [R
 IF OBJECT_ID (N'UpdateOpeningBalances', N'P') IS NOT NULL DROP PROCEDURE [UpdateOpeningBalances];
 IF OBJECT_ID (N'InterimDepreciationStraightLine_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationStraightLine_SCOA];
 IF OBJECT_ID (N'InterimDepreciationDBalMonth_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationDBalMonth_SCOA];
+IF OBJECT_ID (N'SCOABudgetInsert', N'P') IS NOT NULL DROP PROCEDURE [SCOABudgetInsert];
