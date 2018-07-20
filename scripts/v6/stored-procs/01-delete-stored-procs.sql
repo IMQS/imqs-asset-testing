@@ -10,3 +10,6 @@ IF OBJECT_ID (N'UpdateOpeningBalances', N'P') IS NOT NULL DROP PROCEDURE [Update
 IF OBJECT_ID (N'InterimDepreciationStraightLine_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationStraightLine_SCOA];
 IF OBJECT_ID (N'InterimDepreciationDBalMonth_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationDBalMonth_SCOA];
 IF OBJECT_ID (N'SCOABudgetInsert', N'P') IS NOT NULL DROP PROCEDURE [SCOABudgetInsert];
+IF OBJECT_ID (N'RollOverComponent', N'P') IS NOT NULL DROP PROCEDURE [RollOverComponent];
+IF OBJECT_ID (N'DerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [DerecogniseComponent];
+IF OBJECT_ID (N'ReverseDerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [ReverseDerecogniseComponent];
