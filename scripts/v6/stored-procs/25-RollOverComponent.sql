@@ -354,7 +354,3 @@ CREATE PROCEDURE [dbo].[RollOverComponent]
 		EXEC roll_over_rul_month @TargetFinYear, @EndOfYear, @StartOfYear, @EndOfYear, @ComponentID
 	END
 END
-
-GO
-
-
