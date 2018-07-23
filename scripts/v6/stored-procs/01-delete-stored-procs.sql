@@ -13,3 +13,5 @@ IF OBJECT_ID (N'SCOABudgetInsert', N'P') IS NOT NULL DROP PROCEDURE [SCOABudgetI
 IF OBJECT_ID (N'RollOverComponent', N'P') IS NOT NULL DROP PROCEDURE [RollOverComponent];
 IF OBJECT_ID (N'DerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [DerecogniseComponent];
 IF OBJECT_ID (N'ReverseDerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [ReverseDerecogniseComponent];
+IF OBJECT_ID (N'roll_over_rul_month', N'P') IS NOT NULL DROP PROCEDURE [roll_over_rul_month];
+IF OBJECT_ID (N'roll_over_rul_year', N'P') IS NOT NULL DROP PROCEDURE [roll_over_rul_year];
