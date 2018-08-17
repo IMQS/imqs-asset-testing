@@ -1,3 +1,5 @@
+IF OBJECT_ID (N'AssetRegisterDerecognitions', N'U') IS NOT NULL DROP TABLE [AssetRegisterDerecognitions];
+
 CREATE TABLE [dbo].[AssetRegisterDerecognitions](
 	[FinYear] [int] NULL,
 	[ComponentID] [varchar](40) NOT NULL,
