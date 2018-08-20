@@ -177,3 +177,7 @@ Id,SCOAId,ParentSCOAId,DefinitionDescription,SCOAFile,SCOAAccount,SCOALevel,Exce
 {4a272b9f-5226-47cd-b19a-deb20db487bc},2220cc33-9051-4177-a3f1-d4c1c7281c1c,72b7ad8b-1e11-4d45-a717-657ba56d7075,,PROJECT,,6,,B3 Project Parent,,Yes,Na,All,1,,,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,PROJECT,0,300,0,1,6.1
 {edc0b286-01de-4aee-9d88-155a8122dea5},ecbe4617-f4a1-41ef-8646-b0fdddd5a005,2220cc33-9051-4177-a3f1-d4c1c7281c1c,,PROJECT,,9,,B3 Project Breakdown,,No,Na,All,1,,B3Proj,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,PROJECT,0,301,1,1,6.1
 {3800cd30-aeeb-433c-be28-03bd2102a840},9388a1ff-b26d-468e-a9da-b7a8a035d4aa,ce534b2d-a723-42ec-b344-bb3208d3db67,,REGION,,7,,B3 Region,,Yes,Na,All,1,,,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,REGION,0,302,0,1,6.1
+{a9f065e5-dd53-4d7f-9b4c-8315aee494ec},2032e879-efa1-470a-8d86-cce9f493c275,c23c76fb-26c9-4963-96f0-d4adf4eccc2e,,ITEM,,6,,B4 Item Parent,,No,Na,All,1,,,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,ITEM,0,303,0,1,6.1
+{9a40bf20-ca25-4726-942d-299bac4abe7a},fea86ccf-2da7-49a8-8f9a-66b4be77eaec,2032e879-efa1-470a-8d86-cce9f493c275,,ITEM,,7,,B4 Item Breakdown,,Yes,Na,All,1,,B4Item,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,ITEM,0,304,1,1,6.1
+{ed52e2bc-5c7a-4dbe-a916-fceb3d79adc2},c16d79c8-42bb-4eda-9851-fbfa0447cef6,528c7da2-402c-4ec8-acde-6eed7e4be81b,,ITEM,,6,,B5 Item Parent,,No,Na,All,1,,,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,ITEM,0,305,0,1,6.1
+{f1a9a5f7-e244-442b-8898-5f214e0bb987},4fd56c2e-3b9e-4d68-b6a9-d97d140c4f84,c16d79c8-42bb-4eda-9851-fbfa0447cef6,,ITEM,,7,,B5 Item Breakdown,,Yes,Na,All,1,,B5Item,,,,,,,,,,,,,,,SCOAITEM-IL0-IL2,ITEM,0,306,1,1,6.1
