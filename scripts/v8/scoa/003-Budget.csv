@@ -1,0 +1,6 @@
+budgetItemId,amount,budgetNr,budgetType,description,financialYear,projectNr,rowId
+1,22,B1,NORM,Test Budget,2014,1,1
+2,22,B2,NORM,Test Budget,2014,1,1
+3,22,B3,NORM,Test Budget,2014,1,1
+4,22,B4,NORM,Test Budget,2014,1,1
+5,22,B5,NORM,Test Budget,2014,1,1
