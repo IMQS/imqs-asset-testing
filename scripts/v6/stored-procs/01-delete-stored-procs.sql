@@ -15,3 +15,4 @@ IF OBJECT_ID (N'DerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [Derecog
 IF OBJECT_ID (N'ReverseDerecogniseComponent', N'P') IS NOT NULL DROP PROCEDURE [ReverseDerecogniseComponent];
 IF OBJECT_ID (N'roll_over_rul_month', N'P') IS NOT NULL DROP PROCEDURE [roll_over_rul_month];
 IF OBJECT_ID (N'roll_over_rul_year', N'P') IS NOT NULL DROP PROCEDURE [roll_over_rul_year];
+IF OBJECT_ID (N'InterimDepreciationStraightLine_SCOA', N'P') IS NOT NULL DROP PROCEDURE [InterimDepreciationStraightLine_SCOA];
