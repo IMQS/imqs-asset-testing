@@ -30,8 +30,8 @@ BEGIN
 		
 	SELECT @ExtraDays = CASE WHEN UPPER(ISNULL(Value,'YES'))='YES' THEN 1 ELSE 0 END FROM AssetPolicyGeneral WHERE Section=@CStrDepreciation AND Identifier=@CStrRecognitionDay
 	--SET @StartDate = DateAdd(Day,-1,@StartDate)
-	SET @FormReference = ('SL' + CONVERT(VARCHAR(38),(DATEDIFF(DAY, '1899-12-30T00:00:00', GETDATE())) + CONVERT(INT,86400 * CONVERT(FLOAT,GETDATE() 
-							- CONVERT(DATE,GETDATE()))) + ABS(CHECKSUM(NewId())) % 1000))
+	SET @FormReference = ('SL' + CONVERT(VARCHAR(38),(DATEDIFF(DAY, '1899-12-30T00:00:00', GETDATE())) + CONVERT(INT,86400 * CONVERT(FLOAT,GETDATE() - CONVERT(DATETIME,GETDATE()))) + ABS(CHECKSUM(NewId())) % 1000))
+
 	SET @FinRegister = 'AssetRegisterIconFin' + CAST(@FinYear AS VARCHAR(4))
 	SET @SCOAVersion = (SELECT ISNULL(SCOAVersion, '6.1') FROM AssetFinYear WHERE FinYear = @FinYear)
 	
