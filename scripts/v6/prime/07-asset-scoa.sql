@@ -50,19 +50,19 @@ END;
 IF NOT EXISTS (SELECT * FROM SCOASettings WHERE Identifier = 'DEFAULT_SCOA_REGION' AND FinYear = @FinYear)
 BEGIN
 	INSERT INTO SCOASettings (FinYear, Identifier, Value, "Description")
-	VALUES (@FinYear,'DEFAULT_SCOA_REGION','NO DEFAULT SET','Default SCOAId to be used for SCOA_REGION')
+	VALUES (@FinYear,'DEFAULT_SCOA_REGION','9ed083e5-2237-4a75-a6a1-e4d859c44960','Default SCOAId to be used for SCOA_REGION')
 END;
 
 IF NOT EXISTS (SELECT * FROM SCOASettings WHERE Identifier = 'WIPFROM_SCOA_ITEM' AND FinYear = @FinYear)
 BEGIN
 	INSERT INTO SCOASettings (FinYear, Identifier, Value, "Description")
-	VALUES (@FinYear,'WIPFROM_SCOA_ITEM','NO DEFAULT SET','Default SCOAId to be used for WIP-From SCOA Item on rollover')
+	VALUES (@FinYear,'WIPFROM_SCOA_ITEM','e0b4c6bf-d77f-447c-aa76-4fa8f8cfe7a3','Default SCOAId to be used for WIP-From SCOA Item on rollover')
 END;
 
 IF NOT EXISTS (SELECT * FROM SCOASettings WHERE Identifier = 'WIPTO_SCOA_ITEM' AND FinYear = @FinYear)
 BEGIN
 	INSERT INTO SCOASettings (FinYear, Identifier, Value, "Description")
-	VALUES (@FinYear,'WIPTO_SCOA_ITEM','NO DEFAULT SET','Default SCOAId to be used for WIP-To SCOA Item on rollover')
+	VALUES (@FinYear,'WIPTO_SCOA_ITEM','85c62b06-0a9c-4620-8405-bdf41d523031','Default SCOAId to be used for WIP-To SCOA Item on rollover')
 END;
 
 
