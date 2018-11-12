@@ -6,6 +6,8 @@ IF OBJECT_ID (N'SCOADepreciationStatus', N'U') IS NOT NULL DROP TABLE [SCOADepre
 IF OBJECT_ID (N'SCOABudget', N'U') IS NOT NULL DROP TABLE [SCOABudget];
 IF OBJECT_ID (N'SCOABudgetLeg', N'U') IS NOT NULL DROP TABLE [SCOABudgetLeg];
 IF OBJECT_ID (N'SCOASettings', N'U') IS NOT NULL DROP TABLE [SCOASettings];
+IF OBJECT_ID (N'SCOASetupFunction', N'U') IS NOT NULL DROP TABLE [SCOASetupFunction];
+
 IF OBJECT_ID ('convertDateToInt') IS NOT NULL DROP FUNCTION convertDateToInt;
 IF OBJECT_ID ('isCreditLeg') IS NOT NULL DROP FUNCTION isCreditLeg;
 IF OBJECT_ID ('isDebitLeg') IS NOT NULL DROP FUNCTION isDebitLeg;
@@ -210,4 +212,23 @@ CREATE TABLE [dbo].[SCOASettings](
 		[FinYear] ASC,
 		[Identifier] ASC
 	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 100) ON [PRIMARY]
+	) ON [PRIMARY];
+
+CREATE TABLE [dbo].[SCOASetupFunction](
+		[FinYear] [int] NOT NULL,
+		[Path] [varchar](250) NOT NULL,
+		[AccountingGroupID] [varchar](4) NULL,
+		[AssetCategoryID] [varchar](4) NULL,
+		[AssetSubCategoryID] [varchar](4) NULL,
+		[AssetGroupID] [varchar](4) NULL,
+		[AssetTypeID] [varchar](4) NULL,
+		[ComponentTypeID] [varchar](4) NULL,
+		[SCOAId] [varchar](40) NULL,
+		[SCOAAccount] [varchar](1024) NULL,
+		[DateLastAssigned] [datetime] NULL,
+	 CONSTRAINT [PK_SCOASetupFunction] PRIMARY KEY CLUSTERED
+	(
+		[FinYear] ASC,
+		[Path] ASC
+	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 	) ON [PRIMARY];
