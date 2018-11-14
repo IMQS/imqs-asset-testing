@@ -169,7 +169,9 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[DepreciationBudgetNr_Credit] [varchar](40) NULL,
 	[ReplacedComponents] [varchar](512) NULL,
 	[SCOAAssignmentID] [int] NULL,
-	[DisposalProfitLoss]  AS ([DisposalProceedCost]+(([DerecognitionCost]+[DerecognitionDepr])+[ImpairmentDerecog]))
+	[DisposalProfitLoss]  AS ([DisposalProceedCost]+(([DerecognitionCost]+[DerecognitionDepr])+[ImpairmentDerecog])),
+	[SoldTo] [varchar](40) NULL,
+	[PreviousComponentID] [varchar](40) NULL
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
 (

@@ -171,7 +171,7 @@ CREATE TABLE [dbo].[AssetFinFormInput](
 	[ImpairmentDate] [datetime] NULL,
 	[RevImpairmentDate] [datetime] NULL,
 	[SCOA_Item_Depreciation_Debit] [varchar](40) NULL,
-    [SCOA_Item_Depreciation_Credit] [varchar](40) NULL,
+  [SCOA_Item_Depreciation_Credit] [varchar](40) NULL,
 	[DepreciationBudgetNr_Debit] [varchar](40) NULL,
 	[DepreciationBudgetNr_Credit] [varchar](40) NULL,
 	CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED ([Form_Reference] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -208,6 +208,8 @@ ALTER TABLE [dbo].[AssetFinFormInput] ADD [ReplacedComponents] [varchar](512) NU
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [UpgradeDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [LastMaintenanceDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentClose] [numeric](18, 2) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [SoldTo] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ReclassifiedComponentID] [varchar](40) NULL;
 
 ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
 ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];

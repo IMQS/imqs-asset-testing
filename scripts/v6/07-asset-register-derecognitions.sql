@@ -129,6 +129,7 @@ ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [TransferredTo] [varchar](40
 ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [ImpairmentTransfer] [numeric](18, 2) NOT NULL
 SET ANSI_PADDING ON
 ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [FinHierarchyPath] [varchar](100) NULL
+ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [SoldTo] [varchar](40) NULL
 SET ANSI_PADDING OFF
 ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [MeasurementModelID] [varchar](4) NULL
 ALTER TABLE [dbo].[AssetRegisterDerecognitions] ADD [UseStatusID] [varchar](4) NULL
