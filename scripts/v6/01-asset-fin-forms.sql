@@ -210,6 +210,7 @@ ALTER TABLE [dbo].[AssetFinFormInput] ADD [LastMaintenanceDate] [datetime] NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentClose] [numeric](18, 2) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [SoldTo] [varchar](40) NULL;
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [ReclassifiedComponentID] [varchar](40) NULL;
+ALTER TABLE [dbo].[AssetFinFormInput] ADD [ReclassifiedClientAssetID] [varchar](40) NULL;
 
 ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
 ALTER TABLE [dbo].[AssetFinFormInput] ADD  CONSTRAINT [DF_AssetFinFormInput_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
