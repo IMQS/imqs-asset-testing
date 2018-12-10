@@ -169,7 +169,7 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[DepreciationBudgetNr_Credit] [varchar](40) NULL,
 	[ReplacedComponents] [varchar](512) NULL,
 	[SCOAAssignmentID] [int] NULL,
-	[DisposalProfitLoss]  AS ([DisposalProceedCost]+(([DerecognitionCost]+[DerecognitionDepr])+[ImpairmentDerecog])),
+	[DisposalProfitLoss]  [numeric](18, 2) NOT NULL,
 	[SoldTo] [varchar](40) NULL,
 	[PreviousComponentID] [varchar](40) NULL
 ) ON [PRIMARY];
@@ -218,6 +218,7 @@ ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [ImpairmentT
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DirtyFlag];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDImp];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [RevaluationReserveFinYTDDepr];
+ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD  DEFAULT ((0)) FOR [DisposalProfitLoss];
 
 
 CREATE TABLE [dbo].[AssetRegisterIconMove](
