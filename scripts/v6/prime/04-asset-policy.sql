@@ -7,7 +7,7 @@ INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('SCOA', 'SCOA Compliant', 'YES', '', NULL, GETDATE());
 
 -- Integration config options
-INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'IntegratedFinSys', 'PUSH', NULL, NULL, GETDATE());
+INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'IntegratedFinSys', 'PULL', NULL, NULL, GETDATE());
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'StatusChangeNotifications', 'NO', NULL, NULL, GETDATE());
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'V6CommitToRegister', 'NO', NULL, NULL, GETDATE());
 INSERT INTO [AssetPolicyGeneral] ([Section], [Identifier], [Value], [Description], [Modified_By], [Modified_On]) values ('Integration', 'TransactionFormServiceURL', '', NULL, NULL, GETDATE());
