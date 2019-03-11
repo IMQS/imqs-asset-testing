@@ -59,24 +59,24 @@ CREATE TABLE [dbo].[AssetProject2015](
 	[TransferCost_Capitalised] [numeric](18, 2) NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_Department]  DEFAULT ('Not Specified') FOR [Department];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_Department]  DEFAULT ('Not Specified') FOR [Department];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_CostCentreCode]  DEFAULT ('Not Specified') FOR [CostCentreCode];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_GeneralLedgerCode]  DEFAULT ('Not Specified') FOR [GeneralLedgerCode];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_TransferCost]  DEFAULT ((0)) FOR [TransferCost];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_TransferCost]  DEFAULT ((0)) FOR [TransferCost];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_ImpairmentAll]  DEFAULT ((0)) FOR [ImpairmentAll];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_ImpairmentAll]  DEFAULT ((0)) FOR [ImpairmentAll];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_ImpairmentFinYTD]  DEFAULT ((0)) FOR [ImpairmentFinYTD];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_ImpairmentFinYTD]  DEFAULT ((0)) FOR [ImpairmentFinYTD];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_RevImpairmentOpening]  DEFAULT ((0)) FOR [RevImpairmentOpening];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_RevImpairmentOpening]  DEFAULT ((0)) FOR [RevImpairmentOpening];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_RevImpairmentFinYTD]  DEFAULT ((0)) FOR [RevImpairmentFinYTD];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_RevImpairmentFinYTD]  DEFAULT ((0)) FOR [RevImpairmentFinYTD];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_InvoiceOverride]  DEFAULT ((0)) FOR [InvoiceOverride];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_InvoiceOverride]  DEFAULT ((0)) FOR [InvoiceOverride];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_ImpairmentOpeningCapitalised]  DEFAULT ((0)) FOR [ImpairmentOpeningCapitalised];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_ImpairmentOpeningCapitalised]  DEFAULT ((0)) FOR [ImpairmentOpeningCapitalised];
 
-ALTER TABLE [dbo].[AssetProject2016] ADD  CONSTRAINT [DF_AssetProject2016_TransferCost_Capitalised]  DEFAULT ((0)) FOR [TransferCost_Capitalised];
+ALTER TABLE [dbo].[AssetProject2015] ADD  CONSTRAINT [DF_AssetProject2015_TransferCost_Capitalised]  DEFAULT ((0)) FOR [TransferCost_Capitalised];
