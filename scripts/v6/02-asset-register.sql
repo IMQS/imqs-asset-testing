@@ -233,6 +233,7 @@ CREATE TABLE [dbo].[AssetRegisterIconMove](
 	[Treasury_Code] [varchar](30) NULL,
 	[Cost_Centre] [varchar](32) NULL,
 	[Acquisition_Date] [datetime] NULL,
+	[Floor] [varchar](40) NULL,
 	CONSTRAINT [PK_AssetRegisterIconMove] PRIMARY KEY CLUSTERED ([ComponentID] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 
