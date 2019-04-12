@@ -15,7 +15,8 @@ SELECT
 	   AssetRegisterIconMove.Fleet_Reg_Year,
 	   AssetRegisterIconMove.Treasury_Code,
 	   AssetRegisterIconMove.Cost_Centre,
-	   AssetRegisterIconMove.Acquisition_Date
+	   AssetRegisterIconMove.Acquisition_Date,
+	   AssetRegisterIconMove.Floor
 FROM
 	[AssetRegisterIconFin2017]
 	LEFT JOIN
