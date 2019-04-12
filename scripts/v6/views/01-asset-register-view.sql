@@ -16,7 +16,7 @@ SELECT
 	AssetRegisterIconMove.Treasury_Code,
 	AssetRegisterIconMove.Cost_Centre,
 	AssetRegisterIconMove.Acquisition_Date,
-	AssetRegisterIconMove.Floor,
+	AssetRegisterIconMove.Floor 
 FROM
 	[AssetRegisterIconFin2015]
 LEFT JOIN
