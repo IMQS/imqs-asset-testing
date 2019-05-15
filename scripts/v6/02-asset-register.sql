@@ -171,7 +171,8 @@ CREATE TABLE [dbo].[AssetRegisterIconFin2015](
 	[SCOAAssignmentID] [int] NULL,
 	[DisposalProfitLoss]  [numeric](18, 2) NOT NULL,
 	[SoldTo] [varchar](40) NULL,
-	[PreviousComponentID] [varchar](40) NULL
+	[PreviousComponentID] [varchar](40) NULL,
+	[FuncLocPath] [varchar](150) NULL
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetRegisterIconFin2015] ADD CONSTRAINT [PK_AssetRegisterIconFin2015] PRIMARY KEY CLUSTERED
 (

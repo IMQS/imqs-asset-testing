@@ -175,6 +175,7 @@ CREATE TABLE [dbo].[AssetFinFormInput](
 	[DepreciationBudgetNr_Debit] [varchar](40) NULL,
 	[DepreciationBudgetNr_Credit] [varchar](40) NULL,
 	[Floor] [varchar](40) NULL,
+	[FuncLocPath] [varchar](150) NULL,
 	CONSTRAINT [PK_AssetFinFormInput] PRIMARY KEY CLUSTERED ([Form_Reference] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY];
 ALTER TABLE [dbo].[AssetFinFormInput] ADD [ImpairmentReason] [varchar](4) NULL;
