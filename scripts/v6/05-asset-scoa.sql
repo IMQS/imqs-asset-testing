@@ -58,7 +58,6 @@ ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_Id
 ALTER TABLE [dbo].[SCOAClassification] ADD  DEFAULT ((0)) FOR [Linkable];
 ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_IsBreakdown]  DEFAULT ((0)) FOR [IsBreakdown];
 ALTER TABLE [dbo].[SCOAClassification] ADD  CONSTRAINT [DF_SCOAClassification_IsSelectable]  DEFAULT ((1)) FOR [IsSelectable];
-CREATE UNIQUE NONCLUSTERED INDEX [IX_SCOAClassification_ParentAcctSegVer] ON [dbo].[SCOAClassification] ([ParentSCOAId] ASC, [AccountNumber] ASC, [SCOASegment] ASC, [SCOAVersion] ASC)
 
 -- This is where all the components go once they've been committed to the AR, or sent to the FS
 CREATE TABLE [dbo].[SCOAJournal](
