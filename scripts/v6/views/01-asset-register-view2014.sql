@@ -3,9 +3,9 @@
 -- fails when executed over JDBC. So, our hand is forced, and we have to include views in separate 
 -- files here.
 
-CREATE VIEW [dbo].[AssetRegisterView2015] AS
+CREATE VIEW [dbo].[AssetRegisterView2014] AS
 SELECT
-	[AssetRegisterIconFin2015].*,
+	[AssetRegisterIconFin2014].*,
 	AssetRegisterIconMove.Asset_Barcode_Nr,
 	AssetRegisterIconMove.Room_Barcode_Nr,
 	AssetRegisterIconMove.Room_Number,
@@ -18,6 +18,6 @@ SELECT
 	AssetRegisterIconMove.Acquisition_Date,
 	AssetRegisterIconMove.Floor 
 FROM
-	[AssetRegisterIconFin2015]
+	[AssetRegisterIconFin2014]
 LEFT JOIN
-	AssetRegisterIconMove ON [AssetRegisterIconFin2015].ComponentID = AssetRegisterIconMove.ComponentID;
+	AssetRegisterIconMove ON [AssetRegisterIconFin2014].ComponentID = AssetRegisterIconMove.ComponentID;

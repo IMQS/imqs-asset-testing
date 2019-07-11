@@ -3,7 +3,7 @@
 -- fails when executed over JDBC. So, our hand is forced, and we have to include views in separate
 -- files here.
 
-CREATE VIEW [dbo].[AssetRegisterView] AS
+CREATE VIEW [dbo].[AssetRegisterView2017] AS
 SELECT
 	   [AssetRegisterIconFin2017].*,
 	   AssetRegisterIconMove.Asset_Barcode_Nr,
