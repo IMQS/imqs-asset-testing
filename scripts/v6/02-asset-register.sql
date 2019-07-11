@@ -2,6 +2,7 @@
 
 IF OBJECT_ID (N'AssetRegisterView', N'V') IS NOT NULL DROP View [AssetRegisterView];
 IF OBJECT_ID (N'AssetRegisterView2015', N'V') IS NOT NULL DROP View [AssetRegisterView2015];
+IF OBJECT_ID (N'AssetRegisterView2014', N'V') IS NOT NULL DROP View [AssetRegisterView2014];
 IF OBJECT_ID (N'AssetRegisterIconMove', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconMove];
 IF OBJECT_ID (N'AssetRegisterIconFin2015', N'U') IS NOT NULL DROP TABLE [AssetRegisterIconFin2015];
 IF OBJECT_ID (N'AssetRefAccounting', N'U') IS NOT NULL DROP TABLE [AssetRefAccounting];
