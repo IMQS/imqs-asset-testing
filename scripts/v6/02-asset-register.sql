@@ -466,6 +466,8 @@ CREATE TABLE [dbo].[AssetChangeIconFin](
 	[Value_After] [varchar](255) NULL,
 	[Change_Reason] [varchar](255) NULL,
 	[HostName] [varchar](max) NOT NULL CONSTRAINT [DF_AssetChangeIconFin_HostName]  DEFAULT (host_name()),
+	[FinYear] INT NULL,
+	[Period] INT NULL,
 	CONSTRAINT [PK_AssetChangeIconFin] PRIMARY KEY CLUSTERED([ComponentID] ASC,[Change_DateTime] ASC,[Attribute_Name] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
